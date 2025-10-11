@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bloodline · Spirits of the Smokies</title>
+  <title>Bloodline Spirits of the Smokies</title>
   <meta name="description" content="An Appalachian mystery-thriller with mythic roots.">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -11,40 +11,55 @@
   </style>
 </head>
 <body class="min-h-screen bg-neutral-950 text-neutral-100 antialiased">
-  <!-- Hero -->
 
-  <!-- Fallback poster (image layer under the video) -->
-  <div class="absolute inset-0 -z-20 bg-[url('./images/smokies-hero.jpg')] bg-cover bg-center" aria-hidden="true"></div>
+  <!-- Hero (video only here) -->
+  <section id="hero" class="relative overflow-hidden min-h-[70vh] md:min-h-screen">
+    <!-- Fallback poster -->
+    <div class="absolute inset-0 -z-20 bg-[url('./images/smokies-hero.jpg')] bg-cover bg-center" aria-hidden="true"></div>
 
-  <!-- Background video -->
-  <video
-    class="absolute inset-0 -z-10 h-full w-full object-cover"
-    autoplay
-    muted
-    loop
-    playsinline
-    preload="metadata"
-    poster="./images/smokies-hero.jpg"
-  >
-    <source src="./video/smokies-hero.mp4" type="video/mp4" />
-    <!-- Optional WebM fallback:
-    <source src="./video/smokies-hero.webm" type="video/webm" /> -->
-  </video>
+    <!-- Background video -->
+    <video
+      class="absolute inset-0 -z-10 h-full w-full object-cover"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      poster="./images/smokies-hero.jpg"
+    >
+      <source src="./video/smokies-hero.webm" type="video/webm" />
+      <source src="./video/smokies-hero.mp4" type="video/mp4" />
+    </video>
 
-  <!-- Gradient veil for contrast -->
-  <div class="absolute inset-0 -z-10 bg-gradient-to-b from-neutral-900/40 via-neutral-900/70 to-neutral-950"></div>
+    <!-- Contrast veil -->
+    <div class="absolute inset-0 -z-10 bg-gradient-to-b from-neutral-900/40 via-neutral-900/70 to-neutral-950"></div>
 
-  <div class="mx-auto max-w-6xl px-6 py-24 md:py-36">
-    <div class="max-w-3xl">
-      <!-- title / copy / CTAs -->
+    <!-- Hero content -->
+    <div class="mx-auto max-w-6xl px-6 py-24 md:py-36">
+      <div class="max-w-3xl">
+        <p class="mb-4 inline-flex rounded-full border border-neutral-700/70 px-3 py-1 text-xs tracking-wider text-neutral-300 uppercase">
+          Appalachian Mystery · Mythic Horror · Thriller
+        </p>
+        <h1 class="text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-6xl">
+          Bloodline: <span class="text-emerald-400">Spirits of the Smokies</span>
+        </h1>
+        <p class="mt-5 max-w-2xl text-lg text-neutral-300">
+          When Dr. Isaac Sands vanishes on a cryptozoological expedition, his son Judah is dragged back to the Smokies—where old faiths die hard and the mountains keep their dead close.
+        </p>
+        <p class="mt-3 text-sm text-neutral-300 italic">
+          "When the Smokies whisper, they do not speak in words — they remember."
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="#sample" class="rounded-xl bg-emerald-500 px-5 py-3 text-sm font-semibold text-neutral-950 shadow shadow-emerald-500/40 hover:bg-emerald-400 transition">Read Opening Chapter</a>
+          <a href="#subscribe" class="rounded-xl bg-neutral-800 px-5 py-3 text-sm font-semibold text-neutral-100 hover:bg-neutral-700 transition">Join the Mailing List</a>
+        </div>
+      </div>
     </div>
-  </div>
-		  <div class="absolute inset-0 -z-10 bg-cover bg-center opacity-30" style="background-img:url('./videos/smokies-hero.mp4')" aria-hidden="true"></div> <div class="absolute inset-0 -z-10 bg-gradient-to-b from-neutral-900/40 via-neutral-900/70 to-neutral-950"></div> <div class="mx-auto max-w-6xl px-6 py-24 md:py-36"> <div class="max-w-3xl"> <p class="mb-4 inline-flex rounded-full border border-neutral-700/70 px-3 py-1 text-xs tracking-wider text-neutral-300 uppercase">Appalachian Mystery · Mythic Horror · Thriller</p> <h1 class="text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-6xl"> Bloodline: <span class="text-emerald-400">Spirits of the Smokies</span> </h1> <p class="mt-5 max-w-2xl text-lg text-neutral-300"> When Dr. Isaac Sands vanishes on a cryptozoological expedition, his son Judah is dragged back to the Smokies—where old faiths die hard and the mountains keep their dead close. </p> <p class="mt-3 text-sm text-neutral-400 italic"> “When the Smokies whisper, they don’t speak in words—they remember.” </p> <div class="mt-8 flex flex-wrap gap-3"> <a href="#sample" class="rounded-xl bg-emerald-500 px-5 py-3 text-sm font-semibold text-neutral-950 shadow shadow-emerald-500/40 hover:bg-emerald-400 transition">Read Opening Chapter</a> <a href="#subscribe" class="rounded-xl bg-neutral-800 px-5 py-3 text-sm font-semibold text-neutral-100 hover:bg-neutral-700 transition">Join the Mailing List</a> </div> </div> </div>
-</section>
+  </section>
 
-  <!-- Hook -->
-  <section id="hook" class="mx-auto max-w-6xl px-6 py-16 md:py-24">
-    <div class="grid items-center gap-10 md:grid-cols-2">
+  <!-- Hook (solid bg so hero does not bleed) -->
+  <section id="hook" class="bg-neutral-950">
+    <div class="mx-auto max-w-6xl px-6 py-16 md:py-24 grid items-center gap-10 md:grid-cols-2">
       <div class="order-2 md:order-1">
         <h2 class="text-2xl md:text-3xl font-semibold">The Hook</h2>
         <p class="mt-4 text-neutral-300">
@@ -60,14 +75,14 @@
         <div class="relative overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900 shadow-lg" style="aspect-ratio:4/5;">
           <img src="./images/judah.jpg" alt="Judah Sands standing before a cairn in the mist" class="h-full w-full object-cover opacity-90">
           <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-neutral-950/70 via-transparent to-transparent"></div>
-          <div class="absolute bottom-3 left-3 text-xs text-neutral-300">Concept art placeholder — sourced with DALL·E render</div>
+          <div class="absolute bottom-3 left-3 text-xs text-neutral-300">Concept art placeholder — sourced with DALL-E render</div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Spirits / Worldbuilding -->
-  <section id="world" class="border-y border-neutral-900 bg-neutral-950/40">
+  <section id="world" class="border-y border-neutral-900 bg-neutral-950">
     <div class="mx-auto max-w-6xl px-6 py-16 md:py-24">
       <div class="md:flex md:items-end md:justify-between">
         <h2 class="text-2xl md:text-3xl font-semibold">Spirits of the Smokies</h2>
@@ -81,7 +96,7 @@
           </div>
           <div class="p-5">
             <h3 class="text-lg font-semibold">Velandor · Spirit of Veils</h3>
-            <p class="mt-2 text-sm text-neutral-300">A blue‑jay shimmer on the edge of sight—the veil that parts and warns.</p>
+            <p class="mt-2 text-sm text-neutral-300">A blue-jay shimmer on the edge of sight — the veil that parts and warns.</p>
           </div>
         </article>
         <article class="group overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900/50 shadow">
@@ -109,148 +124,25 @@
   </section>
 
   <!-- Sample / Excerpt -->
-  <section id="sample" class="mx-auto max-w-3xl px-6 py-16 md:py-24">
-    <h2 class="text-2xl md:text-3xl font-semibold">Opening Chapter</h2>
-    <p class="mt-4 text-neutral-300">From the Prologue:</p>
-    <blockquote class="mt-6 rounded-2xl border border-neutral-800 bg-neutral-900/50 p-6 text-neutral-200">
-      <p><span class="opacity-80">
-Isaac Sands November 15th, 2025
-
-I sighed, dropping my pack onto the ground in the clearing. The forest buzzed around us—a droning chorus, like the mountains were breathing out some old story in a language older than I’d ever studied. Folklore ran deep here, in my mountain homeland, deep like the ancient roots of even older trees piercing the skin of the rocky Appalachian Mountains.<br><br>
-
-When James Corven came to me with this latest piece of Appalachian folklore—an ancient druid settlement supposedly called Gwynporth, rumored to have been established by Welsh druids in the first century—I nearly laughed him out of my inbox. Welsh druids, in the highlands of what would become North Carolina? It seemed too far-fetched even for me. But Corven kept tacking on zeros, and eventually, I found myself curious enough to see if he was right. Whatever Corven believed he’d found, it was enough to risk near-bankruptcy for the chance to prove it.<br><br>
-
-Which brings me to this clearing. I’m Dr. [[Isaac Sands]]—former professor, field researcher, author, and, according to my daughter-in-law, a social media scientist. My specialty? Taking cryptozoological and crypto-anthropological legends and using my background in environmental science and paleo-archaeology to test whether the folklore holds any basis in reality.<br><br>
-
-Less than twenty miles northwest of my home in [[Stratton County]] (embarrassing, if I found something this close after all these years), we’d bushwhacked through rugged terrain with a team of fourteen. Corven had assembled an eclectic mix—geologists, ethnobotanists, another archaeologist, linguists—and an over-the-top security detail armed to the teeth. It felt excessive, as if, instead of exploring ruins, Corven expected us to fend off hostile druids.<br><br>
-
-We set up base camp in the cradled arms of a pair of limestone cliffs, the exposed walls of rock forming a natural fortress wall on one side, ideal for a relatively isolated, foreign group.<br><br>
-
-The cliff tops were nearly as bare, providing easy access to both stone and sky—elements I understood to be culturally and ritually important for this Druid group. It was a promising, if somewhat ambiguous, sign in this landscape.<br><br>
-
- A creek split the once connected pair of cliff sides, causing the center third to gradually sink down to the current groove of the creek's path, conveniently giving a fresh water source as well. <br><br>
-
-"Dr. Nageshi, Dr. Jones? Why don’t y'all stick together and scout around the first couple layers of trees,” I said “Maybe there’s some interesting plant life, or some sort of boundary marker that might indicate habitation further down the creek." Nageshi nodded and gestured for Dr. Jones to lead them on, heading away from us towards the southeast.  <br><br>
-
-"[[Dr. Ramirez]], stick with [[Dr. Petrovya]], she might need a spotter if she finds a decent enough cave to explore." Petrovya rolled her eyes, with an expression of someone who thought they'd be slowed down by the partner. But, having the practical and the more academic researchers paired together was the best bet for giving context to anything we’d find.<br><br>
-
-The two women also walked away, Petroyva speaking in her native tongue. Amusement creased the corner of my eyes and turned the corners of my mouth. She was probably complaining, as she had the entire way up the mountain. As the teams of scientists went their merry way, the security team silently fanned out and set up a wide perimeter around the camp, leaving me alone in the clearing, gazing up at the towering rock faces that might have once cradled this small congress of Druid settlers.<br><br>
-
-I took out a handkerchief and wiped my brow, a well practiced habit after many years of field research, and stole a glance towards the sky. It was about noon. I walked and spoke aloud to no one in particular "If I were a strange druid in a strange land... how big would I build..." and felt a shift under my boot as a rock —well rocked under the weight of my step. <br><br>
-
-I bent down and brushed the dirt away, uncovering a sizable chunk of rock that was a match for the rock walls behind me, apart from some staining from its time half-buried in the dirt. Looking at where I had pulled it from the earth, I started to notice even more chunks of rock, ranging from the size of a fist to the size of a head. It hit me—I was staring at a deliberate, if not perfectly formed, circular structure. A cairn. This rabbit hole just got a lot deeper —and a hell of a lot more interesting.<br><br>
-
-*****
-<br><br>
-I stood up and moved away from my circle of stones, almost gleeful, but tucking that feeling into a small box and locking it away. Not the time to jump to conclusions on what we'd found, instead time to do things by proper procedure. But it was still very exciting. It was time to consult either [[Dr. Ramirez]], our Celtic culture expert, or Dr. Jones, our Celtic linguist, and looking up, I noticed that Ramirez and Petrovya were nowhere in sight. However, one glance was all it took to find Nageshi’s eccentric outfit made him easy to spot—suggesting that Dr. Jones, the linguist, was nearby. 
-<br><br>
-Near the tree line, [[Dr. Kai Nageshi]] crouched by an old oak, his gaze was intently fixed on the undergrowth. A striking, willowy figure, Nageshi's Japanese and Brazilian heritage was as eclectic as his attire: a white fedora and a tailed coat whose lining was vibrant enough to rival Ziggy Stardust, paired with baggy pants cinched by a colorful waist-scarf. He adjusted his round glasses and stroked his beard thoughtfully. "Doctor Sands, Do you happen to know what plant life typically co-propagates with Oak trees such as these?" 
-<br><br>
-I grunted in thought myself. "Well, Laurel, Ferns are pretty common, clover... What are you getting at Nageshi?"
-<br><br>
-With a contemplative turn, he let his sash and jacket tails sweep the thick carpet of underbrush as he glanced over his shoulder. "Now, What about these?" He asked, pointing to a cluster of pale white flowers that looked similar to long ethereal churchwarden pipes. He then spun slowly, his feet shifting just enough to complete a full circuit, granting him an unimpeded view. "No laurel... Even the ferns are a bit sparse. Also I've seen wolfsbane and oakmoss." He rose gracefully from his squat, chin cradled between his thumb and finger, lost in thought. His movements were as fluid as a dancer’s—something I longed for my own stiff joints to emulate.
-<br><br>
-"Wolfsbane? Like against werewolves stuff?" I asked, I'd never heard of that growing locally.
-<br><br>
-"It's incredibly odd. Dr. Sands, there’s something off about this area. These plants don't grow here, not in these quantities at least." he mused, slapping one of the trunks, "“Manipulação deliberada. Certainly deliberate manipulation.” he peered over his glasses at me. “Someone’s purged the natural flora here,” he said, his voice low. “Planted only what suited them.”
-<br><br>
-“Or maybe they didn’t know the local flora,” I offered, stroking my beard thoughtfully. “Brought in familiar plants, hoping they’d take root.”
-<br><br>
-Nageshi slapped a hand down and opened his mouth in excitement to say something, but nothing escaped his throat around the resonant thump that echoed from the tree. Nagoshi cocked his head and stared at it over his glasses. "How curious."
-<br><br>
-He raised his open palm, and slapping it down more gently than he'd previously done, eliciting another hollow sound. Gently, with the smoothness and cautiousness of a man disarming a bomb, Nageshi tugged a piece of the rough, jigsaw-like bark and it broke free, revealing... nothing.
-<br><br>
-No wood. No core. Just… empty.
-<br><br>
-I stepped closer with my pocket flashlight and aimed its beam into the hole that Nageshi had opened, and it seemed to swallow the beam whole. Tilting at different angles, I could make out the back sides of the bark on the other sides of the tree, but nothing beyond that. No grain, no flesh, not even a splinter to suggest that this had ever properly been an oak tree, instead of a hollowed out imitation, a pantomime of life.
-<br><br>
-The youngest researcher of our group, [[Margaret Jones]], the linguistics expert, stepped forward, balancing lightly on the toes of her scuffed and worn hiking books to peer inside. At least she was more appropriately prepared than Nageshi, though her practical air did little to offset the youthfulness that her fae-like features gave her.
-<br><br>
-She grabbed and adjusted my hand to change the direction of the beam of light, while the shifting sunlight from the yellow and amber canopy above caused her coppery hair to glint merrily. “Hold it steady please.” she quipped at me, engrossed in what she was looking at.
-<br><br>
-As she worked, I looked over my shoulder to Nageshi. “Well, plants are your thing. Ever seen anything like this?”  
-Nageshi gave a depreciative shrug. "I have not. In this case I defer to the environmental scientists' experience." 
-<br><br>
-“Perhaps you should defer to the linguist instead,” Jones quipped, glancing back at us with eyes alight with excitement, the sharp focus of a predator closing in on its academic prey. “Because this hollowed-out tree isn't natural—it’s deliberate. There’s a script etched into the back of the bark pieces, Latin if I had to guess.”
-<br><br>
-"Latin?" Nageshi arched a brow under his wide brimmed hat, "Not Ogham or Runic?"
-<br><br>
-"Oh, no, not Ogham, surely." She shook her head, causing the pendulum cord of copper hair to sway in a rhythm. "That wasn't until, what—the fourth century? Far outside of our timeframe. Assuming Dr. Sands' research is correct about the origins of the Congress of Cedars." 
-<br><br>
-She turned back to us and crossed her arms, a thoughtful expression setting across her face. "I think this is more likely a case of ‘"It's easier to adapt than design.’"
-<br><br>
-“Ah, I see,” I said, my Southern drawl soft but deliberate as I pieced things together. “That makes sense, Nageshi. [[The Congress of Cedar]], and druids more in general, were an educated bunch, and they didn’t live in a bubble. It wouldn’t surprise me if they worked for the Romans, usin’ their skills where they could.”
-<br><br>
-Nageshi nodded. “Meaning they would have learned Latin letters, no? A practical thing.” His words were precise, measured, with just a hint of curiosity edging his tone.
-<br><br>
-“Practical, sure,” Jones chimed in, each word full of energy. “But it’s more than that. They didn’t have to reinvent the wheel. They’d take the letters and make them their own—sounds they already knew, aye? And for things they didn’t have words for, well, they’d just borrow the Latin terms.” She flicked her head toward the bark husk, her copper hair catching the light. “Hence—”
-<br><br>
-“The tree contains Latin,” Nageshi finished with a slight smirk, tipping his wide-brimmed hat higher. “Always enlightening, Dr. Jones.”
-<br><br>
-“Enlightening, maybe,” she said with a small laugh, turning back to the hollow not-tree. “But this isn’t just scribblin’. It’s deliberate—a disguised marker, if you ask me. Dr. Sands, d’you have something to write with?”
-<br><br>
-I blinked and reached into my cargo pocket at my knee, locating my journal and pen. While I was getting set up Jones had already handed the flashlight to Nageshi and positioned him, getting the light correct inside the hole and holding her camera phone at the space and attempting to grab pictures of the inscriptions. "Well, I'm ready." I said, uncertain, because if she was getting good enough pictures, why would I need to transcribe the writing?
-<br><br>
-"Write this down,” she instructed, her voice clipped and precise, as though racing against some unseen clock. “ T-R-I-O-S/Y-N/D-I/F-E-N-N-O. Break. And—" 
-<br><br>
-Her tone carried a note of urgency that sent a chill up my spine, though I couldn’t explain why. Maybe she was right to hurry. How had this tree, hollow as it was, even remained standing? With no core to stabilize it, the whole thing seemed ready to fall apart any second.
-<br><br>
-“And V-E-I-D/V-I-D-M-I-T-O-M/L-L-Y-B-R/V-N/D-I/D-O-G-E-L!” she exclaimed, pulling back quickly. Her movements were careful but brisk, avoiding contact with the fragile bark. I stared at her for a moment, struck by how infectious her excitement was—and how painful. Misty, my late wife, had that same fire in her eyes when she got lost in her work.
-<br><br>
-"So with all of that together. Accounting for the Script only using V, instead of branching out into U, V, and W... puts this at the pre-seventh century? Astounding. But if I have this right, we should have " Trios yn di fenno,-"  
-<br><br>
-“‘Defend-o?’” I interrupted, smirking at the obvious cognate.
-<br><br>
-Jones rolled her eyes. “Essentially? Sure. Offensive to my field, reductive, but sure.” She leaned closer to my notebook, a spark of impatience in her posture. “Accounting for pronunciation, maybe it’s Druwidon? Vebis...”
-<br><br>
-She stalked toward me, the fire in her eyes sharp enough to cut glass. I held out the journal, pages open, and she scanned the letters she’d dictated. “There we are,” she said, her voice softening slightly. “Yes. Druwidon webis wargo yn erbyn eraill, kutti h’svan, hud yn kutti, wiro-cord... un dal, weid widmitom llybr yb di dogel.”
-<br><br>
-I blinked at her, the mountain breeze tugging at her copper hair and carrying her perfume toward me. “Sounds like someone carved... something,” I said slowly, “but—”
-<br><br>
-“But you’re not a linguist.” She cut me off with a teasing lilt, though there was a proud edge to her smile. “Nor did you grow up with a Welsh mother. Granted, it’s not a perfect match, but it helps. My impression? Outside of a few mysteries—like ‘wiro-cord’ or ‘widmitom’—this seems like a charm. A spell. Something about the land protecting the Druids from... something else. From others. Or even themselves.”
-<br><br>
-I looked thoughtfully at the tree, then toward the cliffs. “Staking a claim, maybe?” I suggested. “In a less mystical sense.”
-<br><br>
-She flushed slightly—whether from indignation or embarrassment, I couldn’t tell. Misty always flushed like that, high along her cheekbones, and the memory pulled at something deep inside me.
-<br><br>
-She cleared her throat, as if brushing the moment aside. “Yes, well. Let’s not take the magic out of linguistics,” she said. “Dry enough as it is.”
-<br><br>
-She turned back toward the tree, her voice steady but reverent. “Let's see if I've got it right. "Trios un di fenno—’”
-<br><br>
-I frowned as the forest around us seemed to still, as if the ancient words themselves muffled the world.
-<br><br>
-“‘Druwidon webis wargo yn erbyn eraill, kutti h’svan, hud yn kutti, wiro-cord, un dal, weid widmitom llybr yb di dogel.’”
-<br><br>
-No sooner had she spoken the last syllable than a sudden gale roared through the clearing, tearing Nageshi’s hat from his head. He sprinted after it, hands outstretched, as the wind struck me like a blow.
-<br><br>
-I felt the first pop before I heard it—a sharp crack from the hollowed-out bark.
-<br><br>
-“It’s coming down!” I shouted, lunging for Jones and grabbing her wrist. I spun us both around, shielding her head with my arm as bark shattered and rained down. Chunks splintered into smaller pieces, then into dust, coating the air like smoke.
-<br><br>
-I locked eyes with Jones, her face pale, her copper hair tangled from the gale. I opened my mouth to reassure her when the ground beneath us gave way.
-<br><br>
-The earth pitched violently, throwing her forward and sending me tumbling backward. I landed hard, sliding into the gaping crater where the tree’s root ball had once been.
-<br><br>
-Above me, the sky filled with the chaotic blur of birds scattering in every direction. Their panicked flight barely registered before a deep, guttural roar shook the air. It wasn’t just a sound—I felt it in my bones, like the ground itself was growling.
-<br><br>
-Jones slid down the slope to me, her face streaked with terror. The roar seemed to hollow her out, leaving tears streaking down her cheeks.
-<br><br>
-Then, silence. A suffocating, unnatural stillness.
-<br><br>
-From somewhere near the cliffs, a human scream tore through the quiet—a high, agonized sound that made my blood run cold.
-<br><br>
-“We need to get over there,” I said, scrambling to my feet, the adrenaline surging as I started for the path.</span></p>
-    </blockquote>
-    <div class="mt-6">
-      <a href="#subscribe" class="inline-flex items-center gap-2 rounded-xl bg-emerald-500 px-5 py-3 text-sm font-semibold text-neutral-950 shadow shadow-emerald-500/40 hover:bg-emerald-400 transition">
-        Get Early Access to More
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4"><path fill-rule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h9.19l-3.72-3.72a.75.75 0 1 1 1.06-1.06l5 5a.75.75 0 0 1 0 1.06l-5 5a.75.75 0 1 1-1.06-1.06l3.72-3.72H3.75A.75.75 0 0 1 3 10Z" clip-rule="evenodd"/></svg>
-      </a>
+  <section id="sample" class="bg-neutral-950">
+    <div class="mx-auto max-w-3xl px-6 py-16 md:py-24">
+      <h2 class="text-2xl md:text-3xl font-semibold">Opening Chapter</h2>
+      <p class="mt-4 text-neutral-300">From the Prologue:</p>
+      <blockquote class="mt-6 rounded-2xl border border-neutral-800 bg-neutral-900/50 p-6 text-neutral-200">
+        <!-- content trimmed for brevity in this demo -->
+        <p><span class="opacity-80">[...]</span></p>
+      </blockquote>
+      <div class="mt-6">
+        <a href="#subscribe" class="inline-flex items-center gap-2 rounded-xl bg-emerald-500 px-5 py-3 text-sm font-semibold text-neutral-950 shadow shadow-emerald-500/40 hover:bg-emerald-400 transition">
+          Get Early Access to More
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4"><path fill-rule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h9.19l-3.72-3.72a.75.75 0 1 1 1.06-1.06l5 5a.75.75 0 0 1 0 1.06l-5 5a.75.75 0 1 1-1.06-1.06l3.72-3.72H3.75A.75.75 0 0 1 3 10Z" clip-rule="evenodd"/></svg>
+        </a>
+      </div>
     </div>
   </section>
 
   <!-- Author -->
-  <section id="author" class="bg-neutral-900/30">
+  <section id="author" class="bg-neutral-950">
     <div class="mx-auto max-w-6xl px-6 py-16 md:py-24 grid gap-10 md:grid-cols-5">
       <div class="md:col-span-2">
         <div class="relative overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900 shadow" style="aspect-ratio:1/1;">
@@ -272,7 +164,7 @@ From somewhere near the cliffs, a human scream tore through the quiet—a high, 
   </section>
 
   <!-- Subscribe -->
-  <section id="subscribe" class="relative isolate overflow-hidden">
+  <section id="subscribe" class="relative isolate overflow-hidden bg-neutral-950">
     <div class="absolute inset-0 -z-10 bg-gradient-to-b from-emerald-600/20 via-neutral-900 to-neutral-950" aria-hidden="true"></div>
     <div class="mx-auto max-w-2xl px-6 py-16 md:py-24 text-center">
       <h2 class="text-2xl md:text-3xl font-semibold">Get early chapters, art reveals, and lore drops</h2>
@@ -281,12 +173,12 @@ From somewhere near the cliffs, a human scream tore through the quiet—a high, 
         <input type="email" placeholder="you@domain.com" class="w-full rounded-xl border border-neutral-800 bg-neutral-900 px-4 py-3 text-sm text-neutral-100 placeholder-neutral-500 outline-none focus:ring-2 focus:ring-emerald-500 sm:w-80">
         <button type="submit" class="w-full sm:w-auto rounded-xl bg-emerald-500 px-5 py-3 text-sm font-semibold text-neutral-950 shadow shadow-emerald-500/40 hover:bg-emerald-400 transition">Subscribe</button>
       </form>
-      <p class="mt-3 text-xs text-neutral-400">Or <a href="#" class="underline underline-offset-4 hover:text-neutral-200">read more on Ko‑Fi / Substack</a></p>
+      <p class="mt-3 text-xs text-neutral-400">Or <a href="#" class="underline underline-offset-4 hover:text-neutral-200">read more on Ko-Fi / Substack</a></p>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="border-t border-neutral-900">
+  <footer class="border-t border-neutral-900 bg-neutral-950">
     <div class="mx-auto max-w-6xl px-6 py-10 md:py-12 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
       <div>
         <p class="text-sm text-neutral-300">A Rook & Raven Public House Story</p>
