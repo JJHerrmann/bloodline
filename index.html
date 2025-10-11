@@ -122,7 +122,135 @@
       </div>
     </div>
   </section>
+<!-- Playlists Carousel -->
+<section id="playlists" class="bg-neutral-950">
+  <div class="mx-auto max-w-6xl px-6 py-16 md:py-24">
+    <div class="flex items-end justify-between">
+      <div>
+        <h2 class="text-2xl md:text-3xl font-semibold">Rook and Raven Public House Publishing Presents:</h2>
+        <p class="mt-2 text-neutral-400">Soundtracks for the fog, grit, and garnet light.</p>
+      </div>
+      <div class="hidden md:flex gap-2">
+        <button type="button" aria-label="Previous" 
+          class="playlist-prev rounded-xl border border-neutral-800 px-3 py-2 text-sm hover:bg-neutral-900">
+          ‹
+        </button>
+        <button type="button" aria-label="Next"
+          class="playlist-next rounded-xl border border-neutral-800 px-3 py-2 text-sm hover:bg-neutral-900">
+          ›
+        </button>
+      </div>
+    </div>
 
+    <!-- Track container -->
+    <div class="relative mt-6">
+      <!-- gradient edges for nice fade -->
+      <div class="pointer-events-none absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-neutral-950 to-transparent"></div>
+      <div class="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-neutral-950 to-transparent"></div>
+
+      <div id="playlist-track"
+           class="flex gap-5 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2 [-ms-overflow-style:none] [scrollbar-width:none]"
+           style="scroll-padding-left:1.5rem">
+        <!-- hide scrollbar (webkit) -->
+        <style>
+          #playlist-track::-webkit-scrollbar{display:none}
+        </style>
+
+        <!-- Card -->
+        <article class="snap-start shrink-0 w-72 overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900/50 shadow">
+          <a href="https://music.youtube.com/playlist?list=PLd1RcpsuXAPFiQrZtvt1Iv5_UcnH_B0nC&si=Y5_Wsuwrgp8zYX_n" target="_blank" rel="noopener"
+             class="block group">
+            <div class="relative" style="aspect-ratio:1/1;">
+              <img src="./images/playlists/levi_playlist.png" alt="Bloodlines: Levi Sands playlist cover"
+                   class="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02] group-hover:opacity-95" loading="lazy">
+              <div class="absolute inset-0 bg-gradient-to-t from-neutral-950/70 via-transparent to-transparent"></div>
+            </div>
+            <div class="p-4">
+              <h3 class="text-base font-semibold">Bloodlines: Levi Sands</h3>
+              <p class="mt-1 text-xs text-neutral-400">ambient | spectral folk | blue-jay glint</p>
+              <p class="mt-2 text-sm text-neutral-300 line-clamp-2">Whispers at the treeline. Fiddle ghosts, glass harmonica, and late-night field recordings.</p>
+              <span class="mt-3 inline-flex items-center gap-2 text-emerald-400 text-sm">
+                Listen <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h9.19l-3.72-3.72a.75.75 0 1 1 1.06-1.06l5 5a.75.75 0 0 1 0 1.06l-5 5a.75.75 0 1 1-1.06-1.06l3.72-3.72H3.75A.75.75 0 0 1 3 10Z" clip-rule="evenodd"/></svg>
+              </span>
+            </div>
+          </a>
+        </article>
+
+        <!-- Card -->
+        <article class="snap-start shrink-0 w-72 overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900/50 shadow">
+          <a href="https://open.spotify.com/playlist/your-id-2" target="_blank" rel="noopener" class="block group">
+            <div class="relative" style="aspect-ratio:1/1;">
+              <img src="./images/playlists/temperance_playlist.png" alt="Bloodlines: Temperance Bennet playlist cover"
+                   class="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02] group-hover:opacity-95" loading="lazy">
+              <div class="absolute inset-0 bg-gradient-to-t from-neutral-950/70 via-transparent to-transparent"></div>
+            </div>
+            <div class="p-4">
+              <h3 class="text-base font-semibold">Bloodlines: Temperance Bennett</h3>
+              <p class="mt-1 text-xs text-neutral-400">post-rock | dark roots | percussion</p>
+              <p class="mt-2 text-sm text-neutral-300 line-clamp-2">Garnet glow and granite weight. Big drums, bowed guitar, tectonic crescendos.</p>
+              <span class="mt-3 inline-flex items-center gap-2 text-emerald-400 text-sm">Listen
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h9.19l-3.72-3.72a.75.75 0 1 1 1.06-1.06l5 5a.75.75 0 0 1 0 1.06l-5 5a.75.75 0 1 1-1.06-1.06l3.72-3.72H3.75A.75.75 0 0 1 3 10Z" clip-rule="evenodd"/></svg>
+              </span>
+            </div>
+          </a>
+        </article>
+
+        <!-- Card -->
+        <article class="snap-start shrink-0 w-72 overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900/50 shadow">
+          <a href="https://open.spotify.com/playlist/your-id-3" target="_blank" rel="noopener" class="block group">
+            <div class="relative" style="aspect-ratio:1/1;">
+              <img src="./images/playlists/isaac_playlist.png" alt="Bloodlines: Isaac Sands playlist cover"
+                   class="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02] group-hover:opacity-95" loading="lazy">
+              <div class="absolute inset-0 bg-gradient-to-t from-neutral-950/70 via-transparent to-transparent"></div>
+            </div>
+            <div class="p-4">
+              <h3 class="text-base font-semibold">Bloodlines: Isaac Sands</h3>
+              <p class="mt-1 text-xs text-neutral-400">drone | ritual | low brass</p>
+              <p class="mt-2 text-sm text-neutral-300 line-clamp-2">Old gold eyes in the fog. Distant horns, throat-sung harmonics, pressure-wave subs.</p>
+              <span class="mt-3 inline-flex items-center gap-2 text-emerald-400 text-sm">Listen
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h9.19l-3.72-3.72a.75.75 0 1 1 1.06-1.06l5 5a.75.75 0 0 1 0 1.06l-5 5a.75.75 0 1 1-1.06-1.06l3.72-3.72H3.75A.75.75 0 0 1 3 10Z" clip-rule="evenodd"/></svg>
+              </span>
+            </div>
+          </a>
+        </article>
+
+        <!-- Add more cards as you publish playlists -->
+      </div>
+
+      <!-- Mobile prev/next (optional): show under track -->
+      <div class="mt-4 flex justify-center gap-3 md:hidden">
+        <button type="button" aria-label="Previous" 
+          class="playlist-prev rounded-xl border border-neutral-800 px-3 py-2 text-sm hover:bg-neutral-900">
+          ‹
+        </button>
+        <button type="button" aria-label="Next"
+          class="playlist-next rounded-xl border border-neutral-800 px-3 py-2 text-sm hover:bg-neutral-900">
+          ›
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // simple nudge scrolling
+  const track = document.querySelector('#playlist-track');
+  const prevs = document.querySelectorAll('.playlist-prev');
+  const nexts = document.querySelectorAll('.playlist-next');
+
+  function cardWidth() {
+    const card = track.querySelector('article');
+    return card ? card.getBoundingClientRect().width + 20 /*gap*/ : 320;
+    // adjust gap if you change .gap-5
+  }
+
+  prevs.forEach(btn => btn.addEventListener('click', () => {
+    track.scrollBy({ left: -cardWidth(), behavior: 'smooth' });
+  }));
+  nexts.forEach(btn => btn.addEventListener('click', () => {
+    track.scrollBy({ left: cardWidth(), behavior: 'smooth' });
+  }));
+</script>
   <!-- Sample / Excerpt -->
   <section id="sample" class="bg-neutral-950">
     <div class="mx-auto max-w-3xl px-6 py-16 md:py-24">
