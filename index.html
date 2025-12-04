@@ -334,7 +334,7 @@
         class="mt-4 hidden rounded-2xl border border-neutral-800 bg-neutral-900/70 p-5 text-sm leading-relaxed text-neutral-200">
 
         <article id="extended-preview" class="space-y-4">
- <p>I do not love phone calls. They interrupt your flow; whatever train of thought you are riding derails the second you have to answer. And these days, the odds of it being something worthwhile? Slim. Telemarketers and scammers see to that.</p>
+<p>I do not love phone calls. They interrupt your flow; whatever train of thought you are riding derails the second you have to answer. And these days, the odds of it being something worthwhile? Slim. Telemarketers and scammers see to that.</p>
 
   <p>I especially do not like a phone call in the middle of the night. Nothing good ever comes at 2 a.m.; it is almost always bad news.</p>
 
@@ -363,6 +363,7 @@
   <p>Oh no. Researchers. Do not say it&mdash;</p>
 
   <p>"We ain't found your dad at all, but we know he was with them. His gear is at the encampment, or what is left of it, but no Isaac."</p></article>
+</article>
 
       </div>
 
@@ -421,12 +422,17 @@
     <div class="mx-auto max-w-2xl px-6 py-16 md:py-24 text-center">
       <h2 class="text-2xl md:text-3xl font-semibold">Get early chapters, art reveals, and lore drops</h2>
       <p class="mt-3 text-neutral-300">Join the mailing list for Bloodline updates (no spam, just fog and folklore).</p>
-      <form class="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center" action="#" method="post">
-        <input type="email" placeholder="you@domain.com" class="w-full rounded-xl border border-neutral-800 bg-neutral-900 px-4 py-3 text-sm text-neutral-100 placeholder-neutral-500 outline-none focus:ring-2 focus:ring-rose-500 sm:w-80">
+      <form id="subscribe-form" class="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center" action="https://formspree.io/f/mldqlrky" method="POST">
+        <input type="email" name="email" required placeholder="you@domain.com" class="w-full rounded-xl border border-neutral-800 bg-neutral-900 px-4 py-3 text-sm text-neutral-100 placeholder-neutral-500 outline-none focus:ring-2 focus:ring-rose-500 sm:w-80">
         <button type="submit" class="rounded-xl px-5 py-3 text-sm font-semibold bg-rose-600 text-neutral-50 hover:bg-rose-600/90 transition">
           Subscribe
         </button>
       </form>
+
+      <!-- Toast Notification -->
+      <div id="subscribe-toast" class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 bg-neutral-800 text-neutral-100 border border-neutral-700 px-6 py-3 rounded-xl shadow-xl text-sm z-50">
+        Thanks for subscribing! Check your inbox.
+      </div>
       <p class="mt-3 text-xs text-neutral-400">
         Or <a href="#" class="underline underline-offset-4 hover:text-neutral-200">read more on Ko-Fi / Substack</a>
       </p>
@@ -501,6 +507,33 @@
       });
     });
   </script>
+
+<script>
+  // Subscribe toast
+  const subForm = document.getElementById('subscribe-form');
+  const toast = document.getElementById('subscribe-toast');
+
+  if (subForm) {
+    subForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(subForm);
+      const action = subForm.getAttribute('action');
+
+      try {
+        await fetch(action, { method: 'POST', body: formData, headers: { 'Accept': 'application/json' }});
+
+        // Show toast
+        toast.classList.remove('hidden');
+        setTimeout(() => toast.classList.add('hidden'), 4000);
+
+        subForm.reset();
+      } catch (err) {
+        console.error("Subscribe failed", err);
+      }
+    });
+  }
+</script>
 
 </body>
 </html>
