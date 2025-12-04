@@ -535,5 +535,38 @@
   }
 </script>
 
+<script>
+// Global toast function
+function showToast(msg) {
+  const t = document.createElement("div");
+  t.className = "fixed bottom-6 left-1/2 -translate-x-1/2 bg-neutral-800 text-neutral-100 border border-neutral-700 px-6 py-3 rounded-xl shadow-xl text-sm z-50 opacity-0 transition-opacity";
+  t.textContent = msg;
+  document.body.appendChild(t);
+  requestAnimationFrame(() => t.classList.add("opacity-100"));
+  setTimeout(() => {
+    t.classList.remove("opacity-100");
+    setTimeout(() => t.remove(), 300);
+  }, 3000);
+}
+
+// Dead-link elements -> Coming Soon
+const comingSoonSelectors = [
+  "a[href='./press/one-sheet.pdf']",
+  "a[href='https://open.spotify.com/playlist/your-id-2']",
+  "a[href='https://open.spotify.com/playlist/your-id-3']",
+  "a[href='#early-access']",
+  "a[href*='kofi']",
+  "a[href*='substack']"
+];
+
+comingSoonSelectors.forEach(sel => {
+  document.querySelectorAll(sel).forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      showToast("Coming soon");
+    });
+  });
+});
+</script>
 </body>
 </html>
