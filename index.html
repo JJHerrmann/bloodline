@@ -1,115 +1,109 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="emerald">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bloodline Spirits of the Smokies</title>
-  <meta name="description" content="An Appalachian mystery-thriller with mythic roots.">
-<script>
-  (function() {
-    const urlTheme = new URLSearchParams(location.search).get("theme");
-    const saved = localStorage.getItem("theme");
-    const preset = document.documentElement.getAttribute("data-theme"); // <-- use existing
-    const theme = urlTheme || saved || preset || "quartz";
-    document.documentElement.setAttribute("data-theme", theme);
-    if (urlTheme) localStorage.setItem("theme", urlTheme);
-    window.setTheme = function(name) {
-      document.documentElement.setAttribute("data-theme", name);
-      localStorage.setItem("theme", name);
-    };
-  })();
-</script>
-	<script src="https://cdn.tailwindcss.com"></script>
 
+  <title>Garnet Shield | Bloodline: Spirits of the Smokies</title>
+
+  <!-- Basic SEO -->
+  <meta name="description" content="Garnet Shield is an Appalachian mystery-thriller set in the Smokies, where missing fathers, old bargains, and mountain spirits collide.">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://bloodline.rook.works/">
+
+  <!-- Open Graph (link previews) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Garnet Shield | Bloodline: Spirits of the Smokies">
+  <meta property="og:description" content="When Dr. Isaac Sands vanishes on a cryptozoological expedition, his son Judah is dragged back to the Smokies, where old legends die hard and the mountains keep their dead close.">
+  <meta property="og:url" content="https://bloodline.rook.works/">
+  <meta property="og:image" content="https://bloodline.rook.works/images/garnet-shield-mockup.jpg">
+  <meta property="og:site_name" content="Rookworks">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Garnet Shield | Bloodline: Spirits of the Smokies">
+  <meta name="twitter:description" content="Mythic Appalachian mystery, haunted ecology, and a family legacy that does not stay buried.">
+  <meta name="twitter:image" content="https://bloodline.rook.works/images/garnet-shield-mockup.jpg">
+
+  <!-- Theme color for mobile browser chrome -->
+  <meta name="theme-color" content="#111827">
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
     html { scroll-behavior: smooth; }
-:root { --tint: 0.18; }             /* opacity 0..1 */
-[data-theme="garnet"]   { --tint: 0.22; }
-[data-theme="citrine"]  { --tint: 0.14; }
-[data-theme="quartz"]   { --tint: 0.10; }
-[data-theme="sapphire"] { --tint: 0.22; }
-[data-theme="ruby"]     { --tint: 0.22; }
-[data-theme="amethyst"] { --tint: 0.22; }
-[data-theme="emerald"]  { --tint: 0.20; }
-  :root {
-    --bg: 248 249 251; --fg: 17 20 24; --muted: 229 233 240; --card: 255 255 255; --border: 210 215 225;
-    --accent: 163 163 163; --accent-fg: 17 20 24;  /* quartz default */
-    --g1: 255 255 255; --g2: 229 233 240;
-  }
-  [data-theme="garnet"]   { --bg:12 8 10; --fg:245 240 242; --muted:34 22 26; --card:18 12 14; --border:64 36 42; --accent:155 28 49; --accent-fg:255 240 243; --g1:40 16 22; --g2:12 8 10; }
-  [data-theme="citrine"]  { --bg:255 252 244; --fg:26 20 7; --muted:249 242 220; --card:255 254 248; --border:230 212 170; --accent:224 161 0; --accent-fg:26 20 7; --g1:255 247 222; --g2:255 252 244; }
-  [data-theme="quartz"]   { --bg:248 249 251; --fg:17 20 24; --muted:229 233 240; --card:255 255 255; --border:210 215 225; --accent:163 163 163; --accent-fg:17 20 24; --g1:255 255 255; --g2:229 233 240; }
-  [data-theme="sapphire"] { --bg:6 12 28; --fg:230 239 255; --muted:14 24 54; --card:10 18 40; --border:28 48 92; --accent:37 99 235; --accent-fg:245 250 255; --g1:12 24 56; --g2:6 12 28; }
-  [data-theme="ruby"]     { --bg:20 6 8; --fg:251 235 238; --muted:48 14 18; --card:28 9 12; --border:76 18 24; --accent:239 68 68; --accent-fg:255 245 245; --g1:60 12 18; --g2:20 6 8; }
-  [data-theme="amethyst"] { --bg:16 10 28; --fg:240 235 255; --muted:32 20 54; --card:22 14 38; --border:62 40 92; --accent:124 58 237; --accent-fg:250 245 255; --g1:42 24 86; --g2:16 10 28; }
-  [data-theme="emerald"]  { --bg:6 16 14; --fg:230 250 244; --muted:12 28 24; --card:10 22 20; --border:28 64 54; --accent:16 185 129; --accent-fg:2 32 24; --g1:10 28 24; --g2:6 16 14; }
-
-  /* Switcher chrome */
-  .stone-btn { display:inline-grid; place-items:center; width:32px; height:32px; border-radius:9999px; border:1px solid rgb(64 64 64); background: rgb(23 23 23 / .8); transition: transform .12s, box-shadow .12s, border-color .12s; }
-  .stone-btn:focus-visible { outline:2px solid rgb(163 163 163); outline-offset:2px; }
-  .stone-btn:hover { transform: translateY(-1px); border-color: rgb(82 82 82); }
-  .stone-btn svg { width:18px; height:18px; display:block; }
-  .stone-btn svg * { fill: currentColor; }
-  .stone-btn { color: var(--stone-color, #a3a3a3); }
-  .stone-btn[aria-checked="true"] { box-shadow: 0 0 0 2px currentColor; }
-
   </style>
 </head>
 <body class="min-h-screen bg-neutral-950 text-neutral-100 antialiased">
 
-  <!-- Hero (video only here) -->
-  <section id="hero" class="relative overflow-hidden min-h-[50vh] max-h-[100vh] md:min-h-screen">
-    <!-- Fallback poster -->
-    <div class="absolute inset-0 -z-20 bg-[url('./images/smokies-hero.jpg')] bg-cover bg-center" aria-hidden="true"></div>
-
-    <!-- Background video -->
-    <video
-      class="absolute inset-0 -z-10 h-full w-full object-cover"
-      autoplay
-      muted
-      loop
-      playsinline
-      preload="metadata"
-      poster="./images/smokies-hero.jpg"
-    >
-      <source src="./video/smokies-hero.webm" type="video/webm" />
-      <source src="./video/smokies-hero.mp4" type="video/mp4" />
-    </video>
-
-    <!-- Contrast veil -->
-<!-- Theme tint over video -->
-<div class="absolute inset-0 -z-10 pointer-events-none"
-     style="background: rgb(var(--accent) / calc(var(--tint) * 100%));"></div>
-
-<!-- Optional dark-to-deep gradient on top to keep copy readable -->
-<div class="absolute inset-0 -z-10 pointer-events-none
-            bg-gradient-to-b from-[rgb(var(--g1))/0.35] via-[rgb(var(--g1))/0.6] to-[rgb(var(--g2))]">
-</div>
-
-    <!-- Hero content -->
-    <div class="mx-auto max-w-6xl px-6 py-24 md:py-36">
+  <!-- Hero -->
+  <section id="hero" class="relative overflow-hidden min-h-[60vh] md:min-h-[70vh] bg-[url('./images/granny-sands.png')] bg-cover bg-center">
+    <!-- nicotine patina overlay -->
+    <div class="absolute inset-0 bg-amber-900/20 mix-blend-multiply pointer-events-none"></div>
+    <!-- dark veil for readability -->
+    <div class="absolute inset-0 bg-black/60 pointer-events-none"></div>
+    <div class="mx-auto max-w-6xl px-6 py-24 md:py-36 relative z-10">
       <div class="max-w-3xl">
         <p class="mb-4 inline-flex rounded-full border border-neutral-700/70 px-3 py-1 text-xs tracking-wider text-neutral-300 uppercase">
           Appalachian Mystery · Mythic Horror · Thriller
         </p>
-        <h1 class="text-4xl font-bold leading-tight tracking-tight sm:text-2xl md:text-4xl"><span class="text-[rgb(var(--accent))]"> Bloodline Spirits of the Smokeys</span></h1>
-        <h1 class="text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-6xl">The Garnet Shield&nbsp;</h1>
-<p class="mt-5 max-w-2xl text-lg text-neutral-300">
-        When Dr. Isaac Sands vanishes on a cryptozoological expedition, his son Judah is dragged back to the Smokies—where old legends die hard and the mountains keep their dead close.
-      </p>
+        <h1 class="text-4xl font-bold leading-tight tracking-tight sm:text-2xl md:text-4xl">
+          <span class="text-rose-400">Bloodline: Spirits of the Smokies</span>
+        </h1>
+        <h1 class="text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-6xl">
+          The Garnet Shield
+        </h1>
+        <p class="mt-5 max-w-2xl text-lg text-neutral-300">
+          When Dr. Isaac Sands vanishes on a cryptozoological expedition, his son Judah is dragged back to the Smokies, where old legends die hard and the mountains keep their dead close.
+        </p>
         <p class="mt-3 text-sm text-neutral-300 italic">
-          "When the Smokies whisper, they do not speak in words — they remember."
+          "When the Smokies whisper, they do not speak in words, they remember."
         </p>
         <div class="mt-8 flex flex-wrap gap-3">
-          <a href="#sample" class="rounded-xl px-5 py-3 text-sm font-semibold bg-[rgb(var(--accent))] text-[rgb(var(--accent-fg))] shadow hover:bg-[rgb(var(--accent))]/90 transition">Read Opening Chapter</a>
-          <a href="#subscribe" class="rounded-xl px-5 py-3 text-sm font-semibold bg-[rgb(var(--accent))] text-[rgb(var(--accent-fg))] shadow hover:bg-[rgb(var(--accent))]/90 transition">Join the Mailing List</a>
+          <a href="#sample" class="rounded-xl px-5 py-3 text-sm font-semibold bg-rose-600 text-neutral-50 shadow hover:bg-rose-600/90 transition">
+            Read Opening Chapter
+          </a>
+          <a href="#subscribe" class="rounded-xl px-5 py-3 text-sm font-semibold bg-rose-600 text-neutral-50 shadow hover:bg-rose-600/90 transition">
+            Join the Mailing List
+          </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Hook (solid bg so hero does not bleed) -->
+  <!-- Book At A Glance -->
+  <section id="overview" class="bg-neutral-950 border-t border-neutral-900">
+    <div class="mx-auto max-w-6xl px-6 py-12 md:py-16 grid gap-10 md:grid-cols-2 md:items-start">
+      <!-- LEFT: At a Glance -->
+      <div>
+        <h2 class="text-2xl md:text-3xl font-semibold">At a Glance</h2>
+        <p class="mt-4 text-neutral-300 text-sm md:text-base">
+          Quick facts for agents, editors, and curious readers.
+        </p>
+        <div class="mt-6 space-y-2 text-sm text-neutral-300">
+          <p><span class="font-semibold">Genre:</span> Appalachian Gothic mystery-thriller with supernatural and folk-horror elements.</p>
+          <p><span class="font-semibold">Length:</span> 95k-110k target for Book One.</p>
+          <p><span class="font-semibold">Series:</span> Bloodline: Spirits of the Smokies (multi-book arc).</p>
+          <p><span class="font-semibold">Comps:</span> Character-driven investigative fantasy x atmospheric folk-horror ("Dresden Files but older, colder, and rotting under the floorboards").</p>
+          <p><span class="font-semibold">Tone:</span> Gritty, voice-forward dread; mythic ecology; generational trauma; grounded supernatural rules.</p>
+          <p><span class="font-semibold">Audience:</span> Adult readers who enjoy mystery with teeth, slow-burn supernatural tension, and rural psychological grit.</p>
+          <p><span class="font-semibold">Protagonist Lens:</span> A competent but cracked investigator trying to outrun grief through procedure and denial.</p>
+          <p><span class="font-semibold">Setting Flavor:</span> Contemporary Appalachia layered over an older spiritual infrastructure.</p>
+        </div>
+      </div>
+
+      <!-- RIGHT: Book Product Image -->
+      <div class="relative overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900 shadow-lg" style="aspect-ratio:4/5;">
+        <img src="./images/garnet_shield_product_photo.png" alt="Garnet Shield book mockup" class="h-full w-full object-cover opacity-95">
+        <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-neutral-950/70 via-transparent to-transparent"></div>
+        <div class="absolute bottom-3 left-3 text-xs text-neutral-300">Book mockup - placeholder image</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hook -->
   <section id="hook" class="bg-neutral-950">
     <div class="mx-auto max-w-6xl px-6 py-16 md:py-24 grid items-center gap-10 md:grid-cols-2">
       <div class="order-2 md:order-1">
@@ -118,16 +112,25 @@
           Retired Navy investigator Judah Sands returns to Deep Springs, NC after a massacre on his father’s expedition. The trail leads to a cairn that was never meant to be found, a hollow oak whispering in Latin, and a watcher older than the ridgelines.
         </p>
         <ul class="mt-6 space-y-3 text-neutral-300">
-          <li class="flex items-start gap-3"><span class="mt-1 h-2 w-2 rounded-full bg-[rgb(var(--accent))]"></span> Southern gothic atmosphere with modern investigative grit</li>
-          <li class="flex items-start gap-3"><span class="mt-1 h-2 w-2 rounded-full bg-[rgb(var(--accent))]"></span> Mythic ecology: spirits tied to stones, rivers, and memory</li>
-          <li class="flex items-start gap-3"><span class="mt-1 h-2 w-2 rounded-full bg-[rgb(var(--accent))]"></span> Series-ready arc: Book 1 begins the Bloodline saga</li>
+          <li class="flex items-start gap-3">
+            <span class="mt-1 h-2 w-2 rounded-full bg-rose-600"></span>
+            Southern gothic atmosphere with modern investigative grit
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="mt-1 h-2 w-2 rounded-full bg-rose-600"></span>
+            Mythic ecology: spirits tied to stones, rivers, and memory
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="mt-1 h-2 w-2 rounded-full bg-rose-600"></span>
+            Series-ready arc: Book 1 begins the Bloodline saga
+          </li>
         </ul>
       </div>
       <div class="order-1 md:order-2">
         <div class="relative overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900 shadow-lg" style="aspect-ratio:4/5;">
           <img src="./images/judah.png" alt="Judah Sands standing before a cairn in the mist" class="h-full w-full object-cover opacity-90">
           <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-neutral-950/70 via-transparent to-transparent"></div>
-          <div class="absolute bottom-3 left-3 text-xs text-neutral-300">Concept art placeholder — sourced with DALL-E render</div>
+          <div class="absolute bottom-3 left-3 text-xs text-neutral-300">Concept art placeholder - sourced with DALL-E render</div>
         </div>
       </div>
     </div>
@@ -143,185 +146,234 @@
       <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <article class="group overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900/50 shadow">
           <div class="relative overflow-hidden" style="aspect-ratio:16/10;">
-            <img src="./images/velandor.png" alt="Velandor · Spirit of Veils" class="h-full w-full object-cover transition duration-300 group-hover:scale-105 group-hover:opacity-95">
+            <img src="./images/velandor.png" alt="Velandor - Spirit of Veils" class="h-full w-full object-cover transition duration-300 group-hover:scale-105 group-hover:opacity-95">
             <div class="absolute inset-0 bg-gradient-to-t from-neutral-950/70 via-transparent to-transparent"></div>
           </div>
           <div class="p-5">
-            <h3 class="text-lg font-semibold">Velandor · Spirit of Veils</h3>
-            <p class="mt-2 text-sm text-neutral-300">A blue-jay shimmer on the edge of sight — the veil that parts and warns.</p>
+            <h3 class="text-lg font-semibold">Velandor - Spirit of Veils</h3>
+            <p class="mt-2 text-sm text-neutral-300">A blue-jay shimmer on the edge of sight - the veil that parts and warns.</p>
           </div>
         </article>
         <article class="group overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900/50 shadow">
           <div class="relative overflow-hidden" style="aspect-ratio:16/10;">
-            <img src="./images/arthmon.png" alt="Arthmon · Guardian of Stone" class="h-full w-full object-cover transition duration-300 group-hover:scale-105 group-hover:opacity-95">
+            <img src="./images/arthmon.png" alt="Arthmon - Guardian of Stone" class="h-full w-full object-cover transition duration-300 group-hover:scale-105 group-hover:opacity-95">
             <div class="absolute inset-0 bg-gradient-to-t from-neutral-950/70 via-transparent to-transparent"></div>
           </div>
           <div class="p-5">
-            <h3 class="text-lg font-semibold">Arthmon · Guardian of Stone</h3>
+            <h3 class="text-lg font-semibold">Arthmon - Guardian of Stone</h3>
             <p class="mt-2 text-sm text-neutral-300">Garnet light in fractured granite; the mountain’s will made manifest.</p>
           </div>
         </article>
         <article class="group overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900/50 shadow">
           <div class="relative overflow-hidden" style="aspect-ratio:16/10;">
-            <img src="./images/watcher.png" alt="The Watcher" class="h-full w-full object-cover transition duration-300 group-hover:scale-105 group-hover:opacity-95">
+            <img src="./images/watcher.png" alt="The Voices of Lover's Leap" class="h-full w-full object-cover transition duration-300 group-hover:scale-105 group-hover:opacity-95">
             <div class="absolute inset-0 bg-gradient-to-t from-neutral-950/70 via-transparent to-transparent"></div>
           </div>
           <div class="p-5">
-            <h3 class="text-lg font-semibold">The Watcher</h3>
-            <p class="mt-2 text-sm text-neutral-300">An older hunger on the ridgeline. Eyes like old gold in the fog.</p>
+            <h3 class="text-lg font-semibold">The Voices of Lover's Leap</h3>
+            <p class="mt-2 text-sm text-neutral-300">An old voice of forgotten lovers, and they want you to come and join them in the beyond.</p>
           </div>
         </article>
       </div>
     </div>
   </section>
-<!-- Playlists Carousel -->
-<section id="playlists" class="bg-neutral-950">
-  <div class="mx-auto max-w-6xl px-6 py-16 md:py-24">
-    <div class="flex items-end justify-between">
-      <div>
-        <h2 class="text-2xl md:text-3xl font-semibold">Rook and Raven Public House  Presents:</h2>
-        <p class="mt-2 text-neutral-400">Soundtracks for the fog, grit, and garnet light.</p>
+
+  <!-- Playlists Carousel -->
+  <section id="playlists" class="bg-neutral-950">
+    <div class="mx-auto max-w-6xl px-6 py-16 md:py-24">
+      <div class="flex items-end justify-between">
+        <div>
+          <h2 class="text-2xl md:text-3xl font-semibold">Rook and Raven Public House Presents:</h2>
+          <p class="mt-2 text-neutral-400">Soundtracks for the fog, grit, and garnet light.</p>
+        </div>
+        <div class="hidden md:flex gap-2">
+          <button type="button" aria-label="Previous" class="playlist-prev rounded-xl border border-neutral-800 px-3 py-2 text-sm hover:bg-neutral-900">
+            ‹
+          </button>
+          <button type="button" aria-label="Next" class="playlist-next rounded-xl border border-neutral-800 px-3 py-2 text-sm hover:bg-neutral-900">
+            ›
+          </button>
+        </div>
       </div>
-      <div class="hidden md:flex gap-2">
-        <button type="button" aria-label="Previous" 
-          class="playlist-prev rounded-xl border border-neutral-800 px-3 py-2 text-sm hover:bg-neutral-900">
-          ‹
-        </button>
-        <button type="button" aria-label="Next"
-          class="playlist-next rounded-xl border border-neutral-800 px-3 py-2 text-sm hover:bg-neutral-900">
-          ›
-        </button>
+
+      <!-- Track container -->
+      <div class="relative mt-6">
+        <!-- gradient edges for nice fade -->
+        <div class="pointer-events-none absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-neutral-950 to-transparent"></div>
+        <div class="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-neutral-950 to-transparent"></div>
+
+        <div id="playlist-track" class="flex gap-5 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2 [-ms-overflow-style:none] [scrollbar-width:none]" style="scroll-padding-left:1.5rem">
+          <!-- hide scrollbar (webkit) -->
+          <style>
+            #playlist-track::-webkit-scrollbar { display: none }
+          </style>
+
+          <!-- Card 1 -->
+          <article class="snap-start shrink-0 w-72 overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900/50 shadow">
+            <a href="https://music.youtube.com/playlist?list=PLd1RcpsuXAPFiQrZtvt1Iv5_UcnH_B0nC&si=Y5_Wsuwrgp8zYX_n" target="_blank" rel="noopener" class="block group">
+              <div class="relative" style="aspect-ratio:1/1;">
+                <img src="./images/playlists/levi_playlist.png" alt="Bloodlines: Levi Sands playlist cover" class="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02] group-hover:opacity-95" loading="lazy">
+                <div class="absolute inset-0 bg-gradient-to-t from-neutral-950/70 via-transparent to-transparent"></div>
+              </div>
+              <div class="p-4">
+                <h3 class="text-base font-semibold">Bloodlines: Levi Sands</h3>
+                <p class="mt-1 text-xs text-neutral-400">alt-rock | grit-folk | fight-to-protect</p>
+                <p class="mt-2 text-sm text-neutral-300 line-clamp-2">
+                  Swagger, scars, and a promise kept. Road-dust anthems, bar-fight gospel, and garnet-fire needle drops.
+                </p>
+                <span class="mt-3 inline-flex items-center gap-2 text-rose-400 text-sm">
+                  Listen
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h9.19l-3.72-3.72a.75.75 0 1 1 1.06-1.06l5 5a.75.75 0 0 1 0 1.06l-5 5a.75.75 0 1 1-1.06-1.06l3.72-3.72H3.75A.75.75 0 0 1 3 10Z" clip-rule="evenodd" />
+                  </svg>
+                </span>
+              </div>
+            </a>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="snap-start shrink-0 w-72 overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900/50 shadow">
+            <a href="https://open.spotify.com/playlist/your-id-2" target="_blank" rel="noopener" class="block group">
+              <div class="relative" style="aspect-ratio:1/1;">
+                <img src="./images/playlists/temperance_playlist.png" alt="Bloodlines: Temperance Bennett playlist cover" class="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02] group-hover:opacity-95" loading="lazy">
+                <div class="absolute inset-0 bg-gradient-to-t from-neutral-950/70 via-transparent to-transparent"></div>
+              </div>
+              <div class="p-4">
+                <h3 class="text-base font-semibold">Bloodlines: Temperance Bennett</h3>
+                <p class="mt-1 text-xs text-neutral-400">post-rock | dark roots | percussion</p>
+                <p class="mt-2 text-sm text-neutral-300 line-clamp-2">
+                  Garnet glow and granite weight. Big drums, bowed guitar, tectonic crescendos.
+                </p>
+                <span class="mt-3 inline-flex items-center gap-2 text-rose-400 text-sm">
+                  Listen
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h9.19l-3.72-3.72a.75.75 0 1 1 1.06-1.06l5 5a.75.75 0 0 1 0 1.06l-5 5a.75.75 0 1 1-1.06-1.06l3.72-3.72H3.75A.75.75 0 0 1 3 10Z" clip-rule="evenodd" />
+                  </svg>
+                </span>
+              </div>
+            </a>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="snap-start shrink-0 w-72 overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900/50 shadow">
+            <a href="https://open.spotify.com/playlist/your-id-3" target="_blank" rel="noopener" class="block group">
+              <div class="relative" style="aspect-ratio:1/1;">
+                <img src="./images/playlists/isaac_playlist.png" alt="Bloodlines: Isaac Sands playlist cover" class="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02] group-hover:opacity-95" loading="lazy">
+                <div class="absolute inset-0 bg-gradient-to-t from-neutral-950/70 via-transparent to-transparent"></div>
+              </div>
+              <div class="p-4">
+                <h3 class="text-base font-semibold">Bloodlines: Isaac Sands</h3>
+                <p class="mt-1 text-xs text-neutral-400">drone | ritual | low brass</p>
+                <p class="mt-2 text-sm text-neutral-300 line-clamp-2">
+                  Old gold eyes in the fog. Distant horns, throat-sung harmonics, pressure-wave subs.
+                </p>
+                <span class="mt-3 inline-flex items-center gap-2 text-rose-400 text-sm">
+                  Listen
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h9.19l-3.72-3.72a.75.75 0 1 1 1.06-1.06l5 5a.75.75 0 0 1 0 1.06l-5 5a.75.75 0 1 1-1.06-1.06l3.72-3.72H3.75A.75.75 0 0 1 3 10Z" clip-rule="evenodd" />
+                  </svg>
+                </span>
+              </div>
+            </a>
+          </article>
+        </div>
+
+        <!-- Mobile prev/next -->
+        <div class="mt-4 flex justify-center gap-3 md:hidden">
+          <button type="button" aria-label="Previous" class="playlist-prev rounded-xl border border-neutral-800 px-3 py-2 text-sm hover:bg-neutral-900">
+            ‹
+          </button>
+          <button type="button" aria-label="Next" class="playlist-next rounded-xl border border-neutral-800 px-3 py-2 text-sm hover:bg-neutral-900">
+            ›
+          </button>
+        </div>
       </div>
     </div>
+  </section>
 
-    <!-- Track container -->
-    <div class="relative mt-6">
-      <!-- gradient edges for nice fade -->
-      <div class="pointer-events-none absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-neutral-950 to-transparent"></div>
-      <div class="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-neutral-950 to-transparent"></div>
+  <script>
+    // simple nudge scrolling
+    const track = document.querySelector('#playlist-track');
+    const prevs = document.querySelectorAll('.playlist-prev');
+    const nexts = document.querySelectorAll('.playlist-next');
 
-      <div id="playlist-track"
-           class="flex gap-5 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2 [-ms-overflow-style:none] [scrollbar-width:none]"
-           style="scroll-padding-left:1.5rem">
-        <!-- hide scrollbar (webkit) -->
-        <style>
-          #playlist-track::-webkit-scrollbar{display:none}
-        </style>
+    function cardWidth() {
+      const card = track.querySelector('article');
+      return card ? card.getBoundingClientRect().width + 20 : 320;
+    }
 
-        <!-- Card -->
-        <article class="snap-start shrink-0 w-72 overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900/50 shadow">
-          <a href="https://music.youtube.com/playlist?list=PLd1RcpsuXAPFiQrZtvt1Iv5_UcnH_B0nC&si=Y5_Wsuwrgp8zYX_n" target="_blank" rel="noopener"
-             class="block group">
-            <div class="relative" style="aspect-ratio:1/1;">
-              <img src="./images/playlists/levi_playlist.png" alt="Bloodlines: Levi Sands playlist cover"
-                   class="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02] group-hover:opacity-95" loading="lazy">
-              <div class="absolute inset-0 bg-gradient-to-t from-neutral-950/70 via-transparent to-transparent"></div>
-            </div>
-            <div class="p-4">
-              <h3 class="text-base font-semibold">Bloodlines: Levi Sands</h3>
-              <p class="mt-1 text-xs text-neutral-400">alt-rock | grit-folk | fight-to-protect</p>
-              <p class="mt-2 text-sm text-neutral-300 line-clamp-2"> Swagger, scars, and a promise kept. Road-dust anthems, bar-fight gospel, and garnet-fire needle drops.
-     </p>
-              <span class="mt-3 inline-flex items-center gap-2 text-[rgb(var(--accent))] text-sm">
-                Listen <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h9.19l-3.72-3.72a.75.75 0 1 1 1.06-1.06l5 5a.75.75 0 0 1 0 1.06l-5 5a.75.75 0 1 1-1.06-1.06l3.72-3.72H3.75A.75.75 0 0 1 3 10Z" clip-rule="evenodd"/></svg>
-              </span>
-            </div>
-          </a>
-        </article>
+    prevs.forEach(btn => btn.addEventListener('click', () => {
+      track.scrollBy({ left: -cardWidth(), behavior: 'smooth' });
+    }));
+    nexts.forEach(btn => btn.addEventListener('click', () => {
+      track.scrollBy({ left: cardWidth(), behavior: 'smooth' });
+    }));
+  </script>
 
-        <!-- Card -->
-        <article class="snap-start shrink-0 w-72 overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900/50 shadow">
-          <a href="https://open.spotify.com/playlist/your-id-2" target="_blank" rel="noopener" class="block group">
-            <div class="relative" style="aspect-ratio:1/1;">
-              <img src="./images/playlists/temperance_playlist.png" alt="Bloodlines: Temperance Bennet playlist cover"
-                   class="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02] group-hover:opacity-95" loading="lazy">
-              <div class="absolute inset-0 bg-gradient-to-t from-neutral-950/70 via-transparent to-transparent"></div>
-            </div>
-            <div class="p-4">
-              <h3 class="text-base font-semibold">Bloodlines: Temperance Bennett</h3>
-              <p class="mt-1 text-xs text-neutral-400">post-rock | dark roots | percussion</p>
-              <p class="mt-2 text-sm text-neutral-300 line-clamp-2">Garnet glow and granite weight. Big drums, bowed guitar, tectonic crescendos.</p>
-              <span class="mt-3 inline-flex items-center gap-2 text-[rgb(var(--accent))] text-sm">Listen
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h9.19l-3.72-3.72a.75.75 0 1 1 1.06-1.06l5 5a.75.75 0 0 1 0 1.06l-5 5a.75.75 0 1 1-1.06-1.06l3.72-3.72H3.75A.75.75 0 0 1 3 10Z" clip-rule="evenodd"/></svg>
-              </span>
-            </div>
-          </a>
-        </article>
-
-        <!-- Card -->
-        <article class="snap-start shrink-0 w-72 overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900/50 shadow">
-          <a href="https://open.spotify.com/playlist/your-id-3" target="_blank" rel="noopener" class="block group">
-            <div class="relative" style="aspect-ratio:1/1;">
-              <img src="./images/playlists/isaac_playlist.png" alt="Bloodlines: Isaac Sands playlist cover"
-                   class="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02] group-hover:opacity-95" loading="lazy">
-              <div class="absolute inset-0 bg-gradient-to-t from-neutral-950/70 via-transparent to-transparent"></div>
-            </div>
-            <div class="p-4">
-              <h3 class="text-base font-semibold">Bloodlines: Isaac Sands</h3>
-              <p class="mt-1 text-xs text-neutral-400">drone | ritual | low brass</p>
-              <p class="mt-2 text-sm text-neutral-300 line-clamp-2">Old gold eyes in the fog. Distant horns, throat-sung harmonics, pressure-wave subs.</p>
-              <span class="mt-3 inline-flex items-center gap-2 text-[rgb(var(--accent))] text-sm">Listen
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h9.19l-3.72-3.72a.75.75 0 1 1 1.06-1.06l5 5a.75.75 0 0 1 0 1.06l-5 5a.75.75 0 1 1-1.06-1.06l3.72-3.72H3.75A.75.75 0 0 1 3 10Z" clip-rule="evenodd"/></svg>
-              </span>
-            </div>
-          </a>
-        </article>
-
-        <!-- Add more cards as you publish playlists -->
-      </div>
-
-      <!-- Mobile prev/next (optional): show under track -->
-      <div class="mt-4 flex justify-center gap-3 md:hidden">
-        <button type="button" aria-label="Previous" 
-          class="playlist-prev rounded-xl border border-neutral-800 px-3 py-2 text-sm hover:bg-neutral-900">
-          ‹
-        </button>
-        <button type="button" aria-label="Next"
-          class="playlist-next rounded-xl border border-neutral-800 px-3 py-2 text-sm hover:bg-neutral-900">
-          ›
-        </button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<script>
-  // simple nudge scrolling
-  const track = document.querySelector('#playlist-track');
-  const prevs = document.querySelectorAll('.playlist-prev');
-  const nexts = document.querySelectorAll('.playlist-next');
-
-  function cardWidth() {
-    const card = track.querySelector('article');
-    return card ? card.getBoundingClientRect().width + 20 /*gap*/ : 320;
-    // adjust gap if you change .gap-5
-  }
-
-  prevs.forEach(btn => btn.addEventListener('click', () => {
-    track.scrollBy({ left: -cardWidth(), behavior: 'smooth' });
-  }));
-  nexts.forEach(btn => btn.addEventListener('click', () => {
-    track.scrollBy({ left: cardWidth(), behavior: 'smooth' });
-  }));
-</script>
   <!-- Sample / Excerpt -->
   <section id="sample" class="bg-neutral-950">
     <div class="mx-auto max-w-3xl px-6 py-16 md:py-24">
       <h2 class="text-2xl md:text-3xl font-semibold">Opening Chapter</h2>
-      <p class="mt-4 text-neutral-300">From the Prologue:</p>
-      <blockquote class="mt-6 rounded-2xl border border-neutral-800 bg-neutral-900/50 p-6 text-neutral-200">
-        <!-- content trimmed for brevity in this demo -->
-        <p><span class="opacity-80">[...]</span></p>
-      </blockquote>
+      <p class="mt-4 text-neutral-300">From Chapter One: <em>The Call</em></p>
+
+      <!-- Click-to-open preview card -->
       <div class="mt-6">
-<a href="#subscribe"
-   class="inline-flex items-center gap-2 whitespace-nowrap
-          rounded-xl px-5 py-3 text-sm font-semibold
-          bg-[rgb(var(--accent))] text-[rgb(var(--accent-fg))]
-          hover:bg-[rgb(var(--accent))]/90 transition">
-  Get Early Access to More
-  <!-- optional icon here -->
-</a>
+        <button
+          id="preview-toggle"
+          type="button"
+          class="inline-flex items-center gap-2 rounded-xl border border-neutral-700 bg-neutral-900 px-4 py-3 text-sm font-semibold text-neutral-100 hover:bg-neutral-800 hover:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500">
+          <span>Open extended preview</span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4" aria-hidden="true">
+            <path fill-rule="evenodd" d="M5.22 7.47a.75.75 0 0 1 1.06 0L10 11.19l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 8.53a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+          </svg>
+        </button>
+      </div>
+
+      <div
+        id="preview-card"
+        class="mt-4 hidden rounded-2xl border border-neutral-800 bg-neutral-900/70 p-5 text-sm leading-relaxed text-neutral-200">
+
+        <article id="extended-preview" class="space-y-4">
+ <p>I do not love phone calls. They interrupt your flow; whatever train of thought you are riding derails the second you have to answer. And these days, the odds of it being something worthwhile? Slim. Telemarketers and scammers see to that.</p>
+
+  <p>I especially do not like a phone call in the middle of the night. Nothing good ever comes at 2 a.m.; it is almost always bad news.</p>
+
+  <p>And anyone calling me, Judah Sands, at 2 a.m. should know better — because at that hour, you’re either bringing something I don’t want to hear, or inviting me into a problem I sure as hell don’t want to be part of.</p>
+
+  <p>So when my eyes snapped open in the darkness of my austere studio apartment on the Norfolk waterfront, dragged from sleep by the tinny chiptune of my cellphone’s 8-bit ringtone, I groaned. I sat up, pushed myself off the mattress, and fumbled for the phone. The screen’s glare stung my eyes as I squinted at the caller ID.</p>
+
+  <p>It was Ryan. This was really not looking promising.</p>
+
+  <p>"Hello?" I said into the speaker, my voice harsh, cracked and husky from sleep.</p>
+
+  <p>"Hey, bud, sorry to bother you, but it’s important."</p>
+
+  <p>Tension crackled in Ryan’s voice, more than the usual kind of stress. Something had him really on edge.</p>
+
+  <p>"You good?" I asked, concern shaking off the last fog of sleep.</p>
+
+  <p>"Oh, I'm fine," he said, but the words sounded hollow. "But, there has been... well, something out here on the trail."</p>
+
+  <p>"How delightfully unspecific." I winced. I was not trying to be an asshole to one of my few friends, especially my oldest friend, but in my defense, he did wake me up for this.</p>
+
+  <p>Based on the lack of a specific trail name, my mind defaulted to the most well-known one in the region, the Appalachian Trail that runs from Georgia to Maine and cuts past the town where Ryan and I grew up. He was now an officer for the Deep Springs Police Department, a job I was offered before I blew town right out of high school, joining the Navy and getting out of that isolated prison valley.</p>
+
+  <p>"Well, if I could be more specific, I would." His voice dipped back into that well of tension. He was... disturbed, the same way he had sounded after that domestic case a decade ago that almost got him killed. "It is a real mess up here, Judah. I have got something like thirteen people dead, from some military-ish contractor types with serious hardware to some academic types, if I am reading this right."</p>
+
+  <p>Oh no. Researchers. Do not say it&mdash;</p>
+
+  <p>"We ain't found your dad at all, but we know he was with them. His gear is at the encampment, or what is left of it, but no Isaac."</p></article>
+
+      </div>
+
+      <p class="mt-4 text-xs text-neutral-400">
+        <em>Content notes for the opening: includes references to death in the mountains, grief, and brief moments of on-page violence.</em>
+      </p>
+      <div class="mt-6">
+        <a href="#subscribe"
+          class="inline-flex items-center gap-2 whitespace-nowrap rounded-xl px-5 py-3 text-sm font-semibold bg-rose-600 text-neutral-50 hover:bg-rose-600/90 transition">
+          Get Early Access to More
+        </a>
       </div>
     </div>
   </section>
@@ -338,11 +390,26 @@
       <div class="md:col-span-3 self-center">
         <h2 class="text-2xl md:text-3xl font-semibold">About the Author</h2>
         <p class="mt-4 text-neutral-300">
-          Rook builds mythic frameworks from Appalachian folklore, folds them into modern thrillers, and seasons generously with scientific method. This is Book One of a planned saga.
+          Mason Rok builds mythic frameworks from Appalachian folklore, folds them into modern thrillers, and seasons generously with scientific method. This is Book One of a planned saga.
         </p>
         <div class="mt-6 flex flex-wrap gap-3">
-          <a href="./press/one-sheet.pdf" class="rounded-xl bg-neutral-800 px-5 py-3 text-sm font-semibold text-neutral-100 hover:bg-neutral-700 transition">Press Kit / Publishing Packet</a>
-          <a href="#subscribe" class="rounded-xl border border-neutral-700 px-5 py-3 text-sm font-semibold text-neutral-100 hover:bg-neutral-800 transition">Contact</a>
+          <a href="./press/one-sheet.pdf" class="rounded-xl bg-neutral-800 px-5 py-3 text-sm font-semibold text-neutral-100 hover:bg-neutral-700 transition">
+            Press Kit / Publishing Packet
+          </a>
+          <a href="#subscribe" class="rounded-xl border border-neutral-700 px-5 py-3 text-sm font-semibold text-neutral-100 hover:bg-neutral-800 transition">
+            Contact
+          </a>
+        </div>
+        <div class="mt-8 border-t border-neutral-800 pt-6">
+          <h3 class="text-sm font-semibold uppercase tracking-wide text-neutral-400">For agents and publishers</h3>
+          <ul class="mt-3 space-y-2 text-sm text-neutral-300">
+            <li><span class="font-semibold">Project:</span> <em>Bloodline: The Garnet Shield, Book One of Bloodline: Spirits of the Smokies.</em></li>
+            <li><span class="font-semibold">Status:</span> <em>Substantial partial in active revision (Prologue and early acts drafted; series arc outlined); open to representation and editorial partnership.</em></li>
+            <li><span class="font-semibold">Positioning:</span> <em>For readers of The Dresden Files who want less wizards, more folklore, and more rot behind the nicotine-stained wallpaper, blending procedural mystery, generational horror, and Appalachian myth.</em></li>
+            <li><span class="font-semibold">What it is:</span> <em>A retired Navy investigator returns home after a massacre on his father’s expedition and finds himself caught between law enforcement procedure, small town politics, and something old in the ridgeline that remembers every promise the Sands family ever broke.</em></li>
+            <li><span class="font-semibold">Materials available:</span> <em>Query-style one-sheet, synopsis, and sample chapters; additional materials available on request.</em></li>
+            <li><span class="font-semibold">Contact:</span> <em>Email <a href="mailto:masonrok@rook.works">masonrok@rook.works</a> with "Bloodline: Garnet Shield" in the subject line, or use the subscribe form below to request materials.</em></li>
+          </ul>
         </div>
       </div>
     </div>
@@ -350,17 +417,19 @@
 
   <!-- Subscribe -->
   <section id="subscribe" class="relative isolate overflow-hidden bg-neutral-950">
-    <div class="absolute inset-0 -z-10 bg-gradient-to-b from-[rgb(var(--accent))/0.2] via-neutral-900 to-neutral-950" aria-hidden="true"></div>
+    <div class="absolute inset-0 -z-10 bg-gradient-to-b from-rose-900/40 via-neutral-900 to-neutral-950" aria-hidden="true"></div>
     <div class="mx-auto max-w-2xl px-6 py-16 md:py-24 text-center">
       <h2 class="text-2xl md:text-3xl font-semibold">Get early chapters, art reveals, and lore drops</h2>
       <p class="mt-3 text-neutral-300">Join the mailing list for Bloodline updates (no spam, just fog and folklore).</p>
       <form class="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center" action="#" method="post">
-        <input type="email" placeholder="you@domain.com" class="w-full rounded-xl border border-neutral-800 bg-neutral-900 px-4 py-3 text-sm text-neutral-100 placeholder-neutral-500 outline-none focus:ring-2 focus:ring-emerald-500 sm:w-80">
-        <button type="submit" class="rounded-xl px-5 py-3 text-sm font-semibold
-       bg-[rgb(var(--accent))] text-[rgb(var(--accent-fg))]
-       hover:bg-[rgb(var(--accent))]/90 transition">Subscribe</button>
+        <input type="email" placeholder="you@domain.com" class="w-full rounded-xl border border-neutral-800 bg-neutral-900 px-4 py-3 text-sm text-neutral-100 placeholder-neutral-500 outline-none focus:ring-2 focus:ring-rose-500 sm:w-80">
+        <button type="submit" class="rounded-xl px-5 py-3 text-sm font-semibold bg-rose-600 text-neutral-50 hover:bg-rose-600/90 transition">
+          Subscribe
+        </button>
       </form>
-      <p class="mt-3 text-xs text-neutral-400">Or <a href="#" class="underline underline-offset-4 hover:text-neutral-200">read more on Ko-Fi / Substack</a></p>
+      <p class="mt-3 text-xs text-neutral-400">
+        Or <a href="#" class="underline underline-offset-4 hover:text-neutral-200">read more on Ko-Fi / Substack</a>
+      </p>
     </div>
   </section>
 
@@ -371,56 +440,67 @@
         <p class="text-sm text-neutral-300">A Rook and Raven Public House Story</p>
         <p class="mt-1 text-xs text-neutral-500">&copy; <span id="year"></span> Rookworks · All rights reserved.</p>
       </div>
-      <nav class="flex gap-5 text-sm text-neutral-400">
+      <nav class="flex flex-wrap gap-5 text-sm text-neutral-400">
         <a href="#hook" class="hover:text-neutral-200">Story</a>
         <a href="#world" class="hover:text-neutral-200">World</a>
         <a href="#sample" class="hover:text-neutral-200">Sample</a>
         <a href="#author" class="hover:text-neutral-200">Author</a>
         <a href="#subscribe" class="hover:text-neutral-200">Subscribe</a>
       </nav>
+      <div class="flex items-center gap-4">
+        <!-- Patreon blob icon -->
+        <a href="https://patreon.com" target="_blank" rel="noopener" aria-label="Support on Patreon" class="text-sm text-neutral-400 hover:text-rose-300">
+          <svg viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-rose-500" aria-hidden="true">
+            <path fill="currentColor" d="M1033.05,324.45c-0.19-137.9-107.59-250.92-233.6-291.7c-156.48-50.64-362.86-43.3-512.28,27.2
+	C106.07,145.41,49.18,332.61,47.06,519.31c-1.74,153.5,13.58,557.79,241.62,560.67c169.44,2.15,194.67-216.18,273.07-321.33
+	c55.78-74.81,127.6-95.94,216.01-117.82C929.71,603.22,1033.27,483.3,1033.05,324.45z"/>
+          </svg>
+        </a>
+        </a>
+        <!-- Instagram icon -->
+        <a href="https://instagram.com/masonrok" target="_blank" rel="noopener" aria-label="Mason Rok on Instagram" class="text-sm text-neutral-400 hover:text-rose-300">
+          <svg viewBox="0 0 24 24" aria-hidden="true" class="h-5 w-5 text-rose-500">
+            <rect x="3" y="3" width="18" height="18" rx="5" ry="5" fill="none" stroke="currentColor" stroke-width="2"/>
+            <circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2"/>
+            <circle cx="17" cy="7" r="1.5" fill="currentColor"/>
+          </svg>
+        </a>
+        <!-- Threads icon (official) -->
+        <a href="https://www.threads.net/@masonrok" target="_blank" rel="noopener" aria-label="Mason Rok on Threads" class="text-sm text-neutral-400 hover:text-rose-300">
+          <svg aria-label="Threads" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-rose-500"><path fill="currentColor" d="M141.537 88.9883C140.71 88.5919 139.87 88.2104 139.019 87.8451C137.537 60.5382 122.616 44.905 97.5619 44.745C97.4484 44.7443 97.3355 44.7443 97.222 44.7443C82.2364 44.7443 69.7731 51.1409 62.102 62.7807L75.881 72.2328C81.6116 63.5383 90.6052 61.6848 97.2286 61.6848C97.3051 61.6848 97.3819 61.6848 97.4576 61.6855C105.707 61.7381 111.932 64.1366 115.961 68.814C118.893 72.2193 120.854 76.925 121.825 82.8638C114.511 81.6207 106.601 81.2385 98.145 81.7233C74.3247 83.0954 59.0111 96.9879 60.0396 116.292C60.5615 126.084 65.4397 134.508 73.775 140.011C80.8224 144.663 89.899 146.938 99.3323 146.423C111.79 145.74 121.563 140.987 128.381 132.296C133.559 125.696 136.834 117.143 138.28 106.366C144.217 109.949 148.617 114.664 151.047 120.332C155.179 129.967 155.42 145.8 142.501 158.708C131.182 170.016 117.576 174.908 97.0135 175.059C74.2042 174.89 56.9538 167.575 45.7381 153.317C35.2355 139.966 29.8077 120.682 29.6052 96C29.8077 71.3178 35.2355 52.0336 45.7381 38.6827C56.9538 24.4249 74.2039 17.11 97.0132 16.9405C119.988 17.1113 137.539 24.4614 149.184 38.788C154.894 45.8136 159.199 54.6488 162.037 64.9503L178.184 60.6422C174.744 47.9622 169.331 37.0357 161.965 27.974C147.036 9.60668 125.202 0.195148 97.0695 0H96.9569C68.8816 0.19447 47.2921 9.6418 32.7883 28.0793C19.8819 44.4864 13.2244 67.3157 13.0007 95.9325L13 96L13.0007 96.0675C13.2244 124.684 19.8819 147.514 32.7883 163.921C47.2921 182.358 68.8816 191.806 96.9569 192H97.0695C122.03 191.827 139.624 185.292 154.118 170.811C173.081 151.866 172.51 128.119 166.26 113.541C161.776 103.087 153.227 94.5962 141.537 88.9883ZM98.4405 129.507C88.0005 130.095 77.1544 125.409 76.6196 115.372C76.2232 107.93 81.9158 99.626 99.0812 98.6368C101.047 98.5234 102.976 98.468 104.871 98.468C111.106 98.468 116.939 99.0737 122.242 100.233C120.264 124.935 108.662 128.946 98.4405 129.507Z"></path></svg>
+        </a>
+      </div>
     </div>
   </footer>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
-	<!-- Stone Ring Switcher -->
-<div class="fixed right-4 bottom-4 z-50 rounded-2xl border border-neutral-800 bg-neutral-900/80 backdrop-blur px-3 py-2">
-  <div class="flex items-center gap-2" role="radiogroup" aria-label="Theme">
-    <button class="stone-btn" role="radio" aria-label="Garnet"   data-theme="garnet"   data-color="#9b1c31"><svg viewBox="0 0 24 24"><polygon points="12,2 19,6 22,13 17,21 7,21 2,13 5,6"/></svg></button>
-    <button class="stone-btn" role="radio" aria-label="Citrine"  data-theme="citrine"  data-color="#e0a100"><svg viewBox="0 0 24 24"><polygon points="7,4 17,4 21,12 17,20 7,20 3,12"/></svg></button>
-    <button class="stone-btn" role="radio" aria-label="Quartz"   data-theme="quartz"   data-color="#a3a3a3"><svg viewBox="0 0 24 24"><path d="M12 2l4 4-2 6 3 5-5 5-5-5 3-5-2-6z"/></svg></button>
-    <button class="stone-btn" role="radio" aria-label="Sapphire" data-theme="sapphire" data-color="#2563eb"><svg viewBox="0 0 24 24"><polygon points="12,2 20,8 16,22 8,22 4,8"/></svg></button>
-    <button class="stone-btn" role="radio" aria-label="Ruby"     data-theme="ruby"     data-color="#ef4444"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3" ry="3"/></svg></button>
-    <button class="stone-btn" role="radio" aria-label="Amethyst" data-theme="amethyst" data-color="#7c3aed"><svg viewBox="0 0 24 24"><polygon points="12,2 20,12 12,22 4,12"/></svg></button>
-    <button class="stone-btn" role="radio" aria-label="Emerald"  data-theme="emerald"  data-color="#10b981"><svg viewBox="0 0 24 24"><polygon points="12,3 21,19 3,19"/></svg></button>
-  </div>
-</div>
-<script>
-  // color preview from data-color
-  document.querySelectorAll('.stone-btn').forEach(b => {
-    const c = b.getAttribute('data-color');
-    if (c) b.style.color = c;
-  });
 
-  // bind interactions
-  const ring = document.querySelectorAll('.stone-btn');
-  function markActive(theme) {
-    ring.forEach(b => b.setAttribute('aria-checked', String(b.dataset.theme === theme)));
-  }
-  markActive(document.documentElement.getAttribute('data-theme') || 'quartz');
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const btn = document.getElementById("preview-toggle");
+      const card = document.getElementById("preview-card");
 
-  ring.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const t = btn.dataset.theme;
-      setTheme(t);
-      markActive(t);
+      if (!btn || !card) {
+        console.warn("preview-toggle or preview-card missing from DOM");
+        return;
+      }
+
+      btn.addEventListener("click", () => {
+        card.classList.toggle("hidden");
+
+        if (!card.classList.contains("hidden")) {
+          card.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+
+        const span = btn.querySelector("span");
+        span.textContent = card.classList.contains("hidden")
+          ? "Open extended preview"
+          : "Close extended preview";
+      });
     });
-    btn.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
-    });
-  });
-</script>
+  </script>
 
 </body>
 </html>
