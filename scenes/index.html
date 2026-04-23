@@ -154,7 +154,7 @@
                     <div class="min-w-0">
                       <p class="text-[11px] uppercase tracking-[0.18em] text-neutral-500">${sceneLabel}</p>
                       <h4 class="mt-1 text-base font-semibold text-neutral-50">
-                        <a class="transition hover:text-rose-300" href="./${scene.slug}.html">${scene.title}</a>
+                        <a class="transition hover:text-rose-300" href="${scene.href || `./${scene.slug}.html`}">${scene.title}</a>
                       </h4>
                       ${subtitle}
                       ${excerpt}
@@ -162,7 +162,7 @@
                     <div class="flex flex-wrap gap-2 md:justify-end">
                       ${scene.status ? `<span class="rounded-full border border-neutral-700 bg-neutral-950/80 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-neutral-300">${scene.status}</span>` : ""}
                       ${scene.word_count ? `<span class="rounded-full border border-neutral-700 bg-neutral-950/80 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-neutral-300">${scene.word_count} words</span>` : ""}
-                      <a href="./${scene.slug}.html" class="rounded-2xl bg-rose-600 px-4 py-2 text-sm font-semibold text-neutral-50 transition hover:bg-rose-500">
+                      <a href="${scene.href || `./${scene.slug}.html`}" class="rounded-2xl bg-rose-600 px-4 py-2 text-sm font-semibold text-neutral-50 transition hover:bg-rose-500">
                         Read
                       </a>
                     </div>
