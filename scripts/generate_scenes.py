@@ -123,10 +123,27 @@ def strip_dataview_blocks(text: str) -> str:
 
 
 def render_inline(text: str) -> str:
-    escaped = html.escape(text)
-    escaped = WIKI_LINK_RE.sub(lambda m: f'<span class="text-rose-300">{html.escape(m.group(1))}</span>', escaped)
+    text = normalize_wiki_links(text)
+    escaped = html.escape(text, quote=False)
     escaped = EMPHASIS_RE.sub(lambda m: f"<em>{m.group(2)}</em>", escaped)
     return escaped.replace("&mdash;", "—")
+
+
+def normalize_wiki_links(text: str) -> str:
+    def repl(match: re.Match[str]) -> str:
+        inner = match.group(1).strip()
+        if "|" in inner:
+            return inner.split("|")[-1].strip()
+        return inner
+
+    return WIKI_LINK_RE.sub(repl, text)
+
+
+def normalize_plain_text(text: str) -> str:
+    text = normalize_wiki_links(text)
+    text = text.replace("—", "—")
+    text = re.sub(r"(\*|_)([^*_]+)\1", r"\2", text)
+    return text
 
 
 def markdown_to_html(text: str) -> tuple[str, str, int]:
@@ -143,6 +160,7 @@ def markdown_to_html(text: str) -> tuple[str, str, int]:
         if not raw:
             paragraph.clear()
             return
+        raw = normalize_plain_text(raw)
         rendered = render_inline(raw)
         blocks.append(f"<p>{rendered}</p>")
         if not excerpt:
@@ -189,7 +207,7 @@ def markdown_to_html(text: str) -> tuple[str, str, int]:
 
     flush_paragraph()
 
-    plain_text = re.sub(r"\s+", " ", strip_tags(" ".join(blocks))).strip()
+    plain_text = re.sub(r"\s+", " ", normalize_plain_text(strip_tags(" ".join(blocks)))).strip()
     word_count = len(plain_text.split()) if plain_text else 0
     return "\n".join(blocks), excerpt, word_count
 
@@ -261,8 +279,9 @@ def render_list(items: Any) -> str:
 
 
 def render_scene_page(scene: SceneDoc, previous_scene: SceneDoc | None, next_scene: SceneDoc | None) -> str:
+    scene_title_text = html.escape(scene.title, quote=False)
     subtitle_html = (
-        f'<p class="mt-3 text-lg text-rose-200">{html.escape(scene.subtitle)}</p>' if scene.subtitle else ""
+        f'<p class="mt-3 text-lg text-rose-200">{html.escape(scene.subtitle, quote=False)}</p>' if scene.subtitle else ""
     )
     pov_list = render_list(scene.meta.get("pov"))
     location_list = render_list(scene.meta.get("locations"))
@@ -271,7 +290,7 @@ def render_scene_page(scene: SceneDoc, previous_scene: SceneDoc | None, next_sce
   <span class="text-lg text-rose-300 transition group-hover:-translate-x-1">←</span>
   <span class="min-w-0">
     <span class="block text-[11px] uppercase tracking-[0.18em] text-neutral-500">Previous</span>
-    <span class="mt-1 block truncate">{html.escape(previous_scene.title)}</span>
+    <span class="mt-1 block truncate">{html.escape(previous_scene.title, quote=False)}</span>
   </span>
 </a>"""
         if previous_scene
@@ -281,7 +300,7 @@ def render_scene_page(scene: SceneDoc, previous_scene: SceneDoc | None, next_sce
         f"""<a href="./{next_scene.slug}.html" class="group fixed right-4 top-1/2 z-40 hidden -translate-y-1/2 xl:flex max-w-[13rem] items-center justify-end gap-3 rounded-2xl border border-rose-900/60 bg-rose-950/80 px-4 py-3 text-right text-sm font-semibold text-rose-100 shadow-2xl shadow-black/40 backdrop-blur transition hover:bg-rose-900">
   <span class="min-w-0">
     <span class="block text-[11px] uppercase tracking-[0.18em] text-rose-300/70">Next</span>
-    <span class="mt-1 block truncate">{html.escape(next_scene.title)}</span>
+    <span class="mt-1 block truncate">{html.escape(next_scene.title, quote=False)}</span>
   </span>
   <span class="text-lg transition group-hover:translate-x-1">→</span>
 </a>"""
@@ -289,12 +308,12 @@ def render_scene_page(scene: SceneDoc, previous_scene: SceneDoc | None, next_sce
         else ""
     )
     bottom_prev = (
-        f'<a href="./{previous_scene.slug}.html" class="rounded-2xl border border-neutral-700 px-4 py-3 text-sm font-semibold text-neutral-200 transition hover:bg-neutral-900 xl:hidden">← {html.escape(previous_scene.title)}</a>'
+        f'<a href="./{previous_scene.slug}.html" class="rounded-2xl border border-neutral-700 px-4 py-3 text-sm font-semibold text-neutral-200 transition hover:bg-neutral-900 xl:hidden">← {html.escape(previous_scene.title, quote=False)}</a>'
         if previous_scene
         else '<span></span>'
     )
     bottom_next = (
-        f'<a href="./{next_scene.slug}.html" class="rounded-2xl border border-rose-800 bg-rose-950/60 px-4 py-3 text-sm font-semibold text-rose-100 transition hover:bg-rose-900/80 xl:hidden">{html.escape(next_scene.title)} →</a>'
+        f'<a href="./{next_scene.slug}.html" class="rounded-2xl border border-rose-800 bg-rose-950/60 px-4 py-3 text-sm font-semibold text-rose-100 transition hover:bg-rose-900/80 xl:hidden">{html.escape(next_scene.title, quote=False)} →</a>'
         if next_scene
         else ""
     )
@@ -306,7 +325,7 @@ def render_scene_page(scene: SceneDoc, previous_scene: SceneDoc | None, next_sce
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{html.escape(scene.title)} | Bloodline Alpha</title>
+  <title>{scene_title_text} | Bloodline Alpha</title>
   <meta name="description" content="{html.escape((scene.excerpt or scene.title)[:155])}">
   <meta name="robots" content="noindex,nofollow,noarchive,noimageindex">
   <meta name="theme-color" content="#111827">
@@ -348,7 +367,7 @@ def render_scene_page(scene: SceneDoc, previous_scene: SceneDoc | None, next_sce
         <a href="../alpha/index.html" class="rounded-2xl border border-neutral-700 px-4 py-2 text-sm font-semibold text-neutral-200 transition hover:bg-neutral-900">Portal</a>
       </div>
       <p class="mt-6 text-xs uppercase tracking-[0.24em] text-rose-300">{html.escape(scene.source_name)}</p>
-      <h1 class="mt-3 text-4xl font-bold tracking-tight text-neutral-50 md:text-5xl">{html.escape(scene.title)}</h1>
+      <h1 class="mt-3 text-4xl font-bold tracking-tight text-neutral-50 md:text-5xl">{scene_title_text}</h1>
       {subtitle_html}
       <div class="mt-6 flex flex-wrap gap-2">
         {render_meta_chips(scene)}
