@@ -12,7 +12,7 @@ from typing import Any
 SOURCE_DIR = Path(r"R:\RookVault\01_Active\Mindpalace\Authorship\Mason Rok\Bloodline\Garnet\01_Story\Scenes")
 OUTPUT_DIR = Path(r"R:\Rookworks\bloodline\scenes")
 MANIFEST_PATH = OUTPUT_DIR / "scenes.json"
-NOTES_FORM_ACTION = "https://formspree.io/f/mldqlrky"
+NOTES_FORM_ACTION = "https://formspree.io/f/xzdyknwz"
 
 SKIP_FILES = {"compiled_scenes.md", "Scenes.md"}
 WIKI_LINK_RE = re.compile(r"\[\[([^\]]+)\]\]")
@@ -329,6 +329,7 @@ def render_scene_page(scene: SceneDoc, previous_scene: SceneDoc | None, next_sce
       <div class="mt-6 flex flex-wrap gap-2">
         {render_meta_chips(scene)}
       </div>
+      <p class="mt-4 text-sm text-neutral-400">Please leave comments on the scene using the form at the end of the page.</p>
     </header>
 
     <section class="mt-8 grid gap-6 md:grid-cols-[0.68fr_0.32fr]">
@@ -362,7 +363,10 @@ def render_scene_page(scene: SceneDoc, previous_scene: SceneDoc | None, next_sce
         <p class="text-xs text-neutral-500">Submits to the current Formspree inbox.</p>
       </div>
 
-      <form class="reader-note-form mt-6 grid gap-4 md:grid-cols-2" action="{NOTES_FORM_ACTION}" method="POST" data-scene-title="{scene_title_attr}">
+      <div data-fs-success class="hidden mt-6 rounded-2xl border border-emerald-900/60 bg-emerald-950/40 px-4 py-3 text-sm text-emerald-100"></div>
+      <div data-fs-error class="hidden mt-4 rounded-2xl border border-red-900/60 bg-red-950/40 px-4 py-3 text-sm text-red-100"></div>
+
+      <form id="reader-note-form" class="reader-note-form mt-6 grid gap-4 md:grid-cols-2" action="{NOTES_FORM_ACTION}" method="POST" data-scene-title="{scene_title_attr}">
         <input type="hidden" name="form_type" value="alpha_reader_note">
         <input type="hidden" name="scene_title" value="{scene_title_attr}">
         <input type="hidden" name="scene_slug" value="{scene_slug_attr}">
@@ -373,8 +377,10 @@ def render_scene_page(scene: SceneDoc, previous_scene: SceneDoc | None, next_sce
             type="text"
             name="reader_name"
             required
+            data-fs-field
             class="w-full rounded-2xl border border-neutral-700 bg-neutral-950 px-4 py-3 text-base text-neutral-100 outline-none transition focus:border-rose-500 focus:ring-2 focus:ring-rose-500/30"
             placeholder="Reader name">
+          <span data-fs-error="reader_name" class="mt-2 block text-sm text-red-300"></span>
         </label>
 
         <label class="block">
@@ -382,8 +388,10 @@ def render_scene_page(scene: SceneDoc, previous_scene: SceneDoc | None, next_sce
           <input
             type="email"
             name="reader_email"
+            data-fs-field
             class="w-full rounded-2xl border border-neutral-700 bg-neutral-950 px-4 py-3 text-base text-neutral-100 outline-none transition focus:border-rose-500 focus:ring-2 focus:ring-rose-500/30"
             placeholder="reader@domain.com">
+          <span data-fs-error="reader_email" class="mt-2 block text-sm text-red-300"></span>
         </label>
 
         <label class="block md:col-span-2">
@@ -392,8 +400,10 @@ def render_scene_page(scene: SceneDoc, previous_scene: SceneDoc | None, next_sce
             name="reader_notes"
             required
             rows="7"
+            data-fs-field
             class="w-full rounded-2xl border border-neutral-700 bg-neutral-950 px-4 py-3 text-base text-neutral-100 outline-none transition focus:border-rose-500 focus:ring-2 focus:ring-rose-500/30"
             placeholder="What worked, what dragged, what confused you, what line hit, where you want more..."></textarea>
+          <span data-fs-error="reader_notes" class="mt-2 block text-sm text-red-300"></span>
         </label>
 
         <div class="md:col-span-2 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
@@ -402,6 +412,7 @@ def render_scene_page(scene: SceneDoc, previous_scene: SceneDoc | None, next_sce
           </p>
           <button
             type="submit"
+            data-fs-submit-btn
             class="inline-flex items-center justify-center rounded-2xl bg-rose-600 px-5 py-3 text-sm font-semibold text-neutral-50 transition hover:bg-rose-500">
             Submit notes
           </button>
@@ -416,43 +427,27 @@ def render_scene_page(scene: SceneDoc, previous_scene: SceneDoc | None, next_sce
   </main>
 
   <script>
-    function showNoteToast(message, isError) {{
-      const toast = document.createElement("div");
-      toast.className = isError
-        ? "fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-2xl border border-red-900/60 bg-red-950/90 px-6 py-3 text-sm text-red-100 shadow-2xl shadow-black/40"
-        : "fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-2xl border border-emerald-900/60 bg-emerald-950/90 px-6 py-3 text-sm text-emerald-100 shadow-2xl shadow-black/40";
-      toast.textContent = message;
-      document.body.appendChild(toast);
-      setTimeout(() => toast.remove(), 4000);
-    }}
-
-    document.querySelectorAll(".reader-note-form").forEach((form) => {{
-      form.addEventListener("submit", async (event) => {{
-        event.preventDefault();
-
-        const action = form.getAttribute("action");
-        const formData = new FormData(form);
-        const sceneTitle = form.dataset.sceneTitle || "this scene";
-
-        try {{
-          const response = await fetch(action, {{
-            method: "POST",
-            body: formData,
-            headers: {{ Accept: "application/json" }}
-          }});
-
-          if (!response.ok) {{
-            throw new Error(`Submit failed with ${{response.status}}`);
-          }}
-
-          form.reset();
-          showNoteToast(`Notes submitted for ${{sceneTitle}}.`, false);
-        }} catch (error) {{
-          showNoteToast("Could not submit notes right now. Please try again.", true);
+    window.formspree = window.formspree || function () {{ (formspree.q = formspree.q || []).push(arguments); }};
+    formspree("initForm", {{
+      formElement: "#reader-note-form",
+      formId: "xzdyknwz",
+      onSuccess: function () {{
+        const success = document.querySelector("[data-fs-success]");
+        if (success) {{
+          success.textContent = "Notes submitted. Thank you for the read.";
+          success.classList.remove("hidden");
         }}
-      }});
+      }},
+      onError: function () {{
+        const error = document.querySelector("[data-fs-error]");
+        if (error) {{
+          error.textContent = "Could not submit notes right now. Please try again.";
+          error.classList.remove("hidden");
+        }}
+      }}
     }});
   </script>
+  <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 </body>
 </html>
 """
