@@ -323,6 +323,31 @@ def build_chapters(scenes: list[SceneDoc]) -> list[ChapterDoc]:
     return chapters
 
 
+def chapter_word_count(chapter: ChapterDoc) -> int:
+    return sum(scene.word_count for scene in chapter.scenes)
+
+
+def chapter_read_time(chapter: ChapterDoc) -> int:
+    words = chapter_word_count(chapter)
+    return max(1, round(words / 250))
+
+
+def chapter_missing_scene_one(chapter: ChapterDoc) -> bool:
+    return not any(str(scene.meta.get("scene") or "") == "1" for scene in chapter.scenes)
+
+
+def chapter_summary(chapter: ChapterDoc) -> str:
+    excerpts = [scene.excerpt.strip() for scene in chapter.scenes if scene.excerpt.strip()]
+    if not excerpts:
+        return "Current available draft material for this chapter is collected here for alpha reading."
+
+    summary = " ".join(excerpts[:2]).strip()
+    summary = re.sub(r"\s+", " ", summary)
+    if len(summary) > 280:
+        summary = summary[:277].rsplit(" ", 1)[0].rstrip(".,;:!?") + "..."
+    return summary
+
+
 def render_scene_notes_form(scene: SceneDoc) -> str:
     scene_title_attr = html.escape(scene.title, quote=True)
     scene_slug_attr = html.escape(scene.slug, quote=True)
@@ -365,12 +390,13 @@ def render_scene_block(scene: SceneDoc) -> str:
     subtitle_html = (
         f'<p class="mt-2 text-lg text-rose-200">{html.escape(scene.subtitle, quote=False)}</p>' if scene.subtitle else ""
     )
+    scene_label = f"Scene {scene.meta.get('scene')}" if scene.meta.get("scene") else "Scene"
     pov_list = render_list(scene.meta.get("pov"))
     location_list = render_list(scene.meta.get("locations"))
     return f"""
     <section id="{scene_anchor(scene)}" class="scroll-mt-24 rounded-3xl border border-neutral-800 bg-neutral-900/65 p-6 md:p-8">
       <div class="border-b border-neutral-800 pb-6">
-        <p class="text-xs uppercase tracking-[0.24em] text-rose-300">{html.escape(scene.source_name)}</p>
+        <p class="text-xs uppercase tracking-[0.24em] text-rose-300">{html.escape(scene_label, quote=False)}</p>
         <h2 class="mt-3 text-3xl font-bold tracking-tight text-neutral-50">{html.escape(scene.title, quote=False)}</h2>
         {subtitle_html}
         <div class="mt-4 flex flex-wrap gap-2">
@@ -414,6 +440,10 @@ def render_scene_block(scene: SceneDoc) -> str:
 
 def render_chapter_page(chapter: ChapterDoc, previous_chapter: ChapterDoc | None, next_chapter: ChapterDoc | None) -> str:
     lead_scene = chapter.scenes[0]
+    chapter_total_words = chapter_word_count(chapter)
+    chapter_minutes = chapter_read_time(chapter)
+    missing_scene_one = chapter_missing_scene_one(chapter)
+    summary = chapter_summary(chapter)
     side_prev = (
         f"""<a href="./{previous_chapter.slug}.html" class="group fixed left-4 top-1/2 z-40 hidden -translate-y-1/2 xl:flex max-w-[13rem] items-center gap-3 rounded-2xl border border-neutral-800 bg-neutral-950/90 px-4 py-3 text-sm font-semibold text-neutral-200 shadow-2xl shadow-black/40 backdrop-blur transition hover:border-rose-800 hover:bg-neutral-900">
   <span class="text-lg text-rose-300 transition group-hover:-translate-x-1">←</span>
@@ -496,18 +526,34 @@ def render_chapter_page(chapter: ChapterDoc, previous_chapter: ChapterDoc | None
   <main class="mx-auto max-w-5xl px-6 py-12 md:py-16">
     <header class="border-b border-neutral-800 pb-8">
       <div class="flex flex-wrap items-center gap-3">
-        <a href="../scenes/index.html" class="rounded-2xl border border-neutral-700 px-4 py-2 text-sm font-semibold text-neutral-200 transition hover:bg-neutral-900">Scene Index</a>
+        <a href="../scenes/index.html" class="rounded-2xl border border-neutral-700 px-4 py-2 text-sm font-semibold text-neutral-200 transition hover:bg-neutral-900">Chapter Index</a>
         <a href="../alpha/index.html" class="rounded-2xl border border-neutral-700 px-4 py-2 text-sm font-semibold text-neutral-200 transition hover:bg-neutral-900">Portal</a>
       </div>
       <p class="mt-6 text-xs uppercase tracking-[0.24em] text-rose-300">Bloodline Alpha Reader Portal</p>
       <h1 class="mt-3 text-4xl font-bold tracking-tight text-neutral-50 md:text-5xl">{page_title}</h1>
-      <p class="mt-4 max-w-3xl text-sm leading-6 text-neutral-300">This chapter page consolidates the currently available scene material for this chapter in one place. Use the scene jumps below or scroll straight through.</p>
-      <div class="mt-6 flex flex-wrap gap-2">
-        <span class="rounded-full border border-neutral-700 bg-neutral-900/70 px-3 py-1 text-xs uppercase tracking-[0.18em] text-neutral-300">{len(chapter.scenes)} scenes included</span>
-        {f'<span class="rounded-full border border-neutral-700 bg-neutral-900/70 px-3 py-1 text-xs uppercase tracking-[0.18em] text-neutral-300">{html.escape(str(lead_scene.meta.get("arc")), quote=False)}</span>' if lead_scene.meta.get("arc") else ''}
-      </div>
-      <div class="mt-6 flex flex-wrap gap-2">
-        {scene_links}
+      <div class="mt-8 grid gap-5 lg:grid-cols-[minmax(0,1.3fr)_minmax(18rem,0.7fr)]">
+        <section class="rounded-3xl border border-neutral-800 bg-neutral-900/60 p-6">
+          <p class="text-xs uppercase tracking-[0.18em] text-neutral-500">To This Point</p>
+          <p class="mt-3 text-base leading-7 text-neutral-200">{html.escape(summary, quote=False)}</p>
+          <div class="mt-5 flex flex-wrap gap-2">
+            <span class="rounded-full border border-neutral-700 bg-neutral-950/80 px-3 py-1 text-xs uppercase tracking-[0.18em] text-neutral-300">{len(chapter.scenes)} scenes included</span>
+            <span class="rounded-full border border-neutral-700 bg-neutral-950/80 px-3 py-1 text-xs uppercase tracking-[0.18em] text-neutral-300">{chapter_total_words} words</span>
+            <span class="rounded-full border border-neutral-700 bg-neutral-950/80 px-3 py-1 text-xs uppercase tracking-[0.18em] text-neutral-300">~{chapter_minutes} min read</span>
+            {f'<span class="rounded-full border border-neutral-700 bg-neutral-950/80 px-3 py-1 text-xs uppercase tracking-[0.18em] text-neutral-300">{html.escape(str(lead_scene.meta.get("arc")), quote=False)}</span>' if lead_scene.meta.get("arc") else ''}
+            {f'<span class="rounded-full border border-amber-800/70 bg-amber-950/40 px-3 py-1 text-xs uppercase tracking-[0.18em] text-amber-200">Missing Scene 1</span>' if missing_scene_one else ''}
+          </div>
+        </section>
+        <section class="rounded-3xl border border-neutral-800 bg-neutral-950/45 p-6">
+          <div class="flex items-center justify-between gap-3">
+            <div>
+              <p class="text-xs uppercase tracking-[0.18em] text-neutral-500">Included Scenes</p>
+              <p class="mt-2 text-sm leading-6 text-neutral-300">Jump straight into a scene or scroll through the chapter in order.</p>
+            </div>
+          </div>
+          <div class="mt-5 flex flex-wrap gap-2">
+            {scene_links}
+          </div>
+        </section>
       </div>
     </header>
 
