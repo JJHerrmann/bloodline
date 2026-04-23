@@ -266,13 +266,35 @@ def render_scene_page(scene: SceneDoc, previous_scene: SceneDoc | None, next_sce
     )
     pov_list = render_list(scene.meta.get("pov"))
     location_list = render_list(scene.meta.get("locations"))
-    nav_prev = (
-        f'<a href="./{previous_scene.slug}.html" class="rounded-2xl border border-neutral-700 px-4 py-3 text-sm font-semibold text-neutral-200 transition hover:bg-neutral-900">← {html.escape(previous_scene.title)}</a>'
+    side_prev = (
+        f"""<a href="./{previous_scene.slug}.html" class="group fixed left-4 top-1/2 z-40 hidden -translate-y-1/2 xl:flex max-w-[13rem] items-center gap-3 rounded-2xl border border-neutral-800 bg-neutral-950/90 px-4 py-3 text-sm font-semibold text-neutral-200 shadow-2xl shadow-black/40 backdrop-blur transition hover:border-rose-800 hover:bg-neutral-900">
+  <span class="text-lg text-rose-300 transition group-hover:-translate-x-1">←</span>
+  <span class="min-w-0">
+    <span class="block text-[11px] uppercase tracking-[0.18em] text-neutral-500">Previous</span>
+    <span class="mt-1 block truncate">{html.escape(previous_scene.title)}</span>
+  </span>
+</a>"""
+        if previous_scene
+        else ""
+    )
+    side_next = (
+        f"""<a href="./{next_scene.slug}.html" class="group fixed right-4 top-1/2 z-40 hidden -translate-y-1/2 xl:flex max-w-[13rem] items-center justify-end gap-3 rounded-2xl border border-rose-900/60 bg-rose-950/80 px-4 py-3 text-right text-sm font-semibold text-rose-100 shadow-2xl shadow-black/40 backdrop-blur transition hover:bg-rose-900">
+  <span class="min-w-0">
+    <span class="block text-[11px] uppercase tracking-[0.18em] text-rose-300/70">Next</span>
+    <span class="mt-1 block truncate">{html.escape(next_scene.title)}</span>
+  </span>
+  <span class="text-lg transition group-hover:translate-x-1">→</span>
+</a>"""
+        if next_scene
+        else ""
+    )
+    bottom_prev = (
+        f'<a href="./{previous_scene.slug}.html" class="rounded-2xl border border-neutral-700 px-4 py-3 text-sm font-semibold text-neutral-200 transition hover:bg-neutral-900 xl:hidden">← {html.escape(previous_scene.title)}</a>'
         if previous_scene
         else '<span></span>'
     )
-    nav_next = (
-        f'<a href="./{next_scene.slug}.html" class="rounded-2xl border border-rose-800 bg-rose-950/60 px-4 py-3 text-sm font-semibold text-rose-100 transition hover:bg-rose-900/80">{html.escape(next_scene.title)} →</a>'
+    bottom_next = (
+        f'<a href="./{next_scene.slug}.html" class="rounded-2xl border border-rose-800 bg-rose-950/60 px-4 py-3 text-sm font-semibold text-rose-100 transition hover:bg-rose-900/80 xl:hidden">{html.escape(next_scene.title)} →</a>'
         if next_scene
         else ""
     )
@@ -316,6 +338,8 @@ def render_scene_page(scene: SceneDoc, previous_scene: SceneDoc | None, next_sce
   <script>
     window.BloodlineAlphaAuth.requireAuth({{ redirectTo: "../alpha/index.html" }});
   </script>
+  {side_prev}
+  {side_next}
 
   <main class="mx-auto max-w-5xl px-6 py-12 md:py-16">
     <header class="border-b border-neutral-800 pb-8">
@@ -421,8 +445,8 @@ def render_scene_page(scene: SceneDoc, previous_scene: SceneDoc | None, next_sce
     </section>
 
     <nav class="mt-8 flex items-center justify-between gap-4 border-t border-neutral-800 pt-8">
-      {nav_prev}
-      {nav_next}
+      {bottom_prev}
+      {bottom_next}
     </nav>
   </main>
 
