@@ -12,6 +12,7 @@ from typing import Any
 SOURCE_DIR = Path(r"R:\RookVault\01_Active\Mindpalace\Authorship\Mason Rok\Bloodline\Garnet\01_Story\Scenes")
 OUTPUT_DIR = Path(r"R:\Rookworks\bloodline\scenes")
 MANIFEST_PATH = OUTPUT_DIR / "scenes.json"
+NOTES_FORM_ACTION = "https://formspree.io/f/mldqlrky"
 
 SKIP_FILES = {"compiled_scenes.md", "Scenes.md"}
 WIKI_LINK_RE = re.compile(r"\[\[([^\]]+)\]\]")
@@ -275,6 +276,8 @@ def render_scene_page(scene: SceneDoc, previous_scene: SceneDoc | None, next_sce
         if next_scene
         else ""
     )
+    scene_title_attr = html.escape(scene.title, quote=True)
+    scene_slug_attr = html.escape(scene.slug, quote=True)
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -347,11 +350,109 @@ def render_scene_page(scene: SceneDoc, previous_scene: SceneDoc | None, next_sce
       </aside>
     </section>
 
+    <section class="mt-8 rounded-3xl border border-neutral-800 bg-neutral-900/65 p-6 md:p-8">
+      <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p class="text-xs uppercase tracking-[0.24em] text-rose-300">Reader Feedback</p>
+          <h2 class="mt-2 text-2xl font-semibold text-neutral-50">Notes on this scene</h2>
+          <p class="mt-2 max-w-2xl text-sm leading-6 text-neutral-300">
+            Alpha readers can send reactions, line notes, continuity catches, or general impressions directly from the page.
+          </p>
+        </div>
+        <p class="text-xs text-neutral-500">Submits to the current Formspree inbox.</p>
+      </div>
+
+      <form class="reader-note-form mt-6 grid gap-4 md:grid-cols-2" action="{NOTES_FORM_ACTION}" method="POST" data-scene-title="{scene_title_attr}">
+        <input type="hidden" name="form_type" value="alpha_reader_note">
+        <input type="hidden" name="scene_title" value="{scene_title_attr}">
+        <input type="hidden" name="scene_slug" value="{scene_slug_attr}">
+
+        <label class="block">
+          <span class="mb-2 block text-sm font-medium text-neutral-200">Name</span>
+          <input
+            type="text"
+            name="reader_name"
+            required
+            class="w-full rounded-2xl border border-neutral-700 bg-neutral-950 px-4 py-3 text-base text-neutral-100 outline-none transition focus:border-rose-500 focus:ring-2 focus:ring-rose-500/30"
+            placeholder="Reader name">
+        </label>
+
+        <label class="block">
+          <span class="mb-2 block text-sm font-medium text-neutral-200">Email <span class="text-neutral-500">(optional)</span></span>
+          <input
+            type="email"
+            name="reader_email"
+            class="w-full rounded-2xl border border-neutral-700 bg-neutral-950 px-4 py-3 text-base text-neutral-100 outline-none transition focus:border-rose-500 focus:ring-2 focus:ring-rose-500/30"
+            placeholder="reader@domain.com">
+        </label>
+
+        <label class="block md:col-span-2">
+          <span class="mb-2 block text-sm font-medium text-neutral-200">Notes</span>
+          <textarea
+            name="reader_notes"
+            required
+            rows="7"
+            class="w-full rounded-2xl border border-neutral-700 bg-neutral-950 px-4 py-3 text-base text-neutral-100 outline-none transition focus:border-rose-500 focus:ring-2 focus:ring-rose-500/30"
+            placeholder="What worked, what dragged, what confused you, what line hit, where you want more..."></textarea>
+        </label>
+
+        <div class="md:col-span-2 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+          <p class="text-xs leading-5 text-neutral-500">
+            Scene metadata is included automatically so submissions stay attached to the correct page.
+          </p>
+          <button
+            type="submit"
+            class="inline-flex items-center justify-center rounded-2xl bg-rose-600 px-5 py-3 text-sm font-semibold text-neutral-50 transition hover:bg-rose-500">
+            Submit notes
+          </button>
+        </div>
+      </form>
+    </section>
+
     <nav class="mt-8 flex items-center justify-between gap-4 border-t border-neutral-800 pt-8">
       {nav_prev}
       {nav_next}
     </nav>
   </main>
+
+  <script>
+    function showNoteToast(message, isError) {{
+      const toast = document.createElement("div");
+      toast.className = isError
+        ? "fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-2xl border border-red-900/60 bg-red-950/90 px-6 py-3 text-sm text-red-100 shadow-2xl shadow-black/40"
+        : "fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-2xl border border-emerald-900/60 bg-emerald-950/90 px-6 py-3 text-sm text-emerald-100 shadow-2xl shadow-black/40";
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 4000);
+    }}
+
+    document.querySelectorAll(".reader-note-form").forEach((form) => {{
+      form.addEventListener("submit", async (event) => {{
+        event.preventDefault();
+
+        const action = form.getAttribute("action");
+        const formData = new FormData(form);
+        const sceneTitle = form.dataset.sceneTitle || "this scene";
+
+        try {{
+          const response = await fetch(action, {{
+            method: "POST",
+            body: formData,
+            headers: {{ Accept: "application/json" }}
+          }});
+
+          if (!response.ok) {{
+            throw new Error(`Submit failed with ${{response.status}}`);
+          }}
+
+          form.reset();
+          showNoteToast(`Notes submitted for ${{sceneTitle}}.`, false);
+        }} catch (error) {{
+          showNoteToast("Could not submit notes right now. Please try again.", true);
+        }}
+      }});
+    }});
+  </script>
 </body>
 </html>
 """
