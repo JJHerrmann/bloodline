@@ -12,6 +12,8 @@ from typing import Any
 SOURCE_DIR = Path(r"R:\RookVault\01_Active\Mindpalace\Authorship\Mason Rok\Bloodline\Garnet\01_Story\Scenes")
 OUTPUT_DIR = Path(r"R:\Rookworks\bloodline\scenes")
 MANIFEST_PATH = OUTPUT_DIR / "scenes.json"
+MANUAL_SUMMARIES_PATH = OUTPUT_DIR / "manual_chapter_summaries.json"
+SUMMARY_PREP_DIR = OUTPUT_DIR / "summary_prep"
 NOTES_FORM_ACTION = "https://formspree.io/f/xzdyknwz"
 
 SKIP_FILES = {"compiled_scenes.md", "Scenes.md"}
@@ -25,6 +27,7 @@ class SceneDoc:
     slug: str
     meta: dict[str, Any]
     body_html: str
+    plain_text: str
     excerpt: str
     word_count: int
     title: str
@@ -154,7 +157,7 @@ def normalize_plain_text(text: str) -> str:
     return text
 
 
-def markdown_to_html(text: str) -> tuple[str, str, int]:
+def markdown_to_html(text: str) -> tuple[str, str, int, str]:
     lines = strip_dataview_blocks(text).splitlines()
     blocks: list[str] = []
     paragraph: list[str] = []
@@ -217,7 +220,7 @@ def markdown_to_html(text: str) -> tuple[str, str, int]:
 
     plain_text = re.sub(r"\s+", " ", normalize_plain_text(strip_tags(" ".join(blocks)))).strip()
     word_count = len(plain_text.split()) if plain_text else 0
-    return "\n".join(blocks), excerpt, word_count
+    return "\n".join(blocks), excerpt, word_count, plain_text
 
 
 def strip_tags(value: str) -> str:
@@ -227,7 +230,7 @@ def strip_tags(value: str) -> str:
 def build_scene_document(path: Path) -> SceneDoc:
     raw = path.read_text(encoding="utf-8")
     meta, body = parse_front_matter(raw)
-    body_html, excerpt, word_count = markdown_to_html(body)
+    body_html, excerpt, word_count, plain_text = markdown_to_html(body)
 
     title = str(meta.get("title") or path.stem.replace("-", " ").replace("_", " ").title())
     subtitle = meta.get("subtitle")
@@ -241,6 +244,7 @@ def build_scene_document(path: Path) -> SceneDoc:
         slug=slug,
         meta=meta,
         body_html=body_html,
+        plain_text=plain_text,
         excerpt=excerpt,
         word_count=word_count,
         title=title,
@@ -348,6 +352,98 @@ def chapter_summary(previous_scenes: list[SceneDoc]) -> str:
     return summary
 
 
+def load_manual_summaries() -> dict[str, str]:
+    if not MANUAL_SUMMARIES_PATH.exists():
+        return {}
+    try:
+        data = json.loads(MANUAL_SUMMARIES_PATH.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return {}
+    if not isinstance(data, dict):
+        return {}
+    return {str(key): str(value).strip() for key, value in data.items() if str(value).strip()}
+
+
+def save_manual_summaries_template(chapters: list[ChapterDoc]) -> None:
+    if MANUAL_SUMMARIES_PATH.exists():
+        return
+    template = {chapter.key: "" for chapter in chapters}
+    MANUAL_SUMMARIES_PATH.write_text(json.dumps(template, indent=2), encoding="utf-8")
+
+
+def build_recent_context(chapters: list[ChapterDoc], chapter_index: int, context_chapters: int = 2) -> str:
+    prior_chapters = chapters[max(0, chapter_index - context_chapters):chapter_index]
+    chunks: list[str] = []
+
+    for prior in prior_chapters:
+        chunks.append(f"{prior.title}")
+        for scene in prior.scenes:
+            scene_num = scene.meta.get("scene")
+            label = f"Scene {scene_num}" if scene_num else "Scene"
+            excerpt = re.sub(r"\s+", " ", scene.excerpt or "").strip()
+            if len(excerpt) > 320:
+                excerpt = excerpt[:317].rsplit(" ", 1)[0].rstrip(".,;:!?") + "..."
+            subtitle = f" ({scene.subtitle})" if scene.subtitle else ""
+            chunks.append(f"{label}: {scene.title}{subtitle}\n{excerpt}")
+
+    return "\n\n".join(chunks)
+
+
+def write_summary_prep_files(chapters: list[ChapterDoc], manual_summaries: dict[str, str]) -> None:
+    SUMMARY_PREP_DIR.mkdir(parents=True, exist_ok=True)
+    prompt = (
+        "Write a concise \"story so far\" recap for the reader before {chapter_title} of this novel.\n\n"
+        "Requirements:\n"
+        "- 80 to 130 words\n"
+        "- summarize only events before this chapter\n"
+        "- focus on plot state, character tensions, and unresolved threads\n"
+        "- preserve names, relationships, and factual details exactly\n"
+        "- do not mention chapter numbers, scenes, source files, or that this is a summary\n"
+        "- do not invent events\n"
+        "- write in clean, reader-facing prose\n"
+    )
+
+    for index, chapter in enumerate(chapters):
+        prep_lines = [
+            f"# {chapter.title} Summary Prep",
+            "",
+            "## Status",
+            f"Manual summary present: {'yes' if manual_summaries.get(chapter.key) else 'no'}",
+            "",
+            "## Prompt",
+            prompt.format(chapter_title=chapter.title),
+            "",
+            "## Story So Far Source Material",
+        ]
+        if index == 0:
+            prep_lines.append("No prior scenes exist before this chapter.")
+        else:
+            prep_lines.append(build_recent_context(chapters, index, context_chapters=index))
+        prep_lines.extend(
+            [
+                "",
+                "## Approved Summary",
+                manual_summaries.get(chapter.key, ""),
+                "",
+                "## Save To",
+                f'Use key "{chapter.key}" in {MANUAL_SUMMARIES_PATH.name}',
+            ]
+        )
+        (SUMMARY_PREP_DIR / f"{chapter.slug}.md").write_text("\n".join(prep_lines), encoding="utf-8")
+
+
+def build_story_so_far_summaries(chapters: list[ChapterDoc]) -> dict[str, str]:
+    save_manual_summaries_template(chapters)
+    manual_summaries = load_manual_summaries()
+    write_summary_prep_files(chapters, manual_summaries)
+    summaries: dict[str, str] = {}
+
+    for index, chapter in enumerate(chapters):
+        fallback = chapter_summary([scene for prior in chapters[:index] for scene in prior.scenes])
+        summaries[chapter.key] = manual_summaries.get(chapter.key, fallback)
+    return summaries
+
+
 def render_scene_notes_form(scene: SceneDoc) -> str:
     scene_title_attr = html.escape(scene.title, quote=True)
     scene_slug_attr = html.escape(scene.slug, quote=True)
@@ -442,13 +538,12 @@ def render_chapter_page(
     chapter: ChapterDoc,
     previous_chapter: ChapterDoc | None,
     next_chapter: ChapterDoc | None,
-    previous_scenes: list[SceneDoc],
+    summary: str,
 ) -> str:
     lead_scene = chapter.scenes[0]
     chapter_total_words = chapter_word_count(chapter)
     chapter_minutes = chapter_read_time(chapter)
     missing_scene_one = chapter_missing_scene_one(chapter)
-    summary = chapter_summary(previous_scenes)
     side_prev = (
         f"""<a href="./{previous_chapter.slug}.html" class="group fixed left-4 top-1/2 z-40 hidden -translate-y-1/2 xl:flex max-w-[13rem] items-center gap-3 rounded-2xl border border-neutral-800 bg-neutral-950/90 px-4 py-3 text-sm font-semibold text-neutral-200 shadow-2xl shadow-black/40 backdrop-blur transition hover:border-rose-800 hover:bg-neutral-900">
   <span class="text-lg text-rose-300 transition group-hover:-translate-x-1">←</span>
@@ -630,17 +725,22 @@ def main() -> None:
     scenes.sort(key=lambda scene: scene.order_key)
 
     chapters = build_chapters(scenes)
+    chapter_summaries = build_story_so_far_summaries(chapters)
 
     keep_html = {"index.html"}
     for index, chapter in enumerate(chapters):
         previous_chapter = chapters[index - 1] if index > 0 else None
         next_chapter = chapters[index + 1] if index + 1 < len(chapters) else None
-        previous_scenes = [scene for prior in chapters[:index] for scene in prior.scenes]
         output_name = f"{chapter.slug}.html"
         keep_html.add(output_name)
         output_path = OUTPUT_DIR / output_name
         output_path.write_text(
-            render_chapter_page(chapter, previous_chapter, next_chapter, previous_scenes),
+            render_chapter_page(
+                chapter,
+                previous_chapter,
+                next_chapter,
+                chapter_summaries.get(chapter.key, chapter_summary([scene for prior in chapters[:index] for scene in prior.scenes])),
+            ),
             encoding="utf-8",
         )
 
