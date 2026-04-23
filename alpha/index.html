@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alpha Reader Portal | Bloodline</title>
+  <meta name="description" content="Private alpha-reader portal for Bloodline scene access.">
+  <meta name="robots" content="noindex,nofollow,noarchive,noimageindex">
+  <meta name="theme-color" content="#111827">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="./auth.js"></script>
+</head>
+<body class="min-h-screen bg-neutral-950 text-neutral-100 antialiased">
+  <main class="relative isolate flex min-h-screen items-center overflow-hidden">
+    <div class="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(190,24,93,0.22),_transparent_32%),linear-gradient(180deg,_rgba(10,10,10,0.1),_rgba(10,10,10,1))]"></div>
+    <div class="mx-auto grid w-full max-w-6xl gap-10 px-6 py-16 md:grid-cols-[1.1fr_0.9fr] md:items-center">
+      <section>
+        <p class="mb-4 inline-flex rounded-full border border-rose-900/70 bg-rose-950/50 px-3 py-1 text-xs uppercase tracking-[0.24em] text-rose-200">
+          Bloodline Alpha
+        </p>
+        <h1 class="max-w-3xl text-4xl font-bold tracking-tight text-neutral-50 sm:text-5xl">
+          Reader portal for draft scenes, revisions, and rough-cut pages.
+        </h1>
+        <p class="mt-5 max-w-2xl text-base leading-7 text-neutral-300">
+          This static gate is meant for low-friction alpha sharing on GitHub Pages. It hides the scene hub behind a password prompt, but it is not full server-side protection.
+        </p>
+        <div class="mt-8 grid gap-4 text-sm text-neutral-300 sm:grid-cols-3">
+          <div class="rounded-2xl border border-neutral-800 bg-neutral-900/50 p-4">
+            <p class="font-semibold text-neutral-100">Fast access</p>
+            <p class="mt-2">Readers land directly in the scene index after sign-in.</p>
+          </div>
+          <div class="rounded-2xl border border-neutral-800 bg-neutral-900/50 p-4">
+            <p class="font-semibold text-neutral-100">Unlisted by default</p>
+            <p class="mt-2">Portal and scenes are marked <code>noindex</code> and are not linked from the homepage.</p>
+          </div>
+          <div class="rounded-2xl border border-neutral-800 bg-neutral-900/50 p-4">
+            <p class="font-semibold text-neutral-100">Easy to update</p>
+            <p class="mt-2">Swap the stored password hash once you decide the real alpha-reader passphrase.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="rounded-3xl border border-neutral-800 bg-neutral-900/80 p-6 shadow-2xl shadow-black/40 backdrop-blur">
+        <h2 class="text-2xl font-semibold text-neutral-50">Enter the portal</h2>
+        <p class="mt-2 text-sm text-neutral-400">
+          Default placeholder password is still configured. Change it before sending this page to readers.
+        </p>
+
+        <form id="alpha-login-form" class="mt-6 space-y-4">
+          <label class="block">
+            <span class="mb-2 block text-sm font-medium text-neutral-200">Password</span>
+            <input
+              id="alpha-password"
+              type="password"
+              autocomplete="current-password"
+              required
+              class="w-full rounded-2xl border border-neutral-700 bg-neutral-950 px-4 py-3 text-base text-neutral-100 outline-none transition focus:border-rose-500 focus:ring-2 focus:ring-rose-500/30"
+              placeholder="Enter alpha-reader password">
+          </label>
+          <button
+            type="submit"
+            class="inline-flex w-full items-center justify-center rounded-2xl bg-rose-600 px-5 py-3 text-sm font-semibold text-neutral-50 transition hover:bg-rose-500">
+            Unlock scene index
+          </button>
+        </form>
+
+        <p id="alpha-feedback" class="mt-4 hidden rounded-2xl border px-4 py-3 text-sm"></p>
+
+        <div class="mt-8 rounded-2xl border border-amber-900/50 bg-amber-950/40 p-4 text-sm text-amber-100">
+          <p class="font-semibold">Static-site note</p>
+          <p class="mt-2 text-amber-50/90">
+            This is suitable for casual reader gating. If you need true protection, the files need to move behind server auth or a gated platform.
+          </p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const form = document.getElementById("alpha-login-form");
+    const passwordInput = document.getElementById("alpha-password");
+    const feedback = document.getElementById("alpha-feedback");
+    const params = new URLSearchParams(window.location.search);
+    const nextPath = params.get("next") || "../scenes/index.html";
+
+    if (window.BloodlineAlphaAuth.isAuthenticated()) {
+      window.location.replace(nextPath);
+    }
+
+    function showFeedback(message, isError) {
+      feedback.textContent = message;
+      feedback.className = isError
+        ? "mt-4 rounded-2xl border border-red-900/60 bg-red-950/40 px-4 py-3 text-sm text-red-100"
+        : "mt-4 rounded-2xl border border-emerald-900/60 bg-emerald-950/40 px-4 py-3 text-sm text-emerald-100";
+      feedback.classList.remove("hidden");
+    }
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const ok = await window.BloodlineAlphaAuth.signIn(passwordInput.value);
+      if (!ok) {
+        showFeedback("That password did not match the current portal key.", true);
+        passwordInput.focus();
+        passwordInput.select();
+        return;
+      }
+      showFeedback("Access granted. Redirecting to the scene index...", false);
+      window.location.replace(nextPath);
+    });
+  </script>
+</body>
+</html>
