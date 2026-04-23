@@ -1,7 +1,7 @@
 # Chapter 8 Summary Prep
 
 ## Status
-Manual summary present: no
+Manual summary present: yes
 
 ## Prompt
 Write a concise "story so far" recap for the reader before Chapter 8 of this novel.
@@ -91,7 +91,7 @@ Scene 3: Gozer's Mattress World
 I looked dumbly at the crack in the door, and back to the wall. i wanted to pinch myself, but that seemed a little reductive. There had to be something going on right? I looked at the floor again. No weird mood light refracting the light, no additional light sources in the hallway. I stepped over to Temperance’s...
 
 ## Approved Summary
-
+By morning, Judah, Temperance, Ryan, and Anna are all forced to accept that the night’s impossible event was real. The garnet is quarantined, the Welsh words are partially understood, and Temperance shows physical evidence something happened to her. Digging deeper into Isaac’s files, Judah learns James Corven funded the Gwynporth expedition with serious money and handpicked the doomed research team. Then Corven’s operation starts pressing the family not to talk to police, and Judah discovers Isaac kept a hidden phone under his desk.
 
 ## Save To
 Use key "8" in manual_chapter_summaries.json

@@ -1,7 +1,7 @@
 # Chapter 7 Summary Prep
 
 ## Status
-Manual summary present: no
+Manual summary present: yes
 
 ## Prompt
 Write a concise "story so far" recap for the reader before Chapter 7 of this novel.
@@ -80,7 +80,7 @@ Scene 2: Switchbacks Confessional
 I stared through the windshield. The trees loomed like specters in the darkness as the Bronco's headlights swept over them on the mountain switchbacks. "So, I've heard yoga helps," I said, eyeing Ryan. He grunted, "Sorry. Um. Cooperfield. He's... hard for me to be around." One of my brows arched. "I mean, I've seen...
 
 ## Approved Summary
-
+Back at Isaac’s house, the weirdness stops being deniable. After falling asleep in the recliner, Judah wakes to an impossible pink light spilling from Temperance’s room in ways it physically should not. Inside, he finds her levitating over the bed, veins darkening, eyes glowing, and a garnet stone pulsing in her hand while she speaks Welsh he somehow understands. When Judah grabs the stone, the moment breaks, but the case has now crossed fully into the supernatural.
 
 ## Save To
 Use key "7" in manual_chapter_summaries.json

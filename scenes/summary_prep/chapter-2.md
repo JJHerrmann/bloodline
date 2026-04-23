@@ -1,7 +1,7 @@
 # Chapter 2 Summary Prep
 
 ## Status
-Manual summary present: no
+Manual summary present: yes
 
 ## Prompt
 Write a concise "story so far" recap for the reader before Chapter 2 of this novel.
@@ -31,7 +31,7 @@ Scene 1: Ryan’s Ask; Judah Commits to Return
 I groaned again. My father has been doing these little excursions up and down the Appalachian Trail as a side thing, which he doesn't need, for a while now, showing researchers and tourists the sights, smells and as he called it, the potential habitats of the deep Smoky Mountains. He'd usually walk them around the...
 
 ## Approved Summary
-
+Four days after the Gwynporth disaster, Judah Sands gets a 2 a.m. call from his oldest friend, Ryan Thompson. The expedition site is now a mass-casualty scene, Isaac is missing, and even heavily armed contractors did not survive whatever happened on that mountain. Pressured by Ryan and by family he has spent years avoiding, Judah returns home to Appalachia to help investigate his father’s disappearance.
 
 ## Save To
 Use key "2" in manual_chapter_summaries.json

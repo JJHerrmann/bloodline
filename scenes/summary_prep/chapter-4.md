@@ -1,7 +1,7 @@
 # Chapter 4 Summary Prep
 
 ## Status
-Manual summary present: no
+Manual summary present: yes
 
 ## Prompt
 Write a concise "story so far" recap for the reader before Chapter 4 of this novel.
@@ -53,7 +53,7 @@ Scene 4: Judah Finds Art
 The center of town was bustling as I turned on my walk onto the main road. I was headed to the coffee shop I'd noticed with Ryan on the way into the town, both for the coffee and to see what this "Artisan Co-Op" was all about. The large metal sign stretched across the 50s-style brown brick building read "Moonbeam...
 
 ## Approved Summary
-
+Judah and Ryan return to the mountain and find the investigation already snarled by age, politics, and fear. Chief Beech is found alone at the scene in a dissociated state, and the trail itself feels wrong in a way Judah cannot rationalize. To keep Judah in play, Beech formally names him a department consultant, just in time for Sheriff Cooperfield to start throwing his weight around and steering the case away from anything inconvenient.
 
 ## Save To
 Use key "4" in manual_chapter_summaries.json

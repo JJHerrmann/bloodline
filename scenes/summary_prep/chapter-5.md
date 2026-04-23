@@ -1,7 +1,7 @@
 # Chapter 5 Summary Prep
 
 ## Status
-Manual summary present: no
+Manual summary present: yes
 
 ## Prompt
 Write a concise "story so far" recap for the reader before Chapter 5 of this novel.
@@ -61,7 +61,7 @@ Scene 2: A Special Consultation
 We walked the half mile north to the site of the attack, and didn’t see Beech the whole way, which I found more than a little surprising. The man must be pushing 80, maybe even 90. Ryan interrupted my train of thought by saying my name in a whisper and tossing his right hand in the air, indicating for me to halt. I...
 
 ## Approved Summary
-
+Working the Gwynporth scene directly, Judah and Ryan begin reconstructing the massacre. The evidence points to impossible force, military-grade security, and signs that Isaac survived the initial carnage and fled injured. Judah recovers Isaac’s red journal, bloodied wallet, and other clues just before a tense armed encounter gives way to the arrival of SBI agents. The case is finally widening, but Isaac is still missing and the scene only gets stranger.
 
 ## Save To
 Use key "5" in manual_chapter_summaries.json

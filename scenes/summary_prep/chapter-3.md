@@ -1,7 +1,7 @@
 # Chapter 3 Summary Prep
 
 ## Status
-Manual summary present: no
+Manual summary present: yes
 
 ## Prompt
 Write a concise "story so far" recap for the reader before Chapter 3 of this novel.
@@ -39,7 +39,7 @@ Scene 1: II PROTECT?
 "Is this-" I prompted.
 
 ## Approved Summary
-
+Back home, Judah is pulled into both the investigation and the family wreckage he left behind. Crime scene photos suggest the attack was not a simple animal mauling, and Dr. Margaret Jones managed to leave a cryptic dying message. Temperance confronts Judah over fifteen years of absence, but they reach a fragile truce. In Isaac’s study, Judah finds a threatening fax about a “Watcher,” and strange details begin piling up faster than reason can explain them.
 
 ## Save To
 Use key "3" in manual_chapter_summaries.json

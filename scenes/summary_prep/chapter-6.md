@@ -1,7 +1,7 @@
 # Chapter 6 Summary Prep
 
 ## Status
-Manual summary present: no
+Manual summary present: yes
 
 ## Prompt
 Write a concise "story so far" recap for the reader before Chapter 6 of this novel.
@@ -72,7 +72,7 @@ Scene 3: The Security Session
 It took a little bit, time I took walking Lee and Duilion through the photos and scene, and guiding them through what narrative I’d constructed with Ryan before they arrived. Lee seemed keen on an explanation of the heavily armed security, but I didn’t have an answer for that yet. “The only person that would know...
 
 ## Approved Summary
-
+Even with state investigators present, the truth starts losing ground to expedience. Sheriff Cooperfield pushes a polished “bear attack” story toward becoming the official version of events, despite the obvious holes in it. On the drive back down the mountain, Ryan finally reveals why Cooperfield gets under his skin: years ago, the sheriff helped bury the truth after Ryan was shot by a deputy, not a civilian. Judah and Ryan agree to settle that score later. First, they have to find Isaac.
 
 ## Save To
 Use key "6" in manual_chapter_summaries.json
