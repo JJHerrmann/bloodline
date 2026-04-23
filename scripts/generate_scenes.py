@@ -340,6 +340,27 @@ def chapter_missing_scene_one(chapter: ChapterDoc) -> bool:
     return not any(str(scene.meta.get("scene") or "") == "1" for scene in chapter.scenes)
 
 
+def chapter_number(chapter_key: str) -> int | None:
+    if re.fullmatch(r"-?\d+", chapter_key):
+        return int(chapter_key)
+    return None
+
+
+def chapter_section_index(chapters: list[ChapterDoc], chapter_index: int) -> int:
+    section_index = 0
+    previous_number: int | None = None
+
+    for index, chapter in enumerate(chapters):
+        current_number = chapter_number(chapter.key)
+        if index > 0 and current_number is not None and previous_number is not None and current_number - previous_number > 1:
+            section_index += 1
+        previous_number = current_number if current_number is not None else previous_number
+        if index == chapter_index:
+            return section_index
+
+    return section_index
+
+
 def chapter_summary(previous_scenes: list[SceneDoc]) -> str:
     excerpts = [scene.excerpt.strip() for scene in previous_scenes if scene.excerpt.strip()]
     if not excerpts:
@@ -539,11 +560,22 @@ def render_chapter_page(
     previous_chapter: ChapterDoc | None,
     next_chapter: ChapterDoc | None,
     summary: str,
+    detached_section: bool = False,
 ) -> str:
     lead_scene = chapter.scenes[0]
     chapter_total_words = chapter_word_count(chapter)
     chapter_minutes = chapter_read_time(chapter)
     missing_scene_one = chapter_missing_scene_one(chapter)
+    summary_section_classes = (
+        "rounded-3xl border border-sky-800/70 bg-sky-950/25 p-6"
+        if detached_section
+        else "rounded-3xl border border-neutral-800 bg-neutral-900/60 p-6"
+    )
+    detached_chip = (
+        '<span class="rounded-full border border-sky-700/70 bg-sky-950/50 px-3 py-1 text-xs uppercase tracking-[0.18em] text-sky-200">Separate Section</span>'
+        if detached_section
+        else ""
+    )
     side_prev = (
         f"""<a href="./{previous_chapter.slug}.html" class="group fixed left-4 top-1/2 z-40 hidden -translate-y-1/2 xl:flex max-w-[13rem] items-center gap-3 rounded-2xl border border-neutral-800 bg-neutral-950/90 px-4 py-3 text-sm font-semibold text-neutral-200 shadow-2xl shadow-black/40 backdrop-blur transition hover:border-rose-800 hover:bg-neutral-900">
   <span class="text-lg text-rose-300 transition group-hover:-translate-x-1">←</span>
@@ -632,7 +664,7 @@ def render_chapter_page(
       <p class="mt-6 text-xs uppercase tracking-[0.24em] text-rose-300">Bloodline Alpha Reader Portal</p>
       <h1 class="mt-3 text-4xl font-bold tracking-tight text-neutral-50 md:text-5xl">{page_title}</h1>
       <div class="mt-8 grid gap-5 lg:grid-cols-[minmax(0,1.3fr)_minmax(18rem,0.7fr)]">
-        <section class="rounded-3xl border border-neutral-800 bg-neutral-900/60 p-6">
+        <section class="{summary_section_classes}">
           <p class="text-xs uppercase tracking-[0.18em] text-neutral-500">To This Point</p>
           <p class="mt-3 text-base leading-7 text-neutral-200">{html.escape(summary, quote=False)}</p>
           <div class="mt-5 flex flex-wrap gap-2">
@@ -641,6 +673,7 @@ def render_chapter_page(
             <span class="rounded-full border border-neutral-700 bg-neutral-950/80 px-3 py-1 text-xs uppercase tracking-[0.18em] text-neutral-300">~{chapter_minutes} min read</span>
             {f'<span class="rounded-full border border-neutral-700 bg-neutral-950/80 px-3 py-1 text-xs uppercase tracking-[0.18em] text-neutral-300">{html.escape(str(lead_scene.meta.get("arc")), quote=False)}</span>' if lead_scene.meta.get("arc") else ''}
             {f'<span class="rounded-full border border-amber-800/70 bg-amber-950/40 px-3 py-1 text-xs uppercase tracking-[0.18em] text-amber-200">Missing Scene 1</span>' if missing_scene_one else ''}
+            {detached_chip}
           </div>
         </section>
         <section class="rounded-3xl border border-neutral-800 bg-neutral-950/45 p-6">
@@ -731,6 +764,7 @@ def main() -> None:
     for index, chapter in enumerate(chapters):
         previous_chapter = chapters[index - 1] if index > 0 else None
         next_chapter = chapters[index + 1] if index + 1 < len(chapters) else None
+        detached_section = chapter_section_index(chapters, index) > 0
         output_name = f"{chapter.slug}.html"
         keep_html.add(output_name)
         output_path = OUTPUT_DIR / output_name
@@ -740,6 +774,7 @@ def main() -> None:
                 previous_chapter,
                 next_chapter,
                 chapter_summaries.get(chapter.key, chapter_summary([scene for prior in chapters[:index] for scene in prior.scenes])),
+                detached_section=detached_section,
             ),
             encoding="utf-8",
         )

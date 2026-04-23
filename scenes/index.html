@@ -112,11 +112,32 @@
           return String(a[0]).localeCompare(String(b[0]));
         });
 
+        let previousChapterNumber = null;
+        let sectionIndex = 0;
+
         target.innerHTML = chapterEntries.map(([chapterKey, chapterScenes], index) => {
+          const chapterNumber = Number(chapterKey);
+          const isNumericChapter = Number.isFinite(chapterNumber);
+          if (
+            index > 0 &&
+            isNumericChapter &&
+            previousChapterNumber !== null &&
+            chapterNumber - previousChapterNumber > 1
+          ) {
+            sectionIndex += 1;
+          }
+          if (isNumericChapter) {
+            previousChapterNumber = chapterNumber;
+          }
+
           const chapterLabel = Number.isFinite(Number(chapterKey))
             ? `Chapter ${chapterKey}`
             : chapterKey;
           const chapterHref = String(chapterScenes[0]?.href || "").split("#")[0] || "#";
+          const detachedSection = sectionIndex > 0;
+          const chapterCardClass = detachedSection
+            ? "rounded-3xl border border-sky-800/70 bg-sky-950/20 p-5"
+            : "rounded-3xl border border-neutral-800 bg-neutral-950/35 p-5";
           const chapterNote = chapterKey === "0"
             ? `<p class="mt-2 text-xs uppercase tracking-[0.18em] text-amber-300">Pre-mainline chapter numbering preserved</p>`
             : "";
@@ -134,6 +155,9 @@
               : summarySource
             : "Current available draft material for this chapter is collected here for alpha reading.";
           const chapterFlags = [
+            detachedSection
+              ? `<span class="rounded-full border border-sky-700/70 bg-sky-950/50 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-sky-200">Separate Section</span>`
+              : "",
             !hasSceneOne
               ? `<span class="rounded-full border border-amber-800/60 bg-amber-950/50 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-amber-200">Missing Scene 1</span>`
               : "",
@@ -167,7 +191,7 @@
             }).join("");
 
           return `
-            <details class="rounded-3xl border border-neutral-800 bg-neutral-950/35 p-5" ${index < 1 ? "open" : ""}>
+            <details class="${chapterCardClass}" ${index < 1 ? "open" : ""}>
               <summary class="cursor-pointer list-none">
                 <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
                   <div class="min-w-0">
