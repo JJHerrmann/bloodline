@@ -38,11 +38,11 @@
       <article class="rounded-3xl border border-neutral-800 bg-neutral-900/70 p-6">
         <h2 class="text-xl font-semibold text-neutral-50">Published scenes</h2>
         <p class="mt-2 text-sm text-neutral-400">
-          Generated from the markdown scene source and gated behind the portal session.
+          Generated from the markdown scene source, grouped by chapter, and gated behind the portal session.
         </p>
         <div id="scene-list" class="mt-6 space-y-4">
           <div class="rounded-2xl border border-dashed border-neutral-700 bg-neutral-950/60 p-5">
-            <p class="text-sm font-medium text-neutral-100">Loading scene list...</p>
+            <p class="text-sm font-medium text-neutral-100">Loading chapter list...</p>
             <p class="mt-2 text-sm leading-6 text-neutral-400">
               If this stays here, the generated manifest is missing or unreadable.
             </p>
@@ -88,43 +88,90 @@
           return;
         }
 
-        target.innerHTML = scenes.map((scene) => {
-          const chips = [
-            scene.date,
-            scene.arc,
-            scene.chapter ? `Chapter ${scene.chapter}` : null,
-            scene.scene ? `Scene ${scene.scene}` : null,
-            scene.status,
-            scene.word_count ? `${scene.word_count} words` : null
-          ]
-            .filter(Boolean)
-            .map((chip) => `<span class="rounded-full border border-neutral-700 bg-neutral-950/80 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-neutral-300">${chip}</span>`)
-            .join("");
+        const chapterGroups = new Map();
 
-          const subtitle = scene.subtitle
-            ? `<p class="mt-2 text-sm text-rose-200">${scene.subtitle}</p>`
+        scenes.forEach((scene) => {
+          const chapterKey = scene.chapter ?? "Unnumbered";
+          if (!chapterGroups.has(chapterKey)) {
+            chapterGroups.set(chapterKey, []);
+          }
+          chapterGroups.get(chapterKey).push(scene);
+        });
+
+        const chapterEntries = Array.from(chapterGroups.entries()).sort((a, b) => {
+          const aNum = Number(a[0]);
+          const bNum = Number(b[0]);
+          const aIsNum = Number.isFinite(aNum);
+          const bIsNum = Number.isFinite(bNum);
+          if (aIsNum && bIsNum) return aNum - bNum;
+          if (aIsNum) return -1;
+          if (bIsNum) return 1;
+          return String(a[0]).localeCompare(String(b[0]));
+        });
+
+        target.innerHTML = chapterEntries.map(([chapterKey, chapterScenes], index) => {
+          const chapterLabel = Number.isFinite(Number(chapterKey))
+            ? `Chapter ${chapterKey}`
+            : chapterKey;
+          const chapterNote = chapterKey === "0"
+            ? `<p class="mt-2 text-xs uppercase tracking-[0.18em] text-amber-300">Pre-mainline chapter numbering preserved</p>`
             : "";
 
-          const excerpt = scene.excerpt
-            ? `<p class="mt-4 text-sm leading-6 text-neutral-300">${scene.excerpt}</p>`
-            : "";
+          const cards = chapterScenes.map((scene) => {
+            const chips = [
+              scene.date,
+              scene.arc,
+              scene.scene ? `Scene ${scene.scene}` : null,
+              scene.status,
+              scene.word_count ? `${scene.word_count} words` : null
+            ]
+              .filter(Boolean)
+              .map((chip) => `<span class="rounded-full border border-neutral-700 bg-neutral-950/80 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-neutral-300">${chip}</span>`)
+              .join("");
+
+            const subtitle = scene.subtitle
+              ? `<p class="mt-2 text-sm text-rose-200">${scene.subtitle}</p>`
+              : "";
+
+            const excerpt = scene.excerpt
+              ? `<p class="mt-4 text-sm leading-6 text-neutral-300">${scene.excerpt}</p>`
+              : "";
+
+            return `
+              <article class="rounded-3xl border border-neutral-800 bg-neutral-950/60 p-5">
+                <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                  <div class="min-w-0">
+                    <h3 class="text-lg font-semibold text-neutral-50">
+                      <a class="transition hover:text-rose-300" href="./${scene.slug}.html">${scene.title}</a>
+                    </h3>
+                    ${subtitle}
+                  </div>
+                  <a href="./${scene.slug}.html" class="rounded-2xl bg-rose-600 px-4 py-3 text-sm font-semibold text-neutral-50 transition hover:bg-rose-500">
+                    Read scene
+                  </a>
+                </div>
+                <div class="mt-4 flex flex-wrap gap-2">${chips}</div>
+                ${excerpt}
+              </article>
+            `;
+          }).join("");
 
           return `
-            <article class="rounded-3xl border border-neutral-800 bg-neutral-950/60 p-5">
-              <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-                <div class="min-w-0">
-                  <h3 class="text-lg font-semibold text-neutral-50">
-                    <a class="transition hover:text-rose-300" href="./${scene.slug}.html">${scene.title}</a>
-                  </h3>
-                  ${subtitle}
+            <details class="rounded-3xl border border-neutral-800 bg-neutral-950/35 p-5" ${index < 2 ? "open" : ""}>
+              <summary class="cursor-pointer list-none">
+                <div class="flex items-center justify-between gap-4">
+                  <div>
+                    <h3 class="text-lg font-semibold text-neutral-50">${chapterLabel}</h3>
+                    ${chapterNote}
+                    <p class="mt-2 text-sm text-neutral-400">${chapterScenes.length} scene${chapterScenes.length === 1 ? "" : "s"}</p>
+                  </div>
+                  <span class="rounded-full border border-neutral-700 px-3 py-1 text-xs uppercase tracking-[0.18em] text-neutral-300">Toggle</span>
                 </div>
-                <a href="./${scene.slug}.html" class="rounded-2xl bg-rose-600 px-4 py-3 text-sm font-semibold text-neutral-50 transition hover:bg-rose-500">
-                  Read scene
-                </a>
+              </summary>
+              <div class="mt-5 space-y-4">
+                ${cards}
               </div>
-              <div class="mt-4 flex flex-wrap gap-2">${chips}</div>
-              ${excerpt}
-            </article>
+            </details>
           `;
         }).join("");
       } catch (error) {
