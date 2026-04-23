@@ -12,6 +12,7 @@ from typing import Any
 SOURCE_DIR = Path(r"R:\RookVault\01_Active\Mindpalace\Authorship\Mason Rok\Bloodline\Garnet\01_Story\Scenes")
 OUTPUT_DIR = Path(r"R:\Rookworks\bloodline\scenes")
 MANIFEST_PATH = OUTPUT_DIR / "scenes.json"
+CHAPTER_MANIFEST_PATH = OUTPUT_DIR / "chapters.json"
 MANUAL_SUMMARIES_PATH = OUTPUT_DIR / "manual_chapter_summaries.json"
 SUMMARY_PREP_DIR = OUTPUT_DIR / "summary_prep"
 NOTES_FORM_ACTION = "https://formspree.io/f/xzdyknwz"
@@ -340,6 +341,10 @@ def chapter_missing_scene_one(chapter: ChapterDoc) -> bool:
     return not any(str(scene.meta.get("scene") or "") == "1" for scene in chapter.scenes)
 
 
+def chapter_scene_numbering_preserved(chapter: ChapterDoc) -> bool:
+    return chapter_missing_scene_one(chapter) or any(str(scene.meta.get("scene") or "").strip() == "0" for scene in chapter.scenes)
+
+
 def chapter_number(chapter_key: str) -> int | None:
     if re.fullmatch(r"-?\d+", chapter_key):
         return int(chapter_key)
@@ -359,6 +364,156 @@ def chapter_section_index(chapters: list[ChapterDoc], chapter_index: int) -> int
             return section_index
 
     return section_index
+
+
+def chapter_meta_value(chapter: ChapterDoc, *keys: str) -> Any:
+    for key in keys:
+        lead_value = chapter.scenes[0].meta.get(key)
+        if lead_value not in (None, "", []):
+            return lead_value
+
+    for scene in chapter.scenes:
+        for key in keys:
+            value = scene.meta.get(key)
+            if value not in (None, "", []):
+                return value
+
+    return None
+
+
+def chapter_updated_date(chapter: ChapterDoc) -> str | None:
+    raw_dates: list[str] = []
+    for scene in chapter.scenes:
+        for key in ("updatedAt", "updated_at", "date"):
+            raw = str(scene.meta.get(key) or "").strip()
+            if re.fullmatch(r"\d{4}-\d{2}-\d{2}", raw):
+                raw_dates.append(raw)
+                break
+
+    if not raw_dates:
+        return None
+
+    return max(raw_dates)
+
+
+def normalize_draft_status(value: Any) -> str | None:
+    if value in (None, "", []):
+        return None
+
+    normalized = str(value).strip().lower().replace("_", "-").replace(" ", "-")
+    aliases = {
+        "draft": "alpha",
+        "alpha-draft": "alpha",
+        "in-progress": "alpha",
+        "needspass": "needs-pass",
+        "needs-pass": "needs-pass",
+        "locked": "locked-for-now",
+        "locked-for-now": "locked-for-now",
+    }
+    return aliases.get(normalized, normalized)
+
+
+def draft_status_label(value: str | None) -> str | None:
+    if not value:
+        return None
+
+    labels = {
+        "alpha": "Alpha",
+        "partial": "Partial chapter",
+        "revised": "Revised",
+        "needs-pass": "Needs pass",
+        "locked-for-now": "Locked for now",
+    }
+    return labels.get(value, value.replace("-", " ").title())
+
+
+def chapter_reader_labels(chapter: ChapterDoc, detached_section: bool) -> list[str]:
+    labels: list[str] = []
+
+    if chapter.key == "0":
+        labels.append("Prologue material")
+
+    if detached_section:
+        labels.append("Revised out of sequence")
+
+    if chapter_missing_scene_one(chapter):
+        labels.append("Partial chapter")
+
+    if chapter_scene_numbering_preserved(chapter):
+        labels.append("Scene numbering preserved")
+
+    return labels
+
+
+def chapter_display_excerpt(chapter: ChapterDoc) -> str:
+    excerpts = [scene.excerpt.strip() for scene in chapter.scenes if scene.excerpt.strip()]
+    if not excerpts:
+        return "Current available draft material for this chapter is collected here for alpha reading."
+
+    summary = " ".join(excerpts[:2]).strip()
+    summary = re.sub(r"\s+", " ", summary)
+    if len(summary) > 240:
+        return summary[:237].rsplit(" ", 1)[0].rstrip(".,;:!?") + "..."
+    return summary
+
+
+def chapter_reading_order(chapter: ChapterDoc, index: int) -> int:
+    chapter_num = chapter_number(chapter.key)
+    return chapter_num if chapter_num is not None else index + 1
+
+
+def chapter_feedback_href(chapter: ChapterDoc) -> str | None:
+    explicit = chapter_meta_value(chapter, "feedbackHref", "feedback_href")
+    if explicit:
+        return str(explicit)
+    return None
+
+
+def chapter_notes_anchor(chapter: ChapterDoc) -> str | None:
+    explicit = chapter_meta_value(chapter, "notesAnchor", "notes_anchor")
+    if explicit:
+        return str(explicit)
+    return None
+
+
+def chapter_manifest_item(chapter: ChapterDoc, index: int, story_so_far: str, detached_section: bool) -> dict[str, Any]:
+    lead_scene = chapter.scenes[0]
+    chapter_url = f"./{chapter.slug}.html"
+    first_scene = chapter.scenes[0]
+    draft_status = normalize_draft_status(chapter_meta_value(chapter, "draftStatus", "draft_status", "status"))
+    updated_at = chapter_updated_date(chapter)
+
+    return {
+        "chapterSlug": chapter.slug,
+        "chapterTitle": chapter.title,
+        "chapterUrl": chapter_url,
+        "storySoFar": story_so_far,
+        "excerpt": chapter_display_excerpt(chapter),
+        "draftStatus": draft_status,
+        "draftStatusLabel": draft_status_label(draft_status),
+        "spoilerThrough": chapter_meta_value(chapter, "spoilerThrough", "spoiler_through"),
+        "readingOrder": chapter_reading_order(chapter, index),
+        "updatedAt": format_date(updated_at) if updated_at else None,
+        "updatedAtRaw": updated_at,
+        "act": chapter_meta_value(chapter, "arc"),
+        "wordCount": chapter_word_count(chapter),
+        "sceneCount": len(chapter.scenes),
+        "estimatedReadMinutes": chapter_read_time(chapter),
+        "feedbackHref": chapter_feedback_href(chapter),
+        "notesAnchor": chapter_notes_anchor(chapter),
+        "feedbackLine": "Leave notes after scene sections",
+        "readerLabels": chapter_reader_labels(chapter, detached_section),
+        "detachedSection": detached_section,
+        "firstScene": {
+            "label": f"Scene {first_scene.meta.get('scene')}" if first_scene.meta.get("scene") else "Scene preview",
+            "title": first_scene.title,
+            "href": f"{chapter_url}#{scene_anchor(first_scene)}",
+        },
+    }
+
+
+def render_json_script(data: Any) -> str:
+    return json.dumps(data, indent=2).replace("</", "<\\/")
 
 
 def chapter_summary(previous_scenes: list[SceneDoc]) -> str:
@@ -566,13 +721,16 @@ def render_chapter_page(
     chapter_total_words = chapter_word_count(chapter)
     chapter_minutes = chapter_read_time(chapter)
     missing_scene_one = chapter_missing_scene_one(chapter)
+    scene_numbering_note = chapter_scene_numbering_preserved(chapter)
+    chapter_slug_value = chapter.slug
+    chapter_url = f"./{chapter.slug}.html"
     summary_section_classes = (
         "rounded-3xl border border-sky-800/70 bg-sky-950/25 p-6"
         if detached_section
         else "rounded-3xl border border-neutral-800 bg-neutral-900/60 p-6"
     )
     detached_chip = (
-        '<span class="rounded-full border border-sky-700/70 bg-sky-950/50 px-3 py-1 text-xs uppercase tracking-[0.18em] text-sky-200">Separate Section</span>'
+        '<span class="rounded-full border border-sky-700/70 bg-sky-950/50 px-3 py-1 text-xs uppercase tracking-[0.18em] text-sky-200">Revised out of sequence</span>'
         if detached_section
         else ""
     )
@@ -614,6 +772,26 @@ def render_chapter_page(
     )
     scene_blocks = "\n".join(render_scene_block(scene) for scene in chapter.scenes)
     page_title = html.escape(chapter.title, quote=False)
+    chapter_status = normalize_draft_status(chapter_meta_value(chapter, "draftStatus", "draft_status", "status"))
+    chapter_status_label = draft_status_label(chapter_status)
+    updated_at = chapter_updated_date(chapter)
+    updated_chip = (
+        f'<span class="rounded-full border border-neutral-700 bg-neutral-950/80 px-3 py-1 text-xs uppercase tracking-[0.18em] text-neutral-300">Updated {html.escape(format_date(updated_at) or updated_at, quote=False)}</span>'
+        if updated_at
+        else ""
+    )
+    status_chip = (
+        f'<span class="rounded-full border border-neutral-700 bg-neutral-950/80 px-3 py-1 text-xs uppercase tracking-[0.18em] text-neutral-300">{html.escape(chapter_status_label, quote=False)}</span>'
+        if chapter_status_label
+        else ""
+    )
+    chapter_context = render_json_script(
+        {
+            "chapterSlug": chapter_slug_value,
+            "chapterTitle": chapter.title,
+            "chapterUrl": chapter_url,
+        }
+    )
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -646,18 +824,22 @@ def render_chapter_page(
       list-style: disc;
     }}
     .scene-copy li {{ margin-top: 0.35rem; }}
+    .resume-toast {{
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+    }}
   </style>
 </head>
 <body class="min-h-screen bg-neutral-950 text-neutral-100 antialiased">
   <script>
     window.BloodlineAlphaAuth.requireAuth({{ redirectTo: "../alpha/index.html" }});
   </script>
+  <script id="chapter-context" type="application/json">{chapter_context}</script>
   {side_prev}
   {side_next}
 
   <main class="mx-auto max-w-5xl px-6 py-12 md:py-16">
     <header class="border-b border-neutral-800 pb-8">
-      <div class="flex flex-wrap items-center gap-3">
+      <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
         <a href="../scenes/index.html" class="rounded-2xl border border-neutral-700 px-4 py-2 text-sm font-semibold text-neutral-200 transition hover:bg-neutral-900">Chapter Index</a>
         <a href="../alpha/index.html" class="rounded-2xl border border-neutral-700 px-4 py-2 text-sm font-semibold text-neutral-200 transition hover:bg-neutral-900">Portal</a>
       </div>
@@ -672,7 +854,10 @@ def render_chapter_page(
             <span class="rounded-full border border-neutral-700 bg-neutral-950/80 px-3 py-1 text-xs uppercase tracking-[0.18em] text-neutral-300">{chapter_total_words} words</span>
             <span class="rounded-full border border-neutral-700 bg-neutral-950/80 px-3 py-1 text-xs uppercase tracking-[0.18em] text-neutral-300">~{chapter_minutes} min read</span>
             {f'<span class="rounded-full border border-neutral-700 bg-neutral-950/80 px-3 py-1 text-xs uppercase tracking-[0.18em] text-neutral-300">{html.escape(str(lead_scene.meta.get("arc")), quote=False)}</span>' if lead_scene.meta.get("arc") else ''}
-            {f'<span class="rounded-full border border-amber-800/70 bg-amber-950/40 px-3 py-1 text-xs uppercase tracking-[0.18em] text-amber-200">Missing Scene 1</span>' if missing_scene_one else ''}
+            {f'<span class="rounded-full border border-amber-800/70 bg-amber-950/40 px-3 py-1 text-xs uppercase tracking-[0.18em] text-amber-200">Partial chapter</span>' if missing_scene_one else ''}
+            {f'<span class="rounded-full border border-amber-800/70 bg-amber-950/40 px-3 py-1 text-xs uppercase tracking-[0.18em] text-amber-200">Scene numbering preserved</span>' if scene_numbering_note else ''}
+            {status_chip}
+            {updated_chip}
             {detached_chip}
           </div>
         </section>
@@ -700,6 +885,15 @@ def render_chapter_page(
     </nav>
   </main>
 
+  <aside id="resume-prompt" class="resume-toast fixed bottom-4 right-4 z-50 hidden max-w-sm rounded-3xl border border-neutral-800 bg-neutral-950/95 p-5 text-sm text-neutral-200 backdrop-blur">
+    <p class="text-xs uppercase tracking-[0.18em] text-rose-300">Resume reading</p>
+    <p id="resume-copy" class="mt-3 leading-6 text-neutral-300">Resume where you left off?</p>
+    <div class="mt-4 flex flex-col gap-3 sm:flex-row">
+      <button id="resume-yes" type="button" class="inline-flex items-center justify-center rounded-2xl bg-rose-600 px-4 py-2 font-semibold text-neutral-50 transition hover:bg-rose-500">Resume</button>
+      <button id="resume-no" type="button" class="inline-flex items-center justify-center rounded-2xl border border-neutral-700 px-4 py-2 font-semibold text-neutral-200 transition hover:bg-neutral-900">Start from top</button>
+    </div>
+  </aside>
+
   <script>
     window.formspree = window.formspree || function () {{ (formspree.q = formspree.q || []).push(arguments); }};
     document.querySelectorAll(".reader-note-form").forEach((form) => {{
@@ -722,6 +916,158 @@ def render_chapter_page(
         }}
       }});
     }});
+
+    (() => {{
+      const context = JSON.parse(document.getElementById("chapter-context").textContent);
+      const LAST_READING_KEY = "bloodline:lastReadingPosition";
+      const CHAPTER_SCROLL_PREFIX = "bloodline:chapterScroll:";
+      const CHAPTER_STATE_PREFIX = "bloodline:chapterState:";
+      const RESUME_PARAM = "resume";
+      const resumePrompt = document.getElementById("resume-prompt");
+      const resumeCopy = document.getElementById("resume-copy");
+      const resumeYes = document.getElementById("resume-yes");
+      const resumeNo = document.getElementById("resume-no");
+      let pendingRecord = null;
+      let saveTimer = null;
+
+      function readJson(key) {{
+        try {{
+          const raw = localStorage.getItem(key);
+          return raw ? JSON.parse(raw) : null;
+        }} catch (error) {{
+          return null;
+        }}
+      }}
+
+      function writeJson(key, value) {{
+        localStorage.setItem(key, JSON.stringify(value));
+      }}
+
+      function chapterScrollKey(slug) {{
+        return `${{CHAPTER_SCROLL_PREFIX}}${{slug}}`;
+      }}
+
+      function chapterStateKey(slug) {{
+        return `${{CHAPTER_STATE_PREFIX}}${{slug}}`;
+      }}
+
+      function clamp(value, min, max) {{
+        return Math.min(max, Math.max(min, value));
+      }}
+
+      function getMaxScroll() {{
+        return Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+      }}
+
+      function getScrollSnapshot() {{
+        const maxScroll = getMaxScroll();
+        const scrollY = clamp(window.scrollY, 0, maxScroll);
+        const scrollPercent = maxScroll > 0 ? clamp((scrollY / maxScroll) * 100, 0, 100) : 0;
+
+        return {{
+          chapterSlug: context.chapterSlug,
+          chapterTitle: context.chapterTitle,
+          chapterUrl: context.chapterUrl,
+          scrollY: Math.round(scrollY),
+          scrollPercent: Math.round(scrollPercent),
+          updatedAt: new Date().toISOString(),
+        }};
+      }}
+
+      function markInProgress(updatedAt) {{
+        const key = chapterStateKey(context.chapterSlug);
+        const existing = readJson(key) || {{
+          chapterSlug: context.chapterSlug,
+          status: "not-started",
+          openedAt: null,
+          markedReadAt: null,
+        }};
+
+        if (existing.status !== "read") {{
+          existing.status = "in-progress";
+          existing.openedAt = existing.openedAt || updatedAt;
+          writeJson(key, existing);
+        }}
+      }}
+
+      function saveReadingPosition() {{
+        const snapshot = getScrollSnapshot();
+        writeJson(chapterScrollKey(context.chapterSlug), snapshot);
+        writeJson(LAST_READING_KEY, snapshot);
+        markInProgress(snapshot.updatedAt);
+      }}
+
+      function scheduleSave() {{
+        if (saveTimer) return;
+        saveTimer = window.setTimeout(() => {{
+          saveTimer = null;
+          saveReadingPosition();
+        }}, 700);
+      }}
+
+      function restoreFromRecord(record) {{
+        const applyRestore = () => {{
+          const maxScroll = getMaxScroll();
+          const restoredY = typeof record.scrollPercent === "number"
+            ? maxScroll * (record.scrollPercent / 100)
+            : Number(record.scrollY || 0);
+          window.scrollTo({{ top: clamp(restoredY, 0, maxScroll), behavior: "auto" }});
+        }};
+
+        requestAnimationFrame(() => {{
+          window.setTimeout(applyRestore, 160);
+        }});
+      }}
+
+      function dismissPrompt() {{
+        resumePrompt.classList.add("hidden");
+      }}
+
+      function maybeOfferResume() {{
+        const record = readJson(chapterScrollKey(context.chapterSlug));
+        if (!record) return;
+        if (typeof record.scrollPercent === "number" && record.scrollPercent < 4) return;
+
+        const params = new URLSearchParams(window.location.search);
+        if (params.get(RESUME_PARAM) === "1") {{
+          restoreFromRecord(record);
+          dismissPrompt();
+          return;
+        }}
+
+        pendingRecord = record;
+        resumeCopy.textContent = `Resume at about ${{Math.round(record.scrollPercent || 0)}}%?`;
+        resumePrompt.classList.remove("hidden");
+      }}
+
+      resumeYes.addEventListener("click", () => {{
+        if (pendingRecord) {{
+          restoreFromRecord(pendingRecord);
+        }}
+        dismissPrompt();
+      }});
+
+      resumeNo.addEventListener("click", () => {{
+        const resetRecord = {{
+          ...getScrollSnapshot(),
+          scrollY: 0,
+          scrollPercent: 0,
+        }};
+        writeJson(chapterScrollKey(context.chapterSlug), resetRecord);
+        writeJson(LAST_READING_KEY, resetRecord);
+        dismissPrompt();
+        window.scrollTo({{ top: 0, behavior: "auto" }});
+      }});
+
+      window.addEventListener("scroll", scheduleSave, {{ passive: true }});
+      window.addEventListener("pagehide", saveReadingPosition);
+      window.addEventListener("beforeunload", saveReadingPosition);
+
+      document.addEventListener("DOMContentLoaded", () => {{
+        markInProgress(new Date().toISOString());
+        maybeOfferResume();
+      }});
+    }})();
   </script>
   <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 </body>
@@ -748,6 +1094,356 @@ def render_manifest(scenes: list[SceneDoc]) -> list[dict[str, Any]]:
     ]
 
 
+def render_chapter_manifest(chapters: list[ChapterDoc], chapter_summaries: dict[str, str]) -> list[dict[str, Any]]:
+    return [
+        chapter_manifest_item(
+            chapter,
+            index,
+            chapter_summaries.get(chapter.key, ""),
+            chapter_section_index(chapters, index) > 0,
+        )
+        for index, chapter in enumerate(chapters)
+    ]
+
+
+def render_index_page(chapter_manifest: list[dict[str, Any]]) -> str:
+    chapter_json = render_json_script(chapter_manifest)
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter Index | Bloodline Alpha</title>
+  <meta name="description" content="Alpha-reader chapter index for Bloodline.">
+  <meta name="robots" content="noindex,nofollow,noarchive,noimageindex">
+  <meta name="theme-color" content="#111827">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../alpha/auth.js"></script>
+</head>
+<body class="min-h-screen bg-neutral-950 text-neutral-100 antialiased">
+  <script>
+    window.BloodlineAlphaAuth.requireAuth({{ redirectTo: "../alpha/index.html" }});
+  </script>
+  <script id="chapter-manifest" type="application/json">{chapter_json}</script>
+
+  <main class="mx-auto max-w-6xl px-6 py-12 md:py-16">
+    <div class="flex flex-col gap-6 border-b border-neutral-800 pb-8 md:flex-row md:items-end md:justify-between">
+      <div>
+        <p class="text-xs uppercase tracking-[0.24em] text-rose-300">Bloodline Alpha Reader Portal</p>
+        <h1 class="mt-3 text-4xl font-bold tracking-tight text-neutral-50">Alpha reader repo</h1>
+        <p class="mt-3 max-w-3xl text-sm leading-6 text-neutral-300">
+          Controlled reading hub for the current chapter draft. Use it to move through the manuscript in order, track where you left off, and leave notes where the pages ask for them.
+        </p>
+      </div>
+      <div class="flex flex-col gap-3 sm:flex-row">
+        <a href="../alpha/index.html" class="rounded-2xl border border-neutral-700 px-4 py-3 text-sm font-semibold text-neutral-200 transition hover:bg-neutral-900">
+          Portal
+        </a>
+        <button id="sign-out" type="button" class="rounded-2xl bg-rose-600 px-4 py-3 text-sm font-semibold text-neutral-50 transition hover:bg-rose-500">
+          Sign out
+        </button>
+      </div>
+    </div>
+
+    <section class="mt-8 rounded-3xl border border-neutral-800 bg-neutral-900/70 p-6">
+      <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+        <div class="min-w-0">
+          <p class="text-xs uppercase tracking-[0.18em] text-rose-300">How to read</p>
+          <h2 class="mt-3 text-2xl font-semibold text-neutral-50">Reader workflow</h2>
+          <p class="mt-3 max-w-3xl text-sm leading-6 text-neutral-300">
+            Start with the first available chapter unless a card says otherwise. Read in chapter order. Leave notes at the end of each scene section. Flag confusion, pacing drag, continuity issues, emotional impact, and places where more or less detail is needed.
+          </p>
+        </div>
+        <div class="rounded-2xl border border-neutral-800 bg-neutral-950/60 px-4 py-3 text-xs uppercase tracking-[0.18em] text-neutral-400">
+          Mission mode: alpha read
+        </div>
+      </div>
+    </section>
+
+    <section id="continue-reading-module" class="mt-6 rounded-3xl border border-rose-900/60 bg-rose-950/30 p-6">
+      <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div>
+          <p class="text-xs uppercase tracking-[0.18em] text-rose-300">Continue reading</p>
+          <h2 id="continue-title" class="mt-2 text-2xl font-semibold text-neutral-50">Loading reading position...</h2>
+          <p id="continue-copy" class="mt-2 text-sm leading-6 text-neutral-300">Checking the last chapter you opened.</p>
+          <p id="continue-meta" class="mt-3 text-xs uppercase tracking-[0.18em] text-neutral-500"></p>
+        </div>
+        <a id="continue-link" href="./chapter-0.html?resume=1" class="inline-flex items-center justify-center rounded-2xl bg-rose-600 px-5 py-3 text-sm font-semibold text-neutral-50 transition hover:bg-rose-500">
+          Continue reading
+        </a>
+      </div>
+    </section>
+
+    <section class="mt-10 grid gap-5 lg:grid-cols-[minmax(0,1.45fr)_minmax(18rem,0.55fr)]">
+      <article class="rounded-3xl border border-neutral-800 bg-neutral-900/70 p-6">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <h2 class="text-xl font-semibold text-neutral-50">Chapter shelf</h2>
+            <p class="mt-2 text-sm leading-6 text-neutral-400">
+              Follow the draft in order, keep track of what is in progress, and mark finished chapters once you are done.
+            </p>
+          </div>
+        </div>
+        <div id="chapter-list" class="mt-6 space-y-4">
+          <div class="rounded-2xl border border-dashed border-neutral-700 bg-neutral-950/60 p-5">
+            <p class="text-sm font-medium text-neutral-100">Loading chapter shelf...</p>
+            <p class="mt-2 text-sm leading-6 text-neutral-400">
+              If this stays here, the generated chapter manifest is missing or unreadable.
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <aside class="rounded-3xl border border-neutral-800 bg-neutral-900/70 p-6">
+        <h2 class="text-xl font-semibold text-neutral-50">Reader briefing</h2>
+        <p class="mt-4 text-sm leading-6 text-neutral-300">
+          Bloodline: Spirits of the Smokies is currently organized by chapter for alpha reading. Some chapters are partial, revised out of sequence, or preserve older scene numbering while the manuscript is being assembled.
+        </p>
+        <ul class="mt-5 space-y-3 text-sm leading-6 text-neutral-300">
+          <li>Read in chapter order.</li>
+          <li>Leave notes at scene breaks.</li>
+          <li>Flag confusion immediately.</li>
+          <li>Call out pacing, emotional impact, continuity snags, and missing context.</li>
+        </ul>
+        <div class="mt-6 rounded-2xl border border-neutral-800 bg-neutral-950/60 px-4 py-3 text-xs uppercase tracking-[0.18em] text-neutral-400">
+          Current repo mode: Alpha draft
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    (() => {{
+      const chapterManifest = JSON.parse(document.getElementById("chapter-manifest").textContent);
+      const LAST_READING_KEY = "bloodline:lastReadingPosition";
+      const CHAPTER_STATE_PREFIX = "bloodline:chapterState:";
+      const formatter = new Intl.DateTimeFormat("en-US", {{ month: "short", day: "numeric", year: "numeric" }});
+
+      const chapterList = document.getElementById("chapter-list");
+      const continueTitle = document.getElementById("continue-title");
+      const continueCopy = document.getElementById("continue-copy");
+      const continueMeta = document.getElementById("continue-meta");
+      const continueLink = document.getElementById("continue-link");
+
+      document.getElementById("sign-out").addEventListener("click", () => {{
+        window.BloodlineAlphaAuth.signOut();
+        window.location.replace("../alpha/index.html");
+      }});
+
+      function readJson(key) {{
+        try {{
+          const raw = localStorage.getItem(key);
+          return raw ? JSON.parse(raw) : null;
+        }} catch (error) {{
+          return null;
+        }}
+      }}
+
+      function writeJson(key, value) {{
+        localStorage.setItem(key, JSON.stringify(value));
+      }}
+
+      function chapterStateKey(slug) {{
+        return `${{CHAPTER_STATE_PREFIX}}${{slug}}`;
+      }}
+
+      function getChapterState(slug) {{
+        return readJson(chapterStateKey(slug));
+      }}
+
+      function setChapterState(chapter, status) {{
+        const existing = getChapterState(chapter.chapterSlug) || {{
+          chapterSlug: chapter.chapterSlug,
+          status: "not-started",
+          openedAt: null,
+          markedReadAt: null,
+        }};
+        const now = new Date().toISOString();
+        existing.chapterSlug = chapter.chapterSlug;
+        existing.status = status;
+        if (status === "not-started") {{
+          existing.openedAt = null;
+          existing.markedReadAt = null;
+        }} else {{
+          existing.openedAt = existing.openedAt || now;
+          existing.markedReadAt = status === "read" ? (existing.markedReadAt || now) : null;
+        }}
+        writeJson(chapterStateKey(chapter.chapterSlug), existing);
+      }}
+
+      function markOpened(chapter) {{
+        const existing = getChapterState(chapter.chapterSlug);
+        if (existing?.status === "read") return;
+        setChapterState(chapter, "in-progress");
+      }}
+
+      function formatDate(value) {{
+        if (!value) return "";
+        try {{
+          return formatter.format(new Date(value));
+        }} catch (error) {{
+          return "";
+        }}
+      }}
+
+      function statusBadge(status) {{
+        const labels = {{
+          "read": ["Read", "border-emerald-900/60 bg-emerald-950/40 text-emerald-100"],
+          "in-progress": ["In progress", "border-amber-800/60 bg-amber-950/40 text-amber-100"],
+          "not-started": ["Not started", "border-neutral-700 bg-neutral-950/80 text-neutral-300"],
+        }};
+        const [label, classes] = labels[status] || labels["not-started"];
+        return `<span class="rounded-full border px-3 py-1 text-[11px] uppercase tracking-[0.18em] ${{classes}}">${{label}}</span>`;
+      }}
+
+      function currentStatus(chapter) {{
+        const state = getChapterState(chapter.chapterSlug);
+        return state?.status || "not-started";
+      }}
+
+      function continueTarget() {{
+        const last = readJson(LAST_READING_KEY);
+        if (last?.chapterSlug) {{
+          const chapter = chapterManifest.find((entry) => entry.chapterSlug === last.chapterSlug);
+          if (chapter) {{
+            return {{
+              chapter,
+              position: last,
+              mode: "resume",
+            }};
+          }}
+        }}
+
+        return {{
+          chapter: chapterManifest[0],
+          position: null,
+          mode: "start",
+        }};
+      }}
+
+      function renderContinueReading() {{
+        const target = continueTarget();
+        if (!target.chapter) {{
+          continueTitle.textContent = "No chapter pages available yet";
+          continueCopy.textContent = "Run the generator to populate the alpha reader repo.";
+          continueMeta.textContent = "";
+          continueLink.classList.add("pointer-events-none", "opacity-50");
+          continueLink.href = "#";
+          return;
+        }}
+
+        continueTitle.textContent = `Continue reading: ${{target.chapter.chapterTitle}}`;
+        continueLink.href = target.mode === "resume"
+          ? `${{target.chapter.chapterUrl}}?resume=1`
+          : target.chapter.chapterUrl;
+
+        if (target.mode === "resume" && target.position) {{
+          continueCopy.textContent = `Last position: about ${{Math.round(target.position.scrollPercent || 0)}}%`;
+          const parts = [];
+          if (target.position.updatedAt) {{
+            parts.push(`Last opened ${{formatDate(target.position.updatedAt)}}`);
+          }}
+          continueMeta.textContent = parts.join(" • ");
+          continueLink.textContent = "Continue reading";
+        }} else {{
+          continueCopy.textContent = "No saved position yet. Start with the first available chapter.";
+          continueMeta.textContent = "";
+          continueLink.textContent = "Start reading";
+        }}
+      }}
+
+      function chapterCard(chapter, index) {{
+        const status = currentStatus(chapter);
+        const readerLabels = Array.isArray(chapter.readerLabels) ? chapter.readerLabels : [];
+        const metaChips = [
+          chapter.act ? `<span class="rounded-full border border-neutral-700 bg-neutral-950/80 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-neutral-300">${{chapter.act}}</span>` : "",
+          chapter.updatedAt ? `<span class="rounded-full border border-neutral-700 bg-neutral-950/80 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-neutral-300">Updated ${{chapter.updatedAt}}</span>` : "",
+          `<span class="rounded-full border border-neutral-700 bg-neutral-950/80 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-neutral-300">${{chapter.sceneCount}} scene${{chapter.sceneCount === 1 ? "" : "s"}}</span>`,
+          `<span class="rounded-full border border-neutral-700 bg-neutral-950/80 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-neutral-300">${{chapter.wordCount}} words</span>`,
+          `<span class="rounded-full border border-neutral-700 bg-neutral-950/80 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-neutral-300">~${{chapter.estimatedReadMinutes}} min read</span>`,
+          chapter.draftStatusLabel ? `<span class="rounded-full border border-neutral-700 bg-neutral-950/80 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-neutral-300">${{chapter.draftStatusLabel}}</span>` : "",
+          statusBadge(status),
+        ].filter(Boolean).join("");
+
+        const readerFlags = readerLabels
+          .map((label) => `<span class="rounded-full border border-sky-800/60 bg-sky-950/35 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-sky-100">${{label}}</span>`)
+          .join("");
+
+        return `
+          <article class="rounded-3xl border border-neutral-800 bg-neutral-950/35 p-5">
+            <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+              <div class="min-w-0">
+                <div class="flex flex-wrap items-center gap-2">
+                  <p class="text-xs uppercase tracking-[0.18em] text-neutral-500">Reading order ${{index + 1}}</p>
+                  ${{readerFlags}}
+                </div>
+                <h3 class="mt-3 text-xl font-semibold text-neutral-50">${{chapter.chapterTitle}}</h3>
+                <p class="mt-3 max-w-3xl text-sm leading-6 text-neutral-300">${{chapter.excerpt}}</p>
+                <div class="mt-4 flex flex-wrap gap-2">${{metaChips}}</div>
+                <div class="mt-4 rounded-2xl border border-neutral-800 bg-neutral-950/60 px-4 py-3">
+                  <p class="text-[11px] uppercase tracking-[0.18em] text-neutral-500">Scene preview</p>
+                  <p class="mt-2 text-sm font-medium text-neutral-100">${{chapter.firstScene.label}}: ${{chapter.firstScene.title}}</p>
+                  <p class="mt-2 text-sm text-neutral-400">${{chapter.feedbackLine}}</p>
+                </div>
+              </div>
+              <div class="flex w-full flex-col gap-3 md:w-auto md:min-w-[12rem]">
+                <a href="${{chapter.chapterUrl}}" data-open-chapter="${{chapter.chapterSlug}}" class="inline-flex items-center justify-center rounded-2xl bg-rose-600 px-4 py-3 text-sm font-semibold text-neutral-50 transition hover:bg-rose-500">
+                  Open chapter
+                </a>
+                <button type="button" data-mark-read="${{chapter.chapterSlug}}" class="inline-flex items-center justify-center rounded-2xl border border-neutral-700 px-4 py-3 text-sm font-semibold text-neutral-200 transition hover:bg-neutral-900">
+                  ${{status === "read" ? "Mark unread" : "Mark read"}}
+                </button>
+              </div>
+            </div>
+          </article>
+        `;
+      }}
+
+      function renderChapterList() {{
+        if (!chapterManifest.length) {{
+          chapterList.innerHTML = `
+            <div class="rounded-2xl border border-dashed border-neutral-700 bg-neutral-950/60 p-5">
+              <p class="text-sm font-medium text-neutral-100">No chapter pages available yet.</p>
+              <p class="mt-2 text-sm leading-6 text-neutral-400">Run the scene generator to populate this portal index.</p>
+            </div>
+          `;
+          return;
+        }}
+
+        chapterList.innerHTML = chapterManifest.map(chapterCard).join("");
+
+        chapterList.querySelectorAll("[data-open-chapter]").forEach((link) => {{
+          link.addEventListener("click", () => {{
+            const slug = link.getAttribute("data-open-chapter");
+            const chapter = chapterManifest.find((entry) => entry.chapterSlug === slug);
+            if (chapter) {{
+              markOpened(chapter);
+            }}
+          }});
+        }});
+
+        chapterList.querySelectorAll("[data-mark-read]").forEach((button) => {{
+          button.addEventListener("click", () => {{
+            const slug = button.getAttribute("data-mark-read");
+            const chapter = chapterManifest.find((entry) => entry.chapterSlug === slug);
+            if (!chapter) return;
+            const status = currentStatus(chapter);
+            setChapterState(chapter, status === "read" ? "not-started" : "read");
+            renderContinueReading();
+            renderChapterList();
+          }});
+        }});
+      }}
+
+      renderContinueReading();
+      renderChapterList();
+    }})();
+  </script>
+</body>
+</html>
+"""
+
+
 def main() -> None:
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     source_files = sorted(
@@ -759,6 +1455,7 @@ def main() -> None:
 
     chapters = build_chapters(scenes)
     chapter_summaries = build_story_so_far_summaries(chapters)
+    chapter_manifest = render_chapter_manifest(chapters, chapter_summaries)
 
     keep_html = {"index.html"}
     for index, chapter in enumerate(chapters):
@@ -779,11 +1476,14 @@ def main() -> None:
             encoding="utf-8",
         )
 
+    (OUTPUT_DIR / "index.html").write_text(render_index_page(chapter_manifest), encoding="utf-8")
+
     for existing in OUTPUT_DIR.glob("*.html"):
         if existing.name not in keep_html:
             existing.unlink()
 
     MANIFEST_PATH.write_text(json.dumps(render_manifest(scenes), indent=2), encoding="utf-8")
+    CHAPTER_MANIFEST_PATH.write_text(json.dumps(chapter_manifest, indent=2), encoding="utf-8")
     print(f"Generated {len(chapters)} chapter pages from {len(scenes)} scenes into {OUTPUT_DIR}")
 
 
