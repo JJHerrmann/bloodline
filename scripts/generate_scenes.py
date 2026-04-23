@@ -336,12 +336,12 @@ def chapter_missing_scene_one(chapter: ChapterDoc) -> bool:
     return not any(str(scene.meta.get("scene") or "") == "1" for scene in chapter.scenes)
 
 
-def chapter_summary(chapter: ChapterDoc) -> str:
-    excerpts = [scene.excerpt.strip() for scene in chapter.scenes if scene.excerpt.strip()]
+def chapter_summary(previous_scenes: list[SceneDoc]) -> str:
+    excerpts = [scene.excerpt.strip() for scene in previous_scenes if scene.excerpt.strip()]
     if not excerpts:
-        return "Current available draft material for this chapter is collected here for alpha reading."
+        return "This chapter begins the currently available material, so there is no prior-story recap before this point."
 
-    summary = " ".join(excerpts[:2]).strip()
+    summary = " ".join(excerpts[-3:]).strip()
     summary = re.sub(r"\s+", " ", summary)
     if len(summary) > 280:
         summary = summary[:277].rsplit(" ", 1)[0].rstrip(".,;:!?") + "..."
@@ -438,12 +438,17 @@ def render_scene_block(scene: SceneDoc) -> str:
 """
 
 
-def render_chapter_page(chapter: ChapterDoc, previous_chapter: ChapterDoc | None, next_chapter: ChapterDoc | None) -> str:
+def render_chapter_page(
+    chapter: ChapterDoc,
+    previous_chapter: ChapterDoc | None,
+    next_chapter: ChapterDoc | None,
+    previous_scenes: list[SceneDoc],
+) -> str:
     lead_scene = chapter.scenes[0]
     chapter_total_words = chapter_word_count(chapter)
     chapter_minutes = chapter_read_time(chapter)
     missing_scene_one = chapter_missing_scene_one(chapter)
-    summary = chapter_summary(chapter)
+    summary = chapter_summary(previous_scenes)
     side_prev = (
         f"""<a href="./{previous_chapter.slug}.html" class="group fixed left-4 top-1/2 z-40 hidden -translate-y-1/2 xl:flex max-w-[13rem] items-center gap-3 rounded-2xl border border-neutral-800 bg-neutral-950/90 px-4 py-3 text-sm font-semibold text-neutral-200 shadow-2xl shadow-black/40 backdrop-blur transition hover:border-rose-800 hover:bg-neutral-900">
   <span class="text-lg text-rose-300 transition group-hover:-translate-x-1">←</span>
@@ -630,10 +635,14 @@ def main() -> None:
     for index, chapter in enumerate(chapters):
         previous_chapter = chapters[index - 1] if index > 0 else None
         next_chapter = chapters[index + 1] if index + 1 < len(chapters) else None
+        previous_scenes = [scene for prior in chapters[:index] for scene in prior.scenes]
         output_name = f"{chapter.slug}.html"
         keep_html.add(output_name)
         output_path = OUTPUT_DIR / output_name
-        output_path.write_text(render_chapter_page(chapter, previous_chapter, next_chapter), encoding="utf-8")
+        output_path.write_text(
+            render_chapter_page(chapter, previous_chapter, next_chapter, previous_scenes),
+            encoding="utf-8",
+        )
 
     for existing in OUTPUT_DIR.glob("*.html"):
         if existing.name not in keep_html:
