@@ -802,6 +802,7 @@ def render_chapter_page(
   <meta name="description" content="{html.escape((lead_scene.excerpt or chapter.title)[:155])}">
   <meta name="robots" content="noindex,nofollow,noarchive,noimageindex">
   <meta name="theme-color" content="#111827">
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="../alpha/auth.js"></script>
   <style>
@@ -1117,6 +1118,7 @@ def render_index_page(chapter_manifest: list[dict[str, Any]]) -> str:
   <meta name="description" content="Alpha-reader chapter index for Bloodline.">
   <meta name="robots" content="noindex,nofollow,noarchive,noimageindex">
   <meta name="theme-color" content="#111827">
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="../alpha/auth.js"></script>
 </head>
