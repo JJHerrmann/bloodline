@@ -10,9 +10,9 @@ from pathlib import Path
 
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-DEFAULT_SOURCE_DIR = Path(
-    r"C:\Users\jjzeg\OneDrive\Desktop\Mindpalace_mirror\Authorship\Mason Rok\Bloodline\Garnet\01_Story\Episodes"
-)
+# The repository lives beside the canonical Obsidian manuscript inside the
+# Bloodline folder. Keep prose in the vault and generated reader pages here.
+DEFAULT_SOURCE_DIR = REPO_ROOT.parent / "Garnet Shield" / "Writing" / "Episodes"
 DEFAULT_OUTPUT_DIR = REPO_ROOT / "scenes"
 
 SOURCE_DIR = Path(os.environ.get("BLOODLINE_SOURCE_DIR", str(DEFAULT_SOURCE_DIR)))
@@ -65,6 +65,14 @@ def normalize_wiki_links(text: str) -> str:
 
 def strip_obsidian_artifacts(text: str) -> str:
     lines = text.splitlines()
+    if lines and lines[0].strip() == "---":
+        try:
+            closing_index = next(
+                index for index, line in enumerate(lines[1:], start=1) if line.strip() == "---"
+            )
+            lines = lines[closing_index + 1 :]
+        except StopIteration:
+            pass
     kept: list[str] = []
     in_code = False
     code_lang = ""

@@ -1,0 +1,19 @@
+{
+  "series": {
+    "slug": "garnet-shield",
+    "title": "The Garnet Shield",
+    "label": "Book One",
+    "description": "A dead expedition. A missing father. A mountain that keeps score.",
+    "patreon_collection": "https://www.patreon.com/collection/2237314"
+  },
+  "episodes": [
+    {"number": 0, "title": "Prologue", "status": "public", "published": "2026-06-25", "patreon_url": "https://www.patreon.com/posts/prologue-162060150"},
+    {"number": 1, "title": "The Call", "status": "public", "published": "2026-06-25", "patreon_url": "https://www.patreon.com/posts/bloodline-of-one-162086464", "patreon_access_anomaly": "The post is currently locked even though Episodes 2–6 are public."},
+    {"number": 2, "title": "I Will Arise and Go", "status": "public", "published": "2026-07-03", "patreon_url": "https://www.patreon.com/posts/bloodline-of-two-162844943"},
+    {"number": 3, "title": "The House Upon the Sands", "status": "public", "published": "2026-07-05", "patreon_url": "https://www.patreon.com/posts/bloodline-of-162854945"},
+    {"number": 4, "title": "Scared Dogs", "status": "public", "published": "2026-07-30", "patreon_url": "https://www.patreon.com/posts/bloodline-of-165229387"},
+    {"number": 5, "title": "Episode Five", "status": "public", "published": "2026-08-05", "patreon_url": "https://www.patreon.com/posts/bloodline-of-165137262"},
+    {"number": 6, "title": "Episode Six", "status": "public", "published": "2026-08-09", "patreon_url": "https://www.patreon.com/posts/bloodline-of-six-165137294"},
+    {"number": 7, "title": "Episode Seven", "status": "advance", "patreon_published": "2026-08-23", "patreon_url": "https://www.patreon.com/posts/bloodline-of-165831228"}
+  ]
+}
