@@ -55,6 +55,7 @@ source identifies the interviewer. The initial pool is:
 - `interviewer-02.webp` — mid-career Black woman interviewer
 - `interviewer-03.webp` — veteran woman oral historian
 - `interviewer-04.webp` — Latino male folklorist/audio researcher
+- `interviewer-05.webp` — South Asian American woman engineer and field-instrumentation specialist
 
 To generate from another source directory temporarily:
 
