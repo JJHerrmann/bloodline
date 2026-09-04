@@ -46,6 +46,16 @@ The first published card is
 `images/shelton-observatory-voices-share-card.jpg`; Anne's reusable portrait is
 `images/hootin-anne-newsome.webp`.
 
+Generic, currently non-canonical interviewer portraits live in
+`images/shelton-interviewers/`. They are numbered rather than named so using a
+portrait does not establish a character until the corresponding case-file
+source identifies the interviewer. The initial pool is:
+
+- `interviewer-01.webp` — younger male field investigator
+- `interviewer-02.webp` — mid-career Black woman interviewer
+- `interviewer-03.webp` — veteran woman oral historian
+- `interviewer-04.webp` — Latino male folklorist/audio researcher
+
 To generate from another source directory temporarily:
 
 ```bash
