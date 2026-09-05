@@ -1,0 +1,14 @@
+/* Episode catalog: number | title + stinger | reading time + release date. */
+.episode-card { grid-template-columns:80px minmax(0,1fr) auto; grid-template-areas:"number copy meta"; align-items:start; }
+.episode-number { grid-area:number; padding-top:5px; }
+.episode-copyline { grid-area:copy; }
+.episode-card h3 { margin-bottom:7px; }
+.episode-card p { font-family:Georgia,serif; font-style:italic; line-height:1.45; }
+.episode-meta { grid-area:meta; padding-top:6px; }
+.support-actions { display:flex; flex-wrap:wrap; gap:10px; }
+.support-alt { margin-bottom:0; font-size:13px; }
+.advance .button.secondary,.support .button.secondary { border-color:#a98c62; color:var(--cream); }
+@media (max-width:650px) {
+  .episode-card { grid-template-columns:1fr auto; grid-template-areas:"number meta" "copy copy"; gap:10px 16px; }
+  .episode-number,.episode-meta { padding-top:0; }
+}
