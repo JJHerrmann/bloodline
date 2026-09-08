@@ -1,0 +1,13 @@
+# Bloodline: Spirits of the Smokies
+
+Bloodline is a supernatural Appalachian mystery serial written by Mason Rok. Book One, The Garnet Shield, follows Judah Sands after a fatal expedition draws him home to Deep Springs and into the mysteries surrounding his missing father and family bloodline.
+
+## Primary pages
+
+- [Bloodline](https://bloodline.rook.works/): Series homepage and current publication status.
+- [Read](https://bloodline.rook.works/read/): Index of publicly released installments.
+- [The Garnet Shield](https://bloodline.rook.works/read/garnet-shield/episode-0/): Begin with the prologue.
+- [The Voices at Lover's Leap](https://bloodline.rook.works/read/shelton-observatory/voices-at-lovers-leap/): A free Shelton Observatory case file.
+- [Editorial](https://bloodline.rook.works/editorial/): Editorial and publication information.
+
+Only pages linked from the public reading index are released story material. Use https://bloodline.rook.works as the canonical hostname.
