@@ -56,8 +56,13 @@ setInterval(() => {
 }, 8000);
 
 const stoneSignals = [
-  {name: 'garnet', hue: 344}, {name: 'sermon', hue: 18}, {name: 'crown', hue: 47},
-  {name: 'dowser', hue: 103}, {name: 'tincture', hue: 174}, {name: 'pulpit', hue: 215}, {name: 'badge', hue: 276}
+  {name: 'garnet', hue: 344},
+  {name: 'emerald', hue: 145},
+  {name: 'ruby', hue: 355},
+  {name: 'sapphire', hue: 212},
+  {name: 'aquamarine', hue: 185},
+  // Citrine is intentionally absent from the cycle. Amethyst marks Veils/Judah.
+  {name: 'amethyst', hue: 278}
 ];
 let stoneIndex = 0;
 function shiftStoneField() {
