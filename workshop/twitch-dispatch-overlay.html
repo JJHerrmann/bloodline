@@ -26,7 +26,7 @@
     .production-rail footer{position:static;margin-top:13px;padding-top:11px;border-top:1px solid rgba(87,199,255,.34)}
     .today-bar{background:hsl(var(--stone-hue) 43% 7% / .9);border-color:hsl(var(--stone-hue) 78% 61% / .55);transition:background 2.4s ease,border-color 2.4s ease}
     .session-timer{background:hsl(calc(var(--stone-hue) - 10) 40% 6% / .94);border-color:hsl(calc(var(--stone-hue) + 24) 88% 66% / .65);box-shadow:0 0 17px hsl(calc(var(--stone-hue) + 24) 88% 66% / .16);transition:background 2.4s ease,border-color 2.4s ease,box-shadow 2.4s ease}
-    .today-bar,.session-timer{isolation:isolate}.today-bar::after,.session-timer::after{position:absolute;z-index:0;inset:0;content:"";pointer-events:none;background:url('/assets/overlays/stream-water-texture.png') center/cover no-repeat;mix-blend-mode:screen;opacity:var(--panel-texture-opacity)}.today-bar>*,.session-timer>*{position:relative;z-index:1}
+    .today-bar,.session-timer{isolation:isolate}.today-bar::after,.session-timer::after{position:absolute;z-index:0;inset:0;content:"";pointer-events:none;background:url('/assets/overlays/stream-water-texture.png') center/cover no-repeat;mix-blend-mode:multiply;opacity:var(--panel-texture-opacity)}.today-bar>*,.session-timer>*{position:relative;z-index:1}
   </style>
 </head>
 <body>

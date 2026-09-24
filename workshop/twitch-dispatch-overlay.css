@@ -22,8 +22,8 @@
 .dispatch-bar.is-writing .station-cta{display:none}.dispatch-bar.is-writing .focus-cta-grid{display:grid}
 
 /* A low-key water-and-light field: enough depth to notice, never enough to fight text. */
-:root{--panel-texture-opacity:.10}
-.production-rail,.dispatch-bar{isolation:isolate}.production-rail::after,.dispatch-bar::after{position:absolute;z-index:0;inset:0;content:"";pointer-events:none;background:url('/assets/overlays/stream-water-texture.png') center/cover no-repeat;mix-blend-mode:screen;opacity:var(--panel-texture-opacity)}
+:root{--panel-texture-opacity:.20}
+.production-rail,.dispatch-bar{isolation:isolate}.production-rail::after,.dispatch-bar::after{position:absolute;z-index:0;inset:0;content:"";pointer-events:none;background:url('/assets/overlays/stream-water-texture.png') center/cover no-repeat;mix-blend-mode:multiply;opacity:var(--panel-texture-opacity)}
 .production-rail>*{z-index:1}
-.focus-cta-grid a{background-image:linear-gradient(hsl(var(--stone-hue) 44% 7% / .89),hsl(var(--stone-hue) 44% 7% / .89)),url('/assets/overlays/stream-water-texture.png');background-position:center;background-size:auto,cover;background-blend-mode:normal,screen}
+.focus-cta-grid a{background-image:linear-gradient(hsl(var(--stone-hue) 44% 7% / .89),hsl(var(--stone-hue) 44% 7% / .89)),url('/assets/overlays/stream-water-texture.png');background-position:center;background-size:auto,cover;background-blend-mode:normal,multiply}
 .focus-cta-grid a:hover{background-image:linear-gradient(hsl(var(--stone-hue) 62% 14% / .92),hsl(var(--stone-hue) 62% 14% / .92)),url('/assets/overlays/stream-water-texture.png')}
