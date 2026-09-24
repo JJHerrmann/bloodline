@@ -112,6 +112,8 @@ class Handler(BaseHTTPRequestHandler):
             self.send_json(snapshot()); return
         relative = "index.html" if path == "/" else path.lstrip("/")
         target = (ROOT / relative).resolve()
+        if target.is_dir():
+            target = target / "index.html"
         if ROOT not in target.parents and target != ROOT or not target.is_file():
             self.send_error(HTTPStatus.NOT_FOUND); return
         body = target.read_bytes()
