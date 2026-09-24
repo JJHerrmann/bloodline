@@ -1,0 +1,951 @@
+{
+  "siteTitle": "The Workshop",
+  "intro": "A live-ish look at how Bloodline is made: the pages, the pacing, and the strange amount of trouble Judah Sands has caused along the way.",
+  "updatedLabel": "Updated when the production ledger is rebuilt",
+  "generatedAt": "2026-09-24T08:56:09Z",
+  "books": [
+    {
+      "id": "garnet-shield",
+      "arc": "Arc One",
+      "label": "Book One",
+      "title": "The Garnet Shield",
+      "goalWords": 137000,
+      "episodes": [
+        {
+          "number": 0,
+          "title": "Episode 0",
+          "words": 2277,
+          "url": "https://www.patreon.com/masonrok/posts/episode-0-162060150",
+          "published": true,
+          "started": true
+        },
+        {
+          "number": 1,
+          "title": "Episode 1",
+          "words": 1698,
+          "url": "https://www.patreon.com/masonrok/posts/episode-1-call-162086464",
+          "published": true,
+          "started": true
+        },
+        {
+          "number": 2,
+          "title": "Episode 2",
+          "words": 2786,
+          "url": null,
+          "published": true,
+          "started": true
+        },
+        {
+          "number": 3,
+          "title": "Episode 3",
+          "words": 1484,
+          "url": null,
+          "published": true,
+          "started": true
+        },
+        {
+          "number": 4,
+          "title": "Episode 4",
+          "words": 2398,
+          "url": null,
+          "published": true,
+          "started": true
+        },
+        {
+          "number": 5,
+          "title": "Episode 5",
+          "words": 2252,
+          "url": null,
+          "published": true,
+          "started": true
+        },
+        {
+          "number": 6,
+          "title": "Episode 6",
+          "words": 2371,
+          "url": null,
+          "published": true,
+          "started": true
+        },
+        {
+          "number": 7,
+          "title": "Episode 7",
+          "words": 3502,
+          "url": null,
+          "published": true,
+          "started": true
+        },
+        {
+          "number": 8,
+          "title": "Episode 8",
+          "words": 1446,
+          "url": null,
+          "published": true,
+          "started": true
+        },
+        {
+          "number": 9,
+          "title": "Episode 9",
+          "words": 1721,
+          "url": null,
+          "published": true,
+          "started": true
+        },
+        {
+          "number": 10,
+          "title": "Episode 10",
+          "words": 3172,
+          "url": null,
+          "published": true,
+          "started": true
+        },
+        {
+          "number": 11,
+          "title": "Episode 11",
+          "words": 1748,
+          "url": null,
+          "published": true,
+          "started": true
+        },
+        {
+          "number": 12,
+          "title": "Episode 12",
+          "words": 1514,
+          "url": null,
+          "published": false,
+          "started": true
+        },
+        {
+          "number": 13,
+          "title": "Episode 13",
+          "words": 1097,
+          "url": null,
+          "published": false,
+          "started": true
+        },
+        {
+          "number": 14,
+          "title": "Episode 14",
+          "words": 1456,
+          "url": null,
+          "published": false,
+          "started": true
+        },
+        {
+          "number": 15,
+          "title": "Episode 15",
+          "words": 3270,
+          "url": null,
+          "published": false,
+          "started": true
+        },
+        {
+          "number": 16,
+          "title": "Episode 16",
+          "words": 1813,
+          "url": null,
+          "published": false,
+          "started": true
+        },
+        {
+          "number": 17,
+          "title": "Episode 17",
+          "words": 1274,
+          "url": null,
+          "published": false,
+          "started": true
+        },
+        {
+          "number": 18,
+          "title": "Episode 18",
+          "words": 1965,
+          "url": null,
+          "published": false,
+          "started": true
+        },
+        {
+          "number": 19,
+          "title": "Episode 19",
+          "words": 7,
+          "url": null,
+          "published": false,
+          "started": true
+        },
+        {
+          "number": 20,
+          "title": "Episode 20",
+          "words": 1003,
+          "url": null,
+          "published": false,
+          "started": true
+        },
+        {
+          "number": 21,
+          "title": "Episode 21",
+          "words": 1379,
+          "url": null,
+          "published": false,
+          "started": true
+        },
+        {
+          "number": 22,
+          "title": "Episode 22",
+          "words": 1185,
+          "url": null,
+          "published": false,
+          "started": true
+        },
+        {
+          "number": 23,
+          "title": "Episode 23",
+          "words": 313,
+          "url": null,
+          "published": false,
+          "started": true
+        },
+        {
+          "number": 44,
+          "title": "Episode 44",
+          "words": 11,
+          "url": null,
+          "published": false,
+          "started": true
+        },
+        {
+          "number": 45,
+          "title": "Episode 45",
+          "words": 11,
+          "url": null,
+          "published": false,
+          "started": true
+        },
+        {
+          "number": 46,
+          "title": "Episode 46",
+          "words": 11,
+          "url": null,
+          "published": false,
+          "started": true
+        },
+        {
+          "number": 58,
+          "title": "Episode 58",
+          "words": 1328,
+          "url": null,
+          "published": false,
+          "started": true
+        },
+        {
+          "number": 59,
+          "title": "Episode 59",
+          "words": 3109,
+          "url": null,
+          "published": false,
+          "started": true
+        },
+        {
+          "number": 60,
+          "title": "Episode 60",
+          "words": 607,
+          "url": null,
+          "published": false,
+          "started": true
+        }
+      ],
+      "plannedEpisodes": [
+        {
+          "number": 0,
+          "title": "Episode 0",
+          "words": 2277,
+          "url": "https://www.patreon.com/masonrok/posts/episode-0-162060150",
+          "published": true,
+          "started": true
+        },
+        {
+          "number": 1,
+          "title": "Episode 1",
+          "words": 1698,
+          "url": "https://www.patreon.com/masonrok/posts/episode-1-call-162086464",
+          "published": true,
+          "started": true
+        },
+        {
+          "number": 2,
+          "title": "Episode 2",
+          "words": 2786,
+          "url": null,
+          "published": true,
+          "started": true
+        },
+        {
+          "number": 3,
+          "title": "Episode 3",
+          "words": 1484,
+          "url": null,
+          "published": true,
+          "started": true
+        },
+        {
+          "number": 4,
+          "title": "Episode 4",
+          "words": 2398,
+          "url": null,
+          "published": true,
+          "started": true
+        },
+        {
+          "number": 5,
+          "title": "Episode 5",
+          "words": 2252,
+          "url": null,
+          "published": true,
+          "started": true
+        },
+        {
+          "number": 6,
+          "title": "Episode 6",
+          "words": 2371,
+          "url": null,
+          "published": true,
+          "started": true
+        },
+        {
+          "number": 7,
+          "title": "Episode 7",
+          "words": 3502,
+          "url": null,
+          "published": true,
+          "started": true
+        },
+        {
+          "number": 8,
+          "title": "Episode 8",
+          "words": 1446,
+          "url": null,
+          "published": true,
+          "started": true
+        },
+        {
+          "number": 9,
+          "title": "Episode 9",
+          "words": 1721,
+          "url": null,
+          "published": true,
+          "started": true
+        },
+        {
+          "number": 10,
+          "title": "Episode 10",
+          "words": 3172,
+          "url": null,
+          "published": true,
+          "started": true
+        },
+        {
+          "number": 11,
+          "title": "Episode 11",
+          "words": 1748,
+          "url": null,
+          "published": true,
+          "started": true
+        },
+        {
+          "number": 12,
+          "title": "Episode 12",
+          "words": 1514,
+          "url": null,
+          "published": false,
+          "started": true
+        },
+        {
+          "number": 13,
+          "title": "Episode 13",
+          "words": 1097,
+          "url": null,
+          "published": false,
+          "started": true
+        },
+        {
+          "number": 14,
+          "title": "Episode 14",
+          "words": 1456,
+          "url": null,
+          "published": false,
+          "started": true
+        },
+        {
+          "number": 15,
+          "title": "Episode 15",
+          "words": 3270,
+          "url": null,
+          "published": false,
+          "started": true
+        },
+        {
+          "number": 16,
+          "title": "Episode 16",
+          "words": 1813,
+          "url": null,
+          "published": false,
+          "started": true
+        },
+        {
+          "number": 17,
+          "title": "Episode 17",
+          "words": 1274,
+          "url": null,
+          "published": false,
+          "started": true
+        },
+        {
+          "number": 18,
+          "title": "Episode 18",
+          "words": 1965,
+          "url": null,
+          "published": false,
+          "started": true
+        },
+        {
+          "number": 19,
+          "title": "Episode 19",
+          "words": 7,
+          "url": null,
+          "published": false,
+          "started": true
+        },
+        {
+          "number": 20,
+          "title": "Episode 20",
+          "words": 1003,
+          "url": null,
+          "published": false,
+          "started": true
+        },
+        {
+          "number": 21,
+          "title": "Episode 21",
+          "words": 1379,
+          "url": null,
+          "published": false,
+          "started": true
+        },
+        {
+          "number": 22,
+          "title": "Episode 22",
+          "words": 1185,
+          "url": null,
+          "published": false,
+          "started": true
+        },
+        {
+          "number": 23,
+          "title": "Episode 23",
+          "words": 313,
+          "url": null,
+          "published": false,
+          "started": true
+        },
+        {
+          "number": 24,
+          "title": "Episode 24",
+          "words": 0,
+          "url": null,
+          "published": false,
+          "started": false
+        },
+        {
+          "number": 25,
+          "title": "Episode 25",
+          "words": 0,
+          "url": null,
+          "published": false,
+          "started": false
+        },
+        {
+          "number": 26,
+          "title": "Episode 26",
+          "words": 0,
+          "url": null,
+          "published": false,
+          "started": false
+        },
+        {
+          "number": 27,
+          "title": "Episode 27",
+          "words": 0,
+          "url": null,
+          "published": false,
+          "started": false
+        },
+        {
+          "number": 28,
+          "title": "Episode 28",
+          "words": 0,
+          "url": null,
+          "published": false,
+          "started": false
+        },
+        {
+          "number": 29,
+          "title": "Episode 29",
+          "words": 0,
+          "url": null,
+          "published": false,
+          "started": false
+        },
+        {
+          "number": 30,
+          "title": "Episode 30",
+          "words": 0,
+          "url": null,
+          "published": false,
+          "started": false
+        },
+        {
+          "number": 31,
+          "title": "Episode 31",
+          "words": 0,
+          "url": null,
+          "published": false,
+          "started": false
+        },
+        {
+          "number": 32,
+          "title": "Episode 32",
+          "words": 0,
+          "url": null,
+          "published": false,
+          "started": false
+        },
+        {
+          "number": 33,
+          "title": "Episode 33",
+          "words": 0,
+          "url": null,
+          "published": false,
+          "started": false
+        },
+        {
+          "number": 34,
+          "title": "Episode 34",
+          "words": 0,
+          "url": null,
+          "published": false,
+          "started": false
+        },
+        {
+          "number": 35,
+          "title": "Episode 35",
+          "words": 0,
+          "url": null,
+          "published": false,
+          "started": false
+        },
+        {
+          "number": 36,
+          "title": "Episode 36",
+          "words": 0,
+          "url": null,
+          "published": false,
+          "started": false
+        },
+        {
+          "number": 37,
+          "title": "Episode 37",
+          "words": 0,
+          "url": null,
+          "published": false,
+          "started": false
+        },
+        {
+          "number": 38,
+          "title": "Episode 38",
+          "words": 0,
+          "url": null,
+          "published": false,
+          "started": false
+        },
+        {
+          "number": 39,
+          "title": "Episode 39",
+          "words": 0,
+          "url": null,
+          "published": false,
+          "started": false
+        },
+        {
+          "number": 40,
+          "title": "Episode 40",
+          "words": 0,
+          "url": null,
+          "published": false,
+          "started": false
+        },
+        {
+          "number": 41,
+          "title": "Episode 41",
+          "words": 0,
+          "url": null,
+          "published": false,
+          "started": false
+        },
+        {
+          "number": 42,
+          "title": "Episode 42",
+          "words": 0,
+          "url": null,
+          "published": false,
+          "started": false
+        },
+        {
+          "number": 43,
+          "title": "Episode 43",
+          "words": 0,
+          "url": null,
+          "published": false,
+          "started": false
+        },
+        {
+          "number": 44,
+          "title": "Episode 44",
+          "words": 11,
+          "url": null,
+          "published": false,
+          "started": true
+        },
+        {
+          "number": 45,
+          "title": "Episode 45",
+          "words": 11,
+          "url": null,
+          "published": false,
+          "started": true
+        },
+        {
+          "number": 46,
+          "title": "Episode 46",
+          "words": 11,
+          "url": null,
+          "published": false,
+          "started": true
+        },
+        {
+          "number": 47,
+          "title": "Episode 47",
+          "words": 0,
+          "url": null,
+          "published": false,
+          "started": false
+        },
+        {
+          "number": 48,
+          "title": "Episode 48",
+          "words": 0,
+          "url": null,
+          "published": false,
+          "started": false
+        },
+        {
+          "number": 49,
+          "title": "Episode 49",
+          "words": 0,
+          "url": null,
+          "published": false,
+          "started": false
+        },
+        {
+          "number": 50,
+          "title": "Episode 50",
+          "words": 0,
+          "url": null,
+          "published": false,
+          "started": false
+        },
+        {
+          "number": 51,
+          "title": "Episode 51",
+          "words": 0,
+          "url": null,
+          "published": false,
+          "started": false
+        },
+        {
+          "number": 52,
+          "title": "Episode 52",
+          "words": 0,
+          "url": null,
+          "published": false,
+          "started": false
+        },
+        {
+          "number": 53,
+          "title": "Episode 53",
+          "words": 0,
+          "url": null,
+          "published": false,
+          "started": false
+        },
+        {
+          "number": 54,
+          "title": "Episode 54",
+          "words": 0,
+          "url": null,
+          "published": false,
+          "started": false
+        },
+        {
+          "number": 55,
+          "title": "Episode 55",
+          "words": 0,
+          "url": null,
+          "published": false,
+          "started": false
+        },
+        {
+          "number": 56,
+          "title": "Episode 56",
+          "words": 0,
+          "url": null,
+          "published": false,
+          "started": false
+        },
+        {
+          "number": 57,
+          "title": "Episode 57",
+          "words": 0,
+          "url": null,
+          "published": false,
+          "started": false
+        },
+        {
+          "number": 58,
+          "title": "Episode 58",
+          "words": 1328,
+          "url": null,
+          "published": false,
+          "started": true
+        },
+        {
+          "number": 59,
+          "title": "Episode 59",
+          "words": 3109,
+          "url": null,
+          "published": false,
+          "started": true
+        },
+        {
+          "number": 60,
+          "title": "Episode 60",
+          "words": 607,
+          "url": null,
+          "published": false,
+          "started": true
+        }
+      ],
+      "wordCount": 48208
+    }
+  ],
+  "nextDrops": [
+    {
+      "date": "2026-09-24",
+      "label": "Episode 9 \u00b7 Public release",
+      "public": true
+    },
+    {
+      "date": "2026-09-24",
+      "label": "Episode 11 \u00b7 Patron release",
+      "public": true
+    },
+    {
+      "date": "2026-10-08",
+      "label": "Episode 10 \u00b7 Public release",
+      "public": true
+    },
+    {
+      "date": "2026-10-08",
+      "label": "Episode 12 \u00b7 Patron release",
+      "public": true
+    },
+    {
+      "date": "2026-10-22",
+      "label": "Episode 11 \u00b7 Public release",
+      "public": true
+    },
+    {
+      "date": "2026-10-22",
+      "label": "Episode 13 \u00b7 Patron release",
+      "public": true
+    }
+  ],
+  "worldInventory": [],
+  "judahTotal": {
+    "amount": 74300,
+    "incidents": 6,
+    "public": true
+  },
+  "activity": [
+    {
+      "date": "2026-09-22",
+      "label": "The production room opened its doors.",
+      "kind": "Workshop"
+    }
+  ],
+  "tone": {
+    "genre": [
+      {
+        "key": "mystery",
+        "label": "Mystery",
+        "color": "#7f9de2",
+        "value": 1369080
+      },
+      {
+        "key": "horror",
+        "label": "Supernatural horror",
+        "color": "#aa554f",
+        "value": 506890
+      },
+      {
+        "key": "family",
+        "label": "Family drama",
+        "color": "#d4a469",
+        "value": 1046650
+      },
+      {
+        "key": "action",
+        "label": "Action",
+        "color": "#c96b4e",
+        "value": 393295
+      },
+      {
+        "key": "mythic",
+        "label": "Folk & mythic lore",
+        "color": "#9274b2",
+        "value": 600410
+      },
+      {
+        "key": "comedy",
+        "label": "Dark comedy",
+        "color": "#5cae9d",
+        "value": 900475
+      }
+    ],
+    "mood": [
+      {
+        "key": "dread",
+        "label": "Dread",
+        "color": "#7c8799",
+        "value": 1017600
+      },
+      {
+        "key": "tense",
+        "label": "Tense",
+        "color": "#d1bd58",
+        "value": 1302095
+      },
+      {
+        "key": "wry",
+        "label": "Wry",
+        "color": "#65b9c5",
+        "value": 1601775
+      },
+      {
+        "key": "tender",
+        "label": "Tender",
+        "color": "#d68da5",
+        "value": 895330
+      }
+    ],
+    "episodes": [
+      {
+        "number": 0
+      },
+      {
+        "number": 1
+      },
+      {
+        "number": 2
+      },
+      {
+        "number": 3
+      },
+      {
+        "number": 4
+      },
+      {
+        "number": 5
+      },
+      {
+        "number": 6
+      },
+      {
+        "number": 7
+      },
+      {
+        "number": 8
+      },
+      {
+        "number": 9
+      },
+      {
+        "number": 10
+      },
+      {
+        "number": 11
+      },
+      {
+        "number": 12
+      },
+      {
+        "number": 13
+      },
+      {
+        "number": 14
+      },
+      {
+        "number": 15
+      },
+      {
+        "number": 16
+      },
+      {
+        "number": 17
+      },
+      {
+        "number": 18
+      },
+      {
+        "number": 19
+      },
+      {
+        "number": 20
+      },
+      {
+        "number": 21
+      },
+      {
+        "number": 22
+      },
+      {
+        "number": 23
+      },
+      {
+        "number": 44
+      },
+      {
+        "number": 45
+      },
+      {
+        "number": 46
+      },
+      {
+        "number": 58
+      },
+      {
+        "number": 59
+      },
+      {
+        "number": 60
+      }
+    ]
+  }
+}

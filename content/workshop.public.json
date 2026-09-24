@@ -1,0 +1,54 @@
+{
+  "siteTitle": "The Workshop",
+  "intro": "A live-ish look at how Bloodline is made: the pages, the pacing, and the strange amount of trouble Judah Sands has caused along the way.",
+  "updatedLabel": "Updated when the production ledger is rebuilt",
+  "books": [
+    {
+      "id": "garnet-shield",
+      "arc": "Arc One",
+      "label": "Book One",
+      "title": "The Garnet Shield",
+      "goalWords": 137000,
+      "public": true,
+      "source": "scenes/episodes.json"
+    }
+  ],
+  "nextDrops": [],
+  "worldInventory": [
+    {"label": "People", "count": 0, "public": true},
+    {"label": "Places", "count": 0, "public": true},
+    {"label": "Organizations", "count": 0, "public": true},
+    {"label": "Spirits & lore", "count": 0, "public": true}
+  ],
+  "judahTotal": {
+    "amount": 0,
+    "incidents": 0,
+    "shareOfStoryCost": null,
+    "costliestEpisode": null,
+    "public": true
+  },
+  "activity": [
+    {
+      "date": "2026-09-22",
+      "label": "The production room opened its doors.",
+      "kind": "Workshop"
+    }
+  ],
+  "tone": {
+    "genre": [
+      {"key": "mystery", "label": "Mystery", "color": "#7f9de2", "value": 0},
+      {"key": "horror", "label": "Supernatural horror", "color": "#aa554f", "value": 0},
+      {"key": "family", "label": "Family drama", "color": "#d4a469", "value": 0},
+      {"key": "action", "label": "Action", "color": "#c96b4e", "value": 0},
+      {"key": "mythic", "label": "Folk & mythic lore", "color": "#9274b2", "value": 0},
+      {"key": "comedy", "label": "Dark comedy", "color": "#5cae9d", "value": 0}
+    ],
+    "mood": [
+      {"key": "dread", "label": "Dread", "color": "#7c8799", "value": 0},
+      {"key": "tense", "label": "Tense", "color": "#d1bd58", "value": 0},
+      {"key": "wry", "label": "Wry", "color": "#65b9c5", "value": 0},
+      {"key": "tender", "label": "Tender", "color": "#d68da5", "value": 0}
+    ],
+    "episodes": []
+  }
+}

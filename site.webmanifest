@@ -1,0 +1,11 @@
+{
+  "name": "Bloodline: Spirits of the Smokies",
+  "short_name": "Bloodline",
+  "icons": [
+    { "src": "/assets/icons/bloodline-sigil-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/assets/icons/bloodline-sigil-512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "theme_color": "#171312",
+  "background_color": "#171312",
+  "display": "standalone"
+}
