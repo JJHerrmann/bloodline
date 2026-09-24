@@ -27,3 +27,6 @@
 .production-rail>*{z-index:1}
 .focus-cta-grid a{background-image:linear-gradient(hsl(var(--stone-hue) 44% 7% / .89),hsl(var(--stone-hue) 44% 7% / .89)),url('/assets/overlays/stream-water-texture.png');background-position:center;background-size:auto,cover;background-blend-mode:normal,multiply}
 .focus-cta-grid a:hover{background-image:linear-gradient(hsl(var(--stone-hue) 62% 14% / .92),hsl(var(--stone-hue) 62% 14% / .92)),url('/assets/overlays/stream-water-texture.png')}
+
+/* The stone-name glow is an ambient cue, not an additional piece of copy. */
+[data-stone-signal]{font-style:normal;transition:color .8s ease,text-shadow .8s ease,filter .8s ease}.stone-signal-active{color:var(--hot);text-shadow:0 0 4px var(--hot),0 0 13px hsl(var(--stone-hue) 82% 66% / .9),0 0 24px hsl(var(--stone-hue) 82% 66% / .55);filter:brightness(1.18)}

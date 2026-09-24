@@ -55,11 +55,16 @@ setInterval(() => {
   showStationMessage(stationMessageIndex);
 }, 8000);
 
-const stoneHues = [344, 18, 47, 103, 174, 215, 276];
+const stoneSignals = [
+  {name: 'garnet', hue: 344}, {name: 'sermon', hue: 18}, {name: 'crown', hue: 47},
+  {name: 'dowser', hue: 103}, {name: 'tincture', hue: 174}, {name: 'pulpit', hue: 215}, {name: 'badge', hue: 276}
+];
 let stoneIndex = 0;
 function shiftStoneField() {
-  document.documentElement.style.setProperty('--stone-hue', stoneHues[stoneIndex]);
-  stoneIndex = (stoneIndex + 1) % stoneHues.length;
+  const stone = stoneSignals[stoneIndex];
+  document.documentElement.style.setProperty('--stone-hue', stone.hue);
+  document.querySelectorAll('[data-stone-signal]').forEach(element => element.classList.toggle('stone-signal-active', element.dataset.stoneSignal === stone.name));
+  stoneIndex = (stoneIndex + 1) % stoneSignals.length;
 }
 shiftStoneField();
 setInterval(shiftStoneField, 16000);
