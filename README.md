@@ -23,6 +23,12 @@ Use a Patreon v2 client with the `campaigns` and `campaigns.posts` scopes.
 The access token is deliberately not stored: the workflow exchanges the refresh
 token for a short-lived access token on every run.
 
+On the author workstation, `systemd/bloodline-reader-publisher.service` polls
+the trusted release ledger and the canonical episode folder. It generates pages
+only for already-public ledger records, updates `/read/` and `sitemap.xml`, and
+pushes generated output when anything changed. Patreon is never used as a prose
+source.
+
 ## Content boundary
 
 - Canonical episode drafts: `../Garnet Shield/Writing/Episodes/`

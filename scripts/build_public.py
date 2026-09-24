@@ -2,13 +2,15 @@ from __future__ import annotations
 
 import html
 import json
+import os
 import runpy
 from datetime import date
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent.parent
-SOURCE = ROOT.parent / "Garnet Shield" / "Writing" / "Episodes"
+DEFAULT_SOURCE = Path("/home/rook/Documents/Runagarthur/Author/Mason Rok/Bloodline/Garnet Shield/Writing/Episodes")
+SOURCE = Path(os.environ.get("BLOODLINE_PUBLIC_SOURCE_DIR", str(DEFAULT_SOURCE)))
 CONFIG = ROOT / "content" / "publication.json"
 OUTPUT = ROOT / "read"
 helpers = runpy.run_path(str(ROOT / "scripts" / "generate_scenes.py"))
@@ -75,10 +77,36 @@ def build_index(public: list[dict], advance: list[dict], series: dict) -> None:
     (OUTPUT / "index.html").write_text(page, encoding="utf-8")
 
 
+def build_sitemap() -> None:
+    """Keep existing released reader URLs and add every generated episode page."""
+    static_urls = [
+        "https://bloodline.rook.works/",
+        "https://bloodline.rook.works/read/",
+        "https://bloodline.rook.works/workshop/",
+        "https://bloodline.rook.works/status/",
+    ]
+    episode_urls = [
+        f"https://bloodline.rook.works/read/garnet-shield/{path.parent.name}/"
+        for path in sorted((OUTPUT / "garnet-shield").glob("episode-*/index.html"), key=lambda p: int(p.parent.name.removeprefix("episode-")))
+    ]
+    static_urls.extend(episode_urls)
+    static_urls.extend([
+        "https://bloodline.rook.works/read/shelton-observatory/voices-at-lovers-leap/",
+        "https://bloodline.rook.works/editorial/",
+    ])
+    xml = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    xml.extend(f"  <url><loc>{url}</loc></url>" for url in dict.fromkeys(static_urls))
+    xml.append("</urlset>")
+    (ROOT / "sitemap.xml").write_text("\n".join(xml) + "\n", encoding="utf-8")
+
+
 def main() -> None:
     config = json.loads(CONFIG.read_text(encoding="utf-8"))
-    public = [entry for entry in config["episodes"] if entry["status"] == "public"]
-    advance = [entry for entry in config["episodes"] if entry["status"] == "advance"]
+    # Patreon access and the public reader archive are related but not the
+    # same contract.  The latter is monotonic: an episode explicitly made
+    # public here stays in the archive even if a Patreon post changes tier.
+    public = [entry for entry in config["episodes"] if entry.get("website_public")]
+    advance = [entry for entry in config["episodes"] if entry["status"] == "advance" and not entry.get("website_public")]
     if not public:
         raise ValueError("Publication manifest must contain at least one public episode")
     for entry in public:
@@ -87,6 +115,7 @@ def main() -> None:
     for index, entry in enumerate(public):
         build_episode(entry, public[index - 1] if index else None, public[index + 1] if index + 1 < len(public) else None, config["series"])
     build_index(public, advance, config["series"])
+    build_sitemap()
     print(f"Built {len(public)} public episodes in {OUTPUT}")
 
 

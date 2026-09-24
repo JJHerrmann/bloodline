@@ -114,18 +114,29 @@ def main() -> None:
         except ValueError:
             continue
         item = known[number]
-        item["patreon_url"] = attrs.get("url") or item.get("patreon_url")
+        post_url = attrs.get("url") or item.get("patreon_url")
+        # The API currently returns post URLs as paths.  Store an absolute
+        # address so the public site's CTA cannot accidentally resolve it on
+        # bloodline.rook.works.
+        if isinstance(post_url, str) and post_url.startswith("/"):
+            post_url = f"https://www.patreon.com{post_url}"
+        item["patreon_url"] = post_url
         if published_time > now:
             item["status"] = "scheduled"
             item["patreon_published"] = iso_day(published_at)
         elif attrs.get("is_public"):
             item["status"] = "public"
+            # Once an episode is intentionally available in the reader
+            # archive, do not retract that archive page if Patreon later
+            # reports a different member-access state.
+            item["website_public"] = True
             item["published"] = iso_day(published_at)
             item.pop("patreon_published", None)
         else:
             item["status"] = "advance"
             item["patreon_published"] = iso_day(published_at)
-            item.pop("published", None)
+            if not item.get("website_public"):
+                item.pop("published", None)
 
     rendered = json.dumps(ledger, indent=2) + "\n"
     if LEDGER.read_text(encoding="utf-8") == rendered:

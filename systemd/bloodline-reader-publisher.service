@@ -1,0 +1,15 @@
+[Unit]
+Description=Bloodline public reader-page publisher
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/Documents/Codex/2026-09-08/referenced-chatgpt-conversation-this-is-an-2/work/seo-push/bloodline
+Environment=BLOODLINE_PUBLIC_POLL_SECONDS=60
+ExecStart=/usr/bin/env python3 scripts/publish_reader_pages.py
+Restart=on-failure
+RestartSec=20
+
+[Install]
+WantedBy=default.target
