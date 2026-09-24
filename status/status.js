@@ -18,9 +18,9 @@ function render(book, generatedAt, releases = []) {
   document.querySelector('#episode-grid').innerHTML = planned.map(plan => {
     const episode = known.get(plan.number);
     const release = releaseByEpisode.get(plan.number);
-    const state = release?.status === 'advance' ? 'patreon' : episode?.published ? 'released' : episode?.started ? 'drafting' : '';
-    const label = release?.status === 'advance' ? 'available early on Patreon' : episode?.published ? 'released' : episode?.started ? 'in production' : 'not yet started';
-    const content = `${plan.number}${release?.status === 'advance' ? '<small>Patreon</small>' : ''}`;
+    const state = release?.status === 'advance' ? 'patreon' : release?.status === 'scheduled' ? 'scheduled' : episode?.published ? 'released' : episode?.started ? 'drafting' : '';
+    const label = release?.status === 'advance' ? 'available early on Patreon' : release?.status === 'scheduled' ? 'scheduled on Patreon' : episode?.published ? 'released' : episode?.started ? 'in production' : 'not yet started';
+    const content = `${plan.number}${release?.status === 'advance' ? '<small>Patreon</small>' : release?.status === 'scheduled' ? '<small>Queued</small>' : ''}`;
     if (release?.status === 'public') return `<a class="episode ${state}" href="${release.public_url || `/read/garnet-shield/episode-${plan.number}/`}" aria-label="Episode ${plan.number}: released — read it" title="Episode ${plan.number}: read it on Bloodline">${content}</a>`;
     if (release?.status === 'advance' && release.patreon_url) return `<a class="episode ${state}" href="${release.patreon_url}" aria-label="Episode ${plan.number}: available early on Patreon" title="Episode ${plan.number}: read ahead on Patreon">${content}</a>`;
     return `<div class="episode ${state}" aria-label="Episode ${plan.number}: ${label}" title="Episode ${plan.number}: ${label}">${content}</div>`;

@@ -336,6 +336,16 @@ a.episode:hover {
 .episode.patreon:after {
   background: #bc8cf0;
 }
+
+.episode.scheduled {
+  color: #bdcfda;
+  border-color: rgba(145, 174, 184, 0.7);
+  background: rgba(145, 174, 184, 0.12);
+}
+
+.episode.scheduled:after {
+  background: var(--muted);
+}
 .legend {
   display: flex;
   gap: 19px;

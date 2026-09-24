@@ -15,6 +15,9 @@
     {"number": 5, "title": "The Seeker Is Watched", "status": "public", "published": "2026-08-05", "patreon_url": "https://www.patreon.com/posts/bloodline-of-165137262"},
     {"number": 6, "title": "The Only Jurisdiction", "status": "public", "published": "2026-08-09", "patreon_url": "https://www.patreon.com/posts/bloodline-of-six-165137294"},
     {"number": 7, "title": "An Awful Lot of Bodies", "status": "public", "published": "2026-08-23", "public_url": "/read/", "patreon_url": "https://www.patreon.com/posts/bloodline-of-165831228"},
-    {"number": 11, "status": "advance", "patreon_published": "2026-09-24", "patreon_url": "https://www.patreon.com/collection/2237314"}
+    {"number": 8, "title": "Public Trust", "status": "public", "published": "2026-09-06", "public_url": "/read/", "patreon_url": "https://www.patreon.com/masonrok/posts/bloodline-of-165831302"},
+    {"number": 9, "title": "Awake, O Sleeper", "status": "public", "published": "2026-09-24", "public_url": "/read/", "patreon_url": "https://www.patreon.com/masonrok/posts/bloodline-of-165831357"},
+    {"number": 10, "title": "Limited Authorization", "status": "advance", "patreon_published": "2026-09-10", "patreon_url": "https://www.patreon.com/masonrok/posts/bloodline-of-ten-165831421"},
+    {"number": 11, "title": "The Right Questions", "status": "scheduled", "patreon_published": "2026-09-24", "patreon_url": "https://www.patreon.com/masonrok/posts/episode-11-right-170111046"}
   ]
 }

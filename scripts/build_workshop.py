@@ -53,13 +53,10 @@ def source_episode_rows() -> tuple[list[dict], list[dict], dict, list[dict], dic
             planned_rows.append({"number": number, "title": f"Episode {number}", "words": 0, "url": None, "published": False, "started": False})
             continue
         # A prose count is safe; title/logline/body are never exported for unpublished episodes.
-        # The vault's manual publication_status is not always updated after a
-        # release. A passed paid or free schedule still means readers have it.
-        today = datetime.now().strftime("%Y-%m-%d")
-        release_dates = [str(meta.get(key) or "") for key in ("scheduled paid post", "scheduled free post")]
-        published = str(meta.get("publication_status", "")).lower() == "published" or any(
-            re.fullmatch(r"\d{4}-\d{2}-\d{2}", value) and value <= today for value in release_dates
-        )
+        # A calendar date is a plan; the explicit vault status is the only
+        # authority for what is actually public. This prevents paid-only and
+        # scheduled episodes from being shown as free releases.
+        published = str(meta.get("publication_status", "")).lower() == "published"
         entry = {"number": number, "title": f"Episode {number}", "words": words, "url": meta.get("publication_url") if published else None, "published": published, "started": True}
         rows.append(entry)
         planned_rows.append(entry)

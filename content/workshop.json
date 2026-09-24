@@ -2,7 +2,7 @@
   "siteTitle": "The Workshop",
   "intro": "A live-ish look at how Bloodline is made: the pages, the pacing, and the strange amount of trouble Judah Sands has caused along the way.",
   "updatedLabel": "Updated when the production ledger is rebuilt",
-  "generatedAt": "2026-09-24T08:56:09Z",
+  "generatedAt": "2026-09-24T19:19:18Z",
   "books": [
     {
       "id": "garnet-shield",
@@ -47,7 +47,7 @@
           "number": 4,
           "title": "Episode 4",
           "words": 2398,
-          "url": null,
+          "url": "https://www.patreon.com/masonrok/posts/episode-4-scared-165229387",
           "published": true,
           "started": true
         },
@@ -55,7 +55,7 @@
           "number": 5,
           "title": "Episode 5",
           "words": 2252,
-          "url": null,
+          "url": "https://www.patreon.com/masonrok/posts/episode-5-seeker-165137262",
           "published": true,
           "started": true
         },
@@ -63,7 +63,7 @@
           "number": 6,
           "title": "Episode 6",
           "words": 2371,
-          "url": null,
+          "url": "https://www.patreon.com/masonrok/posts/episode-6-only-165137294",
           "published": true,
           "started": true
         },
@@ -71,7 +71,7 @@
           "number": 7,
           "title": "Episode 7",
           "words": 3502,
-          "url": null,
+          "url": "https://www.patreon.com/masonrok/posts/episode-7-awful-165831228",
           "published": true,
           "started": true
         },
@@ -79,7 +79,7 @@
           "number": 8,
           "title": "Episode 8",
           "words": 1446,
-          "url": null,
+          "url": "https://www.patreon.com/masonrok/posts/bloodline-of-165831302",
           "published": true,
           "started": true
         },
@@ -87,7 +87,7 @@
           "number": 9,
           "title": "Episode 9",
           "words": 1721,
-          "url": null,
+          "url": "https://www.patreon.com/masonrok/posts/bloodline-of-165831357",
           "published": true,
           "started": true
         },
@@ -96,7 +96,7 @@
           "title": "Episode 10",
           "words": 3172,
           "url": null,
-          "published": true,
+          "published": false,
           "started": true
         },
         {
@@ -104,7 +104,7 @@
           "title": "Episode 11",
           "words": 1748,
           "url": null,
-          "published": true,
+          "published": false,
           "started": true
         },
         {
@@ -289,7 +289,7 @@
           "number": 4,
           "title": "Episode 4",
           "words": 2398,
-          "url": null,
+          "url": "https://www.patreon.com/masonrok/posts/episode-4-scared-165229387",
           "published": true,
           "started": true
         },
@@ -297,7 +297,7 @@
           "number": 5,
           "title": "Episode 5",
           "words": 2252,
-          "url": null,
+          "url": "https://www.patreon.com/masonrok/posts/episode-5-seeker-165137262",
           "published": true,
           "started": true
         },
@@ -305,7 +305,7 @@
           "number": 6,
           "title": "Episode 6",
           "words": 2371,
-          "url": null,
+          "url": "https://www.patreon.com/masonrok/posts/episode-6-only-165137294",
           "published": true,
           "started": true
         },
@@ -313,7 +313,7 @@
           "number": 7,
           "title": "Episode 7",
           "words": 3502,
-          "url": null,
+          "url": "https://www.patreon.com/masonrok/posts/episode-7-awful-165831228",
           "published": true,
           "started": true
         },
@@ -321,7 +321,7 @@
           "number": 8,
           "title": "Episode 8",
           "words": 1446,
-          "url": null,
+          "url": "https://www.patreon.com/masonrok/posts/bloodline-of-165831302",
           "published": true,
           "started": true
         },
@@ -329,7 +329,7 @@
           "number": 9,
           "title": "Episode 9",
           "words": 1721,
-          "url": null,
+          "url": "https://www.patreon.com/masonrok/posts/bloodline-of-165831357",
           "published": true,
           "started": true
         },
@@ -338,7 +338,7 @@
           "title": "Episode 10",
           "words": 3172,
           "url": null,
-          "published": true,
+          "published": false,
           "started": true
         },
         {
@@ -346,7 +346,7 @@
           "title": "Episode 11",
           "words": 1748,
           "url": null,
-          "published": true,
+          "published": false,
           "started": true
         },
         {
