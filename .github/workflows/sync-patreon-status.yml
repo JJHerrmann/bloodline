@@ -1,0 +1,36 @@
+name: Sync Patreon release status
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/10 * * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: patreon-release-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Read Patreon release state
+        env:
+          PATREON_CLIENT_ID: ${{ secrets.PATREON_CLIENT_ID }}
+          PATREON_CLIENT_SECRET: ${{ secrets.PATREON_CLIENT_SECRET }}
+          PATREON_REFRESH_TOKEN: ${{ secrets.PATREON_REFRESH_TOKEN }}
+        run: python scripts/sync_patreon_status.py
+      - name: Commit changed ledger
+        run: |
+          if git diff --quiet -- content/publication.json; then exit 0; fi
+          git config user.name "bloodline-release-bot"
+          git config user.email "bloodline-release-bot@users.noreply.github.com"
+          git add content/publication.json
+          git commit -m "Sync Patreon release status"
+          git push

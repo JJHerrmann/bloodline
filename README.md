@@ -6,6 +6,23 @@ The repository is intentionally stored inside the Bloodline area of the
 Runagarthur Obsidian vault. It is the publishing layer, not the canonical home
 of the manuscript.
 
+## Patreon release sync
+
+`content/publication.json` is the reader-safe release ledger for `/status/`.
+The GitHub Action in `.github/workflows/sync-patreon-status.yml` polls Patreon
+API v2 every ten minutes and updates only the existing episode records. It does
+not read or export manuscript text.
+
+Add these GitHub Actions secrets before enabling the workflow:
+
+- `PATREON_CLIENT_ID`
+- `PATREON_CLIENT_SECRET`
+- `PATREON_REFRESH_TOKEN`
+
+Use a Patreon v2 client with the `campaigns` and `campaigns.posts` scopes.
+The access token is deliberately not stored: the workflow exchanges the refresh
+token for a short-lived access token on every run.
+
 ## Content boundary
 
 - Canonical episode drafts: `../Garnet Shield/Writing/Episodes/`
