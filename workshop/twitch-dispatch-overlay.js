@@ -67,6 +67,7 @@ setInterval(shiftStoneField, 16000);
 const clock = document.querySelector('#sprint-clock');
 const streamState = document.querySelector('#sprint-state');
 const streamDelta = document.querySelector('#sprint-delta');
+const dispatchBar = document.querySelector('#dispatch-bar');
 async function fetchLiveStatus() {
   const endpoints = ['/api/status', 'http://127.0.0.1:4174/api/status'];
   for (const endpoint of endpoints) {
@@ -82,6 +83,7 @@ async function updateLiveSession() {
     const live = await fetchLiveStatus();
     document.documentElement.dataset.liveLedger = 'true';
     renderEpisodeLedger(live.episodes, live.novelWords);
+    dispatchBar.classList.toggle('is-writing', live.phase === 'writing');
     const seconds = live.sprint.secondsRemaining;
     clock.textContent = `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`;
     streamState.innerHTML = `<i></i> ${live.phase === 'writing' ? 'Writing sprint' : live.phase}`;
