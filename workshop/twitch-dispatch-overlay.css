@@ -20,3 +20,10 @@
 .focus-cta-grid a:first-child{border-left:0}.focus-cta-grid a:hover{background:hsl(var(--stone-hue) 62% 14% / .98)}.focus-cta-grid a:focus-visible{outline:2px solid var(--hot);outline-offset:-3px}
 .focus-cta-grid span{overflow:hidden;color:var(--muted);font-size:8px;font-weight:700;letter-spacing:.12em;text-overflow:ellipsis;text-transform:uppercase;white-space:nowrap}.focus-cta-grid b{overflow:hidden;margin-top:4px;color:var(--pale);font:15px/1 Impact,Arial Black,sans-serif;letter-spacing:.035em;text-overflow:ellipsis;text-transform:uppercase;white-space:nowrap}
 .dispatch-bar.is-writing .station-cta{display:none}.dispatch-bar.is-writing .focus-cta-grid{display:grid}
+
+/* A low-key water-and-light field: enough depth to notice, never enough to fight text. */
+:root{--panel-texture-opacity:.10}
+.production-rail,.dispatch-bar{isolation:isolate}.production-rail::after,.dispatch-bar::after{position:absolute;z-index:0;inset:0;content:"";pointer-events:none;background:url('/assets/overlays/stream-water-texture.png') center/cover no-repeat;mix-blend-mode:screen;opacity:var(--panel-texture-opacity)}
+.production-rail>*{z-index:1}
+.focus-cta-grid a{background-image:linear-gradient(hsl(var(--stone-hue) 44% 7% / .89),hsl(var(--stone-hue) 44% 7% / .89)),url('/assets/overlays/stream-water-texture.png');background-position:center;background-size:auto,cover;background-blend-mode:normal,screen}
+.focus-cta-grid a:hover{background-image:linear-gradient(hsl(var(--stone-hue) 62% 14% / .92),hsl(var(--stone-hue) 62% 14% / .92)),url('/assets/overlays/stream-water-texture.png')}
