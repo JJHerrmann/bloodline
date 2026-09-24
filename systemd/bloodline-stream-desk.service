@@ -1,0 +1,14 @@
+[Unit]
+Description=Bloodline local Stream Desk and OBS data feed
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/Documents/Codex/2026-09-08/referenced-chatgpt-conversation-this-is-an-2/work/seo-push/bloodline
+Environment=BLOODLINE_STREAM_PORT=4173
+ExecStart=/usr/bin/env python3 scripts/stream_desk.py
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

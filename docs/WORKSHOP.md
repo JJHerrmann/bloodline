@@ -21,7 +21,7 @@ No runtime service, API key, or database is needed. Add the two commands above t
 
 ### Live Stream Desk
 
-Run `BLOODLINE_STREAM_PORT=4173 python scripts/stream_desk.py` before a stream. It watches the canonical Episodes folder locally and serves both the live overlay and its data feed at `http://127.0.0.1:4173/workshop/twitch-dispatch-overlay.html`; use that address in OBS. Open `http://127.0.0.1:4173/workshop/stream-desk.html` privately to start, break, or end a sprint. The service returns only word counts, episode numbers, release state, and timer/session deltas—never prose.
+The `bloodline-stream-desk.service` user service keeps the local Stream Desk available. It watches the canonical Episodes folder locally and serves both the live overlay and its data feed at `http://127.0.0.1:4173/workshop/twitch-dispatch-overlay.html`; use that address in OBS. Open `http://127.0.0.1:4173/workshop/stream-desk.html` privately to start, break, or end a sprint. The service returns only word counts, episode numbers, release state, and timer/session deltas—never prose.
 
 ### Automatic public-data publishing
 
