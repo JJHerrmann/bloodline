@@ -11,6 +11,7 @@ import json
 import os
 import re
 import sys
+import urllib.error
 import urllib.parse
 import urllib.request
 from datetime import UTC, datetime
@@ -35,8 +36,14 @@ def request_json(url: str, *, data: dict[str, str] | None = None, token: str | N
         headers["Content-Type"] = "application/x-www-form-urlencoded"
     if token:
         headers["Authorization"] = f"Bearer {token}"
-    with urllib.request.urlopen(urllib.request.Request(url, data=encoded, headers=headers), timeout=30) as response:
-        return json.load(response)
+    try:
+        with urllib.request.urlopen(urllib.request.Request(url, data=encoded, headers=headers), timeout=30) as response:
+            return json.load(response)
+    except urllib.error.HTTPError as error:
+        # Patreon error bodies identify configuration problems (for example,
+        # an invalid grant) but never need to include a credential in the log.
+        detail = error.read().decode("utf-8", errors="replace")[:800]
+        raise RuntimeError(f"Patreon API returned HTTP {error.code}: {detail}") from error
 
 
 def access_token() -> str:
