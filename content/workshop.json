@@ -2,7 +2,7 @@
   "siteTitle": "The Workshop",
   "intro": "A live-ish look at how Bloodline is made: the pages, the pacing, and the strange amount of trouble Judah Sands has caused along the way.",
   "updatedLabel": "Updated when the production ledger is rebuilt",
-  "generatedAt": "2026-09-26T08:51:29Z",
+  "generatedAt": "2026-09-26T21:17:33Z",
   "books": [
     {
       "id": "garnet-shield",
@@ -166,7 +166,7 @@
         {
           "number": 19,
           "title": "Episode 19",
-          "words": 7,
+          "words": 1003,
           "url": null,
           "published": false,
           "started": true
@@ -174,7 +174,7 @@
         {
           "number": 20,
           "title": "Episode 20",
-          "words": 1003,
+          "words": 1379,
           "url": null,
           "published": false,
           "started": true
@@ -182,7 +182,7 @@
         {
           "number": 21,
           "title": "Episode 21",
-          "words": 1379,
+          "words": 1185,
           "url": null,
           "published": false,
           "started": true
@@ -190,15 +190,15 @@
         {
           "number": 22,
           "title": "Episode 22",
-          "words": 1185,
+          "words": 313,
           "url": null,
           "published": false,
           "started": true
         },
         {
-          "number": 23,
-          "title": "Episode 23",
-          "words": 313,
+          "number": 24,
+          "title": "Episode 24",
+          "words": 11,
           "url": null,
           "published": false,
           "started": true
@@ -408,7 +408,7 @@
         {
           "number": 19,
           "title": "Episode 19",
-          "words": 7,
+          "words": 1003,
           "url": null,
           "published": false,
           "started": true
@@ -416,7 +416,7 @@
         {
           "number": 20,
           "title": "Episode 20",
-          "words": 1003,
+          "words": 1379,
           "url": null,
           "published": false,
           "started": true
@@ -424,7 +424,7 @@
         {
           "number": 21,
           "title": "Episode 21",
-          "words": 1379,
+          "words": 1185,
           "url": null,
           "published": false,
           "started": true
@@ -432,15 +432,15 @@
         {
           "number": 22,
           "title": "Episode 22",
-          "words": 1185,
+          "words": 313,
           "url": null,
           "published": false,
           "started": true
         },
         {
-          "number": 23,
-          "title": "Episode 23",
-          "words": 313,
+          "number": 24,
+          "title": "Episode 24",
+          "words": 11,
           "url": null,
           "published": false,
           "started": true
@@ -742,7 +742,7 @@
           "started": true
         }
       ],
-      "wordCount": 48208
+      "wordCount": 48212
     }
   ],
   "nextDrops": [
@@ -926,7 +926,7 @@
         "number": 22
       },
       {
-        "number": 23
+        "number": 24
       },
       {
         "number": 44
