@@ -2,7 +2,7 @@
   "siteTitle": "The Workshop",
   "intro": "A live-ish look at how Bloodline is made: the pages, the pacing, and the strange amount of trouble Judah Sands has caused along the way.",
   "updatedLabel": "Updated when the production ledger is rebuilt",
-  "generatedAt": "2026-09-26T21:20:31Z",
+  "generatedAt": "2026-09-26T21:20:37Z",
   "books": [
     {
       "id": "garnet-shield",
@@ -190,7 +190,7 @@
         {
           "number": 22,
           "title": "Episode 22",
-          "words": 322,
+          "words": 313,
           "url": null,
           "published": false,
           "started": true
@@ -432,7 +432,7 @@
         {
           "number": 22,
           "title": "Episode 22",
-          "words": 322,
+          "words": 313,
           "url": null,
           "published": false,
           "started": true
@@ -742,7 +742,7 @@
           "started": true
         }
       ],
-      "wordCount": 48221
+      "wordCount": 48212
     }
   ],
   "nextDrops": [
@@ -796,7 +796,7 @@
         "key": "mystery",
         "label": "Mystery",
         "color": "#7f9de2",
-        "value": 1369440
+        "value": 1369080
       },
       {
         "key": "horror",
@@ -808,7 +808,7 @@
         "key": "family",
         "label": "Family drama",
         "color": "#d4a469",
-        "value": 1046875
+        "value": 1046650
       },
       {
         "key": "action",
@@ -826,7 +826,7 @@
         "key": "comedy",
         "label": "Dark comedy",
         "color": "#5cae9d",
-        "value": 900790
+        "value": 900475
       }
     ],
     "mood": [
@@ -834,25 +834,25 @@
         "key": "dread",
         "label": "Dread",
         "color": "#7c8799",
-        "value": 1017645
+        "value": 1017600
       },
       {
         "key": "tense",
         "label": "Tense",
         "color": "#d1bd58",
-        "value": 1302230
+        "value": 1302095
       },
       {
         "key": "wry",
         "label": "Wry",
         "color": "#65b9c5",
-        "value": 1602360
+        "value": 1601775
       },
       {
         "key": "tender",
         "label": "Tender",
         "color": "#d68da5",
-        "value": 895465
+        "value": 895330
       }
     ],
     "episodes": [
