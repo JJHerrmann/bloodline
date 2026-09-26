@@ -2,7 +2,7 @@
   "siteTitle": "The Workshop",
   "intro": "A live-ish look at how Bloodline is made: the pages, the pacing, and the strange amount of trouble Judah Sands has caused along the way.",
   "updatedLabel": "Updated when the production ledger is rebuilt",
-  "generatedAt": "2026-09-24T19:19:18Z",
+  "generatedAt": "2026-09-26T08:51:29Z",
   "books": [
     {
       "id": "garnet-shield",
@@ -747,16 +747,6 @@
   ],
   "nextDrops": [
     {
-      "date": "2026-09-24",
-      "label": "Episode 9 \u00b7 Public release",
-      "public": true
-    },
-    {
-      "date": "2026-09-24",
-      "label": "Episode 11 \u00b7 Patron release",
-      "public": true
-    },
-    {
       "date": "2026-10-08",
       "label": "Episode 10 \u00b7 Public release",
       "public": true
@@ -774,6 +764,16 @@
     {
       "date": "2026-10-22",
       "label": "Episode 13 \u00b7 Patron release",
+      "public": true
+    },
+    {
+      "date": "2026-11-05",
+      "label": "Episode 12 \u00b7 Public release",
+      "public": true
+    },
+    {
+      "date": "2026-11-05",
+      "label": "Episode 14 \u00b7 Patron release",
       "public": true
     }
   ],
