@@ -1,28 +1,43 @@
 :root {
-  --ink: #071018;
-  --night: #06151f;
-  --paper: #d8e8ec;
-  --muted: #91aeb8;
-  --blue: #57c7ff;
-  --gold: #ffb24a;
-  --line: rgba(87, 199, 255, 0.31);
+  --ink: #08130f;
+  --night: #050c09;
+  --paper: #e7e2d3;
+  --muted: #86a08f;
+  --teal: #5fae8c;
+  --teal-bright: #8fd9c4;
+  --amber: #d9a441;
+  --line: rgba(150, 190, 175, 0.22);
+  --mono:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Consolas,
+    monospace;
+  --display:
+    "Fraunces",
+    Georgia,
+    serif;
+  --serif:
+    Georgia,
+    "Times New Roman",
+    serif;
 }
 * {
   box-sizing: border-box;
 }
 html {
-  background: #050c11;
+  background: #040a08;
 }
 body {
   margin: 0;
   background: var(--ink);
   color: var(--paper);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--serif);
 }
 .page {
   min-height: 100vh;
   overflow: hidden;
-  background: linear-gradient(180deg, #06151f, #071018 43%, #050c11);
+  background: linear-gradient(180deg, #050f0b, #08130f 43%, #040a08);
 }
 .shell {
   width: min(1120px, calc(100% - 48px));
@@ -35,15 +50,14 @@ body {
   align-items: center;
   padding: 22px 0;
   border-bottom: 1px solid var(--line);
+  font-family: var(--mono);
   font-size: 11px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 .brand {
   color: var(--paper);
-  font:
-    22px Georgia,
-    serif;
+  font: 22px var(--display);
   letter-spacing: 0;
   text-decoration: none;
   text-transform: none;
@@ -60,13 +74,13 @@ body {
 .masthead nav a:hover,
 .masthead nav [aria-current="page"],
 .footer a:hover {
-  color: var(--gold);
+  color: var(--teal-bright);
 }
 .hero {
   position: relative;
   border-bottom: 1px solid var(--line);
   background:
-    linear-gradient(100deg, rgba(3, 13, 19, 0.93), rgba(4, 20, 29, 0.75)),
+    linear-gradient(100deg, rgba(5, 14, 11, 0.93), rgba(6, 22, 17, 0.72)),
     url("/assets/overlays/stream-status-smokies.png") center/cover;
 }
 .hero:after {
@@ -77,7 +91,7 @@ body {
   background: repeating-linear-gradient(
     0deg,
     transparent 0 4px,
-    rgba(178, 235, 255, 0.025) 5px
+    rgba(160, 225, 195, 0.025) 5px
   );
 }
 .hero-grid {
@@ -92,7 +106,8 @@ body {
 }
 .eyebrow {
   margin: 0 0 13px;
-  color: var(--gold);
+  color: var(--teal);
+  font-family: var(--mono);
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.17em;
@@ -104,48 +119,45 @@ body {
   height: 7px;
   margin: 0 8px 1px 0;
   border-radius: 50%;
-  background: var(--gold);
-  box-shadow: 0 0 12px var(--gold);
+  background: var(--teal);
+  box-shadow: 0 0 12px var(--teal);
   animation: blink 1.5s steps(2, end) infinite;
 }
 .hero h1 {
   margin: 0;
-  font:
-    clamp(54px, 7vw, 88px)/0.88 Impact,
-    Arial Black,
-    sans-serif;
-  letter-spacing: -0.04em;
+  font: 600 clamp(48px, 6.2vw, 80px)/1.03 var(--display);
+  letter-spacing: -0.01em;
 }
 .hero h1 em {
-  color: var(--blue);
+  color: var(--teal-bright);
   font-style: normal;
-  text-shadow: 0 0 28px rgba(87, 199, 255, 0.3);
+  text-shadow: 0 0 28px rgba(95, 174, 140, 0.35);
 }
 .deck {
   max-width: 540px;
   margin: 24px 0 18px;
-  color: #c5d8dd;
-  font:
-    19px/1.55 Georgia,
-    serif;
+  color: #c3d3c9;
+  font: 19px/1.55 var(--serif);
 }
 .updated {
   margin: 0;
   color: var(--muted);
+  font-family: var(--mono);
   font-size: 11px;
   letter-spacing: 0.06em;
 }
 .signal-card {
   padding: 26px;
-  border: 1px solid rgba(87, 199, 255, 0.54);
-  background: rgba(4, 18, 27, 0.83);
-  box-shadow: 0 0 44px rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(95, 174, 140, 0.45);
+  background: rgba(6, 20, 15, 0.85);
+  box-shadow: 0 0 44px rgba(0, 0, 0, 0.25);
 }
 .signal-card p,
 .signal-card span {
   display: block;
   margin: 0;
   color: var(--muted);
+  font-family: var(--mono);
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -155,22 +167,20 @@ body {
   display: block;
   margin: 13px 0 5px;
   color: var(--paper);
-  font:
-    32px/1 Georgia,
-    serif;
+  font: 32px/1 var(--display);
 }
 .meter {
   height: 8px;
   margin: 25px 0 17px;
   overflow: hidden;
-  background: #15303c;
+  background: #0e211b;
 }
 .meter i {
   display: block;
   width: 0;
   height: 100%;
-  background: linear-gradient(90deg, var(--blue), var(--gold));
-  box-shadow: 0 0 14px var(--blue);
+  background: var(--teal);
+  box-shadow: 0 0 14px rgba(95, 174, 140, 0.55);
   transition: width 0.8s ease;
 }
 .signal-numbers {
@@ -184,10 +194,8 @@ body {
 }
 .signal-numbers b {
   display: block;
-  color: var(--blue);
-  font:
-    22px/1 Georgia,
-    serif;
+  color: var(--teal-bright);
+  font: 22px/1 var(--display);
   letter-spacing: 0;
   text-transform: none;
 }
@@ -195,27 +203,57 @@ body {
 .ledger-section {
   padding: 60px 0;
 }
-.section-heading {
+.section-rule {
   display: flex;
-  justify-content: space-between;
-  gap: 40px;
-  align-items: end;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 20px;
   margin-bottom: 27px;
 }
-.section-heading h2,
+.rule-kicker,
+.ledger-stamp {
+  margin: 0;
+  font-family: var(--mono);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.rule-kicker {
+  font-size: 11px;
+  color: var(--muted);
+}
+.rule-line {
+  flex: 1 1 60px;
+  min-width: 40px;
+  height: 1px;
+  background: var(--line);
+}
+.rule-note {
+  margin: 0;
+  max-width: 420px;
+  color: var(--muted);
+  font: 14px/1.6 var(--serif);
+}
+.ledger-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 27px;
+}
+.ledger-stamp {
+  display: inline-block;
+  padding: 8px 16px;
+  border: 2px solid var(--teal);
+  border-radius: 2px;
+  transform: rotate(-1.4deg);
+  font-size: 12px;
+  color: var(--teal-bright);
+}
 .field-notes h2 {
   margin: 0;
-  font:
-    38px/1.03 Georgia,
-    serif;
-}
-.section-heading > p {
-  max-width: 410px;
-  margin: 0;
-  color: var(--muted);
-  font:
-    14px/1.6 Georgia,
-    serif;
+  font: 600 30px/1.2 var(--display);
 }
 .release-links {
   display: grid;
@@ -230,8 +268,8 @@ body {
   border: 1px solid var(--line);
   background: linear-gradient(
     130deg,
-    rgba(11, 34, 45, 0.75),
-    rgba(5, 15, 22, 0.88)
+    rgba(10, 30, 24, 0.75),
+    rgba(5, 13, 10, 0.88)
   );
   transition:
     transform 0.2s ease,
@@ -239,12 +277,13 @@ body {
 }
 .release-links a:hover {
   transform: translateY(-4px);
-  border-color: var(--gold);
+  border-color: var(--teal-bright);
 }
 .release-links span,
 .release-links small {
   display: block;
   color: var(--muted);
+  font-family: var(--mono);
   font-size: 10px;
   letter-spacing: 0.11em;
   text-transform: uppercase;
@@ -252,10 +291,8 @@ body {
 .release-links b {
   display: block;
   margin: 14px 0 9px;
-  color: var(--blue);
-  font:
-    22px/1 Georgia,
-    serif;
+  color: var(--teal-bright);
+  font: 22px/1 var(--display);
 }
 .release-links small {
   letter-spacing: 0.02em;
@@ -265,7 +302,7 @@ body {
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   background:
-    linear-gradient(115deg, rgba(3, 13, 19, 0.6), rgba(7, 28, 39, 0.84)),
+    linear-gradient(115deg, rgba(4, 11, 9, 0.86), rgba(5, 20, 16, 0.94)),
     url("/assets/overlays/stream-water-texture.png") center/cover;
   background-blend-mode: normal, multiply;
 }
@@ -280,9 +317,10 @@ body {
   place-items: center;
   min-height: 50px;
   overflow: hidden;
-  border: 1px solid #667c86;
-  color: var(--muted);
-  background: rgba(109, 132, 142, 0.09);
+  border: 1px solid rgba(150, 190, 175, 0.35);
+  color: #a8c2b5;
+  background: rgba(6, 16, 12, 0.6);
+  font-family: var(--mono);
   font-size: 13px;
   font-weight: 700;
   text-decoration: none;
@@ -305,42 +343,42 @@ a.episode:hover {
   bottom: 0;
   left: 0;
   height: 4px;
-  background: #657781;
+  background: rgba(150, 190, 175, 0.4);
   content: "";
 }
 .episode.drafting {
   color: var(--paper);
-  border-color: var(--blue);
-  background: rgba(87, 199, 255, 0.12);
+  border-color: var(--teal);
+  background: rgba(95, 174, 140, 0.14);
 }
 .episode.drafting:after {
-  background: var(--blue);
+  background: var(--teal);
 }
 .episode.released {
-  color: #fff1cf;
-  border-color: var(--gold);
-  background: rgba(255, 178, 74, 0.22);
-  box-shadow: inset 0 0 14px rgba(255, 178, 74, 0.1);
+  color: #eafff4;
+  border-color: var(--teal-bright);
+  background: rgba(95, 174, 140, 0.32);
+  box-shadow: inset 0 0 14px rgba(95, 174, 140, 0.15);
 }
 .episode.released:after {
-  background: var(--gold);
+  background: var(--teal-bright);
 }
 
 .episode.patreon {
-  color: #edd7ff;
-  border-color: #bc8cf0;
-  background: rgba(147, 89, 207, 0.24);
-  box-shadow: inset 0 0 14px rgba(170, 111, 232, 0.15);
+  color: #ffe9c2;
+  border-color: var(--amber);
+  background: rgba(217, 164, 65, 0.24);
+  box-shadow: inset 0 0 14px rgba(217, 164, 65, 0.15);
 }
 
 .episode.patreon:after {
-  background: #bc8cf0;
+  background: var(--amber);
 }
 
 .episode.scheduled {
-  color: #bdcfda;
-  border-color: rgba(145, 174, 184, 0.7);
-  background: rgba(145, 174, 184, 0.12);
+  color: #bdd4c8;
+  border-color: rgba(150, 190, 175, 0.5);
+  background: rgba(150, 190, 175, 0.12);
 }
 
 .episode.scheduled:after {
@@ -351,6 +389,7 @@ a.episode:hover {
   gap: 19px;
   margin: 22px 0 0;
   color: var(--muted);
+  font-family: var(--mono);
   font-size: 11px;
 }
 .legend i {
@@ -358,21 +397,21 @@ a.episode:hover {
   width: 9px;
   height: 9px;
   margin-right: 5px;
-  border: 1px solid #657781;
-  background: rgba(109, 132, 142, 0.1);
+  border: 1px solid rgba(150, 190, 175, 0.4);
+  background: rgba(150, 190, 175, 0.1);
 }
 .legend .released {
-  border-color: var(--gold);
-  background: rgba(255, 178, 74, 0.45);
+  border-color: var(--teal-bright);
+  background: rgba(95, 174, 140, 0.5);
 }
 .legend .drafting {
-  border-color: var(--blue);
-  background: rgba(87, 199, 255, 0.3);
+  border-color: var(--teal);
+  background: rgba(95, 174, 140, 0.3);
 }
 
 .legend .patreon {
-  border-color: #bc8cf0;
-  background: rgba(147, 89, 207, 0.45);
+  border-color: var(--amber);
+  background: rgba(217, 164, 65, 0.45);
 }
 .field-notes {
   display: grid;
@@ -384,9 +423,7 @@ a.episode:hover {
   max-width: 450px;
   margin: 16px 0 0;
   color: var(--muted);
-  font:
-    16px/1.65 Georgia,
-    serif;
+  font: 16px/1.65 var(--serif);
 }
 .workshop-link {
   padding-left: 34px;
@@ -395,7 +432,8 @@ a.episode:hover {
 .workshop-link a {
   display: inline-block;
   margin-top: 22px;
-  color: var(--gold);
+  color: var(--teal-bright);
+  font-family: var(--mono);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -421,10 +459,13 @@ a.episode:hover {
   .hero-grid {
     padding: 54px 0;
   }
-  .section-heading {
-    align-items: start;
+  .section-rule {
+    align-items: flex-start;
     flex-direction: column;
-    gap: 14px;
+    gap: 10px;
+  }
+  .rule-line {
+    display: none;
   }
   .release-links {
     grid-template-columns: 1fr;
@@ -455,7 +496,7 @@ a.episode:hover {
     width: calc(100% - 30px);
   }
   .hero h1 {
-    font-size: 52px;
+    font-size: 46px;
   }
   .episode-grid {
     grid-template-columns: repeat(5, 1fr);
