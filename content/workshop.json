@@ -2,7 +2,7 @@
   "siteTitle": "The Workshop",
   "intro": "A live-ish look at how Bloodline is made: the pages, the pacing, and the strange amount of trouble Judah Sands has caused along the way.",
   "updatedLabel": "Updated when the production ledger is rebuilt",
-  "generatedAt": "2026-09-27T00:21:05Z",
+  "generatedAt": "2026-09-27T00:21:17Z",
   "books": [
     {
       "id": "garnet-shield",
@@ -191,14 +191,6 @@
           "number": 22,
           "title": "Episode 22",
           "words": 313,
-          "url": null,
-          "published": false,
-          "started": true
-        },
-        {
-          "number": 46,
-          "title": "Episode 46",
-          "words": 11,
           "url": null,
           "published": false,
           "started": true
@@ -592,10 +584,10 @@
         {
           "number": 46,
           "title": "Episode 46",
-          "words": 11,
+          "words": 0,
           "url": null,
           "published": false,
-          "started": true
+          "started": false
         },
         {
           "number": 47,
@@ -710,7 +702,7 @@
           "started": true
         }
       ],
-      "wordCount": 48179
+      "wordCount": 48168
     }
   ],
   "nextDrops": [
@@ -892,9 +884,6 @@
       },
       {
         "number": 22
-      },
-      {
-        "number": 46
       },
       {
         "number": 58
