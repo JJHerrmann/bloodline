@@ -384,6 +384,19 @@ a.episode:hover {
 .episode.scheduled:after {
   background: var(--muted);
 }
+.episode.observatory {
+  color: var(--teal-bright);
+  border-color: var(--teal-bright);
+  background: rgba(95, 174, 140, 0.18);
+}
+.episode.observatory .observatory-mark {
+  display: inline-block;
+  font-size: 13px;
+  line-height: 1;
+}
+.episode.observatory:after {
+  background: var(--teal-bright);
+}
 .legend {
   display: flex;
   gap: 19px;
@@ -412,6 +425,11 @@ a.episode:hover {
 .legend .patreon {
   border-color: var(--amber);
   background: rgba(217, 164, 65, 0.45);
+}
+.legend .observatory {
+  border-color: var(--teal-bright);
+  background: rgba(95, 174, 140, 0.5);
+  transform: rotate(45deg);
 }
 .field-notes {
   display: grid;

@@ -1,0 +1,23 @@
+{
+  "generatedAt": "2026-09-28T09:07:56Z",
+  "caseFiles": [
+    {
+      "caseId": "SO-18-LL-04",
+      "title": "The Voices at Lover's Leap",
+      "slug": "voices-at-lovers-leap",
+      "status": "public",
+      "published": "2026-09-01",
+      "words": 2467,
+      "url": "/read/shelton-observatory/voices-at-lovers-leap/"
+    },
+    {
+      "caseId": "SO-02-VD-12",
+      "title": "The Void Deer",
+      "slug": "void-deer",
+      "status": "public",
+      "published": "2026-09-08",
+      "words": 1904,
+      "url": "https://www.patreon.com/masonrok/posts/observation-case-169130406"
+    }
+  ]
+}
