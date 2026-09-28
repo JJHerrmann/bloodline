@@ -56,6 +56,47 @@ sources with:
 python scripts/build_supplements.py
 ```
 
+### Text-message callouts
+
+Shelton Observatory sources can mark a text exchange with Obsidian's native
+callout syntax. The supplemental builder renders each separated paragraph as
+an outgoing iPhone-style message bubble:
+
+```markdown
+> [!text-message]
+> **From:** Anne Newsome
+> **To:** Nico Shelton
+> **Status:** Delivered
+>
+> First message.
+>
+> Second message.
+```
+
+### Letter correspondence
+
+Roughly half the case files frame their intro/stinger as a plain letter
+instead of a text exchange (Nico &lt;-&gt; Director Stane, Director &lt;-&gt;
+Mountreich, etc.) rather than the `[!text-message]` callout above. No special
+syntax is needed: any paragraph block that sits between top-level `---` rules,
+isn't a `[!text-message]` callout, and doesn't contain a heading is treated as
+a letter and rendered as an italic parchment-style box, with its closing
+signature broken onto its own lines and styled separately from the body.
+
+Because the vault is written for Obsidian's lenient line-break rendering
+(every newline is a visual break) rather than strict CommonMark hard breaks,
+lines inside a letter paragraph are joined with `<br>`, not a space — so a
+short address or signature block should be written one line per line, e.g.:
+
+```markdown
+Dear Director,
+It's come to my attention that...
+
+Truly,
+Nicodemus Shelton
+Chairman of the Shelton Observatory
+```
+
 ### Shelton Observatory share cards
 
 Shelton Observatory case-file links use the full parchment editorial card as
