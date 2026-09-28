@@ -6,6 +6,8 @@
   --teal: #5fae8c;
   --teal-bright: #8fd9c4;
   --amber: #d9a441;
+  --sky: #5b8fd9;
+  --sky-bright: #9dc2f2;
   --line: rgba(150, 190, 175, 0.22);
   --mono:
     ui-monospace,
@@ -385,17 +387,23 @@ a.episode:hover {
   background: var(--muted);
 }
 .episode.observatory {
-  color: var(--teal-bright);
-  border-color: var(--teal-bright);
-  background: rgba(95, 174, 140, 0.18);
+  color: var(--sky-bright);
+  border-color: var(--sky);
+  background: rgba(91, 143, 217, 0.2);
 }
 .episode.observatory .observatory-mark {
   display: inline-block;
-  font-size: 13px;
-  line-height: 1;
+  width: 14px;
+  height: 14px;
+}
+.episode.observatory .observatory-mark svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
 }
 .episode.observatory:after {
-  background: var(--teal-bright);
+  background: var(--sky);
 }
 .legend {
   display: flex;
@@ -427,9 +435,8 @@ a.episode:hover {
   background: rgba(217, 164, 65, 0.45);
 }
 .legend .observatory {
-  border-color: var(--teal-bright);
-  background: rgba(95, 174, 140, 0.5);
-  transform: rotate(45deg);
+  border-color: var(--sky);
+  background: rgba(91, 143, 217, 0.5);
 }
 .field-notes {
   display: grid;
