@@ -17,7 +17,7 @@ helpers = runpy.run_path(str(ROOT / "scripts" / "generate_scenes.py"))
 markdown_to_html = helpers["markdown_to_html"]
 estimate_read_minutes = helpers["estimate_read_minutes"]
 KOFI_URL = "https://ko-fi.com/mindpalacegarden"
-SHARE_IMAGE = "https://bloodline.rook.works/images/bloodline-share-card-v3.png"
+SHARE_IMAGE = "https://bloodline.rook.works/images/bloodline-share-card-v4.png"
 
 
 def social_head(canonical: str, title: str, description: str) -> str:
@@ -56,7 +56,8 @@ def build_episode(entry: dict, previous: dict | None, following: dict | None, se
     source = episode_source(entry["number"])
     if not source.exists():
         raise FileNotFoundError(source)
-    body, excerpt, words, _, _ = markdown_to_html(source.read_text(encoding="utf-8"))
+    source_text = source.read_text(encoding="utf-8")
+    body, excerpt, words, _, _ = markdown_to_html(source_text)
     minutes = estimate_read_minutes(words)
     slug = f'episode-{entry["number"]}'
     destination = OUTPUT / series["slug"] / slug
@@ -65,7 +66,7 @@ def build_episode(entry: dict, previous: dict | None, following: dict | None, se
     next_link = f'<a href="../episode-{following["number"]}/">{html.escape(following["title"])} →</a>' if following else "<span></span>"
     canonical = f'https://bloodline.rook.works/read/{series["slug"]}/{slug}/'
     title = f'{entry["title"]} | {series["title"]} | Bloodline'
-    description = excerpt[:155]
+    description = frontmatter_value(source_text, "logline") or excerpt[:155]
     page = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{html.escape(title)}</title><meta name="description" content="{html.escape(description, quote=True)}"><link rel="canonical" href="{canonical}">{social_head(canonical, title, description)}<link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="/assets/reader.css"><link rel="stylesheet" href="/assets/catalog.css"><meta name="theme-color" content="#171312"></head><body>{nav("Read")}<main><header class="episode-header"><p class="eyebrow">{html.escape(series["label"])} · Episode {entry["number"]}</p><h1>{html.escape(entry["title"])}</h1><div class="episode-meta-line"><span>{entry["published"]}</span><span>{words:,} words</span><span>About {minutes} minutes</span></div></header><div class="reading-tools" aria-label="Reading controls"><button type="button" data-size-down aria-label="Decrease text size">A−</button><button type="button" data-size-up aria-label="Increase text size">A+</button><button type="button" data-theme>Light / dark</button></div><article class="episode-copy">{body}</article><aside class="support"><p class="eyebrow">Keep walking</p><h2>Read two weeks ahead.</h2><p>The public trail continues here. Members of The Hallowed can follow the story two weeks ahead on Patreon.</p><div class="support-actions"><a class="button" href="https://www.patreon.com/checkout/masonrok?rid=28657016">Read ahead on Patreon</a><a class="button secondary" href="{KOFI_URL}">Support on Ko-fi</a></div><p class="support-alt">Prefer a one-time contribution? Ko-fi supports the work without a membership.</p></aside><footer class="episode-footer"><nav class="episode-nav" aria-label="Episode navigation">{prev_link}<a href="../../">All episodes</a>{next_link}</nav></footer></main><footer class="site-footer">Bloodline: Spirits of the Smokies · Mason Rok</footer><script src="/assets/reader.js"></script></body></html>'''
     (destination / "index.html").write_text(page, encoding="utf-8")
 
