@@ -108,7 +108,8 @@ case ID and classification, title, pull quote, filing credit, and call to action
 
 The first published card is
 `images/shelton-observatory-voices-share-card.jpg`; Anne's reusable portrait is
-`images/hootin-anne-newsome.webp`.
+`images/hootin-anne-newsome.webp`. The portrait is adapted from a photograph by
+Ron Lach on Pexels; source and license details are recorded in `CREDITS.md`.
 
 Generic, currently non-canonical interviewer portraits live in
 `images/shelton-interviewers/`. They are numbered rather than named so using a
