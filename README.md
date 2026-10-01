@@ -123,6 +123,11 @@ source identifies the interviewer. The initial pool is:
 - `interviewer-05.webp` — South Asian American woman signal-analysis researcher
 - `interviewer-06.webp` — white Appalachian male instrumentation and maintenance technician
 
+General Patreon and Ko-fi links use the owned `go.rook.works/patreon/` and
+`go.rook.works/kofi/` redirects. Those routes record anonymous aggregate click
+counts before continuing to the external support page; tier checkout and
+individual post links continue to point directly at their exact destinations.
+
 To generate from another source directory temporarily:
 
 ```bash

@@ -8,7 +8,7 @@
     return output;
   };
   const episodeLabel = episode => episode.number === 0 ? 'Prologue' : `Episode ${episode.number}`;
-  const patreonUrl = value => !value ? 'https://www.patreon.com/masonrok' : value.startsWith('http') ? value : `${root}${value}`;
+  const patreonUrl = value => !value ? 'https://go.rook.works/patreon/' : value.startsWith('http') ? value : `${root}${value}`;
   const readerUrl = episode => episode.public_url && episode.public_url !== '/read/'
     ? episode.public_url
     : `/read/garnet-shield/episode-${episode.number}/`;

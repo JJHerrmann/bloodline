@@ -23,7 +23,7 @@ const stationMessages = [
   {kicker: 'Citizen signal', title: 'FILE A DISPATCH', detail: 'Vote on the next broadcast', path: '/dispatch/', domain: 'bloodline.rook.works', route: '/dispatch', label: 'File a dispatch'},
   {kicker: 'Public transmission', title: 'READ THE STORY', detail: 'Start The Garnet Shield free', path: '/read/', domain: 'bloodline.rook.works', route: '/read', label: 'Read the public story'},
   {kicker: 'From the files of', title: 'SHELTON OBSERVATORY', detail: 'Unearth an Appalachian case file', path: '/read/shelton-observatory/voices-at-lovers-leap/', domain: 'bloodline.rook.works', route: '/shelton', label: 'Read Shelton Observatory'},
-  {kicker: 'Keep the signal lit', title: 'JOIN THE HALLOWED', detail: 'Paid members read ahead', path: 'https://www.patreon.com/masonrok', domain: 'patreon.com', route: '/masonrok', label: 'Join paid membership'},
+  {kicker: 'Keep the signal lit', title: 'JOIN THE HALLOWED', detail: 'Paid members read ahead', path: 'https://go.rook.works/patreon/', domain: 'patreon.com', route: '/masonrok', label: 'Join paid membership'},
   {kicker: 'Station objective', title: 'SUBSCRIBE TO WDSR', detail: 'Help fund the next broadcast', path: 'https://www.twitch.tv/subs/masonrok_author', domain: 'twitch.tv', route: '/subs/masonrok_author', label: 'Subscribe to WDSR'}
 ];
 

@@ -16,7 +16,7 @@ OUTPUT = ROOT / "read"
 helpers = runpy.run_path(str(ROOT / "scripts" / "generate_scenes.py"))
 markdown_to_html = helpers["markdown_to_html"]
 estimate_read_minutes = helpers["estimate_read_minutes"]
-KOFI_URL = "https://ko-fi.com/mindpalacegarden"
+KOFI_URL = "https://go.rook.works/kofi/"
 SHARE_IMAGE = "https://bloodline.rook.works/images/bloodline-share-card-v4.png"
 
 
