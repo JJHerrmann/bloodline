@@ -104,9 +104,10 @@ or the file's credited researcher portrait. Configure this per case with
 `share_image`, `share_image_width`, and `share_image_height` in the canonical
 source frontmatter.
 
-The Voices at Lover's Leap uses Anne's reusable portrait at
-`images/hootin-anne-newsome.webp`. The portrait is adapted from a photograph by
-Ron Lach on Pexels; source and license details are recorded in `CREDITS.md`.
+The Voices at Lover's Leap uses Anne's landscape social crop at
+`images/shelton-observatory-anne-share-card.jpg`; her reusable page portrait is
+`images/hootin-anne-newsome.webp`. Both are adapted from a photograph by Ron
+Lach on Pexels; source and license details are recorded in `CREDITS.md`.
 
 Generic, currently non-canonical interviewer portraits live in
 `images/shelton-interviewers/`. They are numbered rather than named so using a
