@@ -99,15 +99,12 @@ Chairman of the Shelton Observatory
 
 ### Shelton Observatory share cards
 
-Shelton Observatory case-file links use the full parchment editorial card as
-their social image, not a standalone character portrait. The portrait shown on
-each card belongs to that file's primary interviewer/researcher (as identified
-by `primary_researcher` in the source frontmatter), whether that is Nico, Anne,
-or another researcher. The remaining card fields come from the individual case:
-case ID and classification, title, pull quote, filing credit, and call to action.
+Shelton Observatory case-file links can use either a dedicated editorial card
+or the file's credited researcher portrait. Configure this per case with
+`share_image`, `share_image_width`, and `share_image_height` in the canonical
+source frontmatter.
 
-The first published card is
-`images/shelton-observatory-voices-share-card.jpg`; Anne's reusable portrait is
+The Voices at Lover's Leap uses Anne's reusable portrait at
 `images/hootin-anne-newsome.webp`. The portrait is adapted from a photograph by
 Ron Lach on Pexels; source and license details are recorded in `CREDITS.md`.
 

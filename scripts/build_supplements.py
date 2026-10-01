@@ -217,6 +217,8 @@ def build_case_file(path: Path) -> str | None:
     hero_image = meta.get("hero_image", "/images/hootin-anne-newsome.webp")
     hero_image_alt = meta.get("hero_image_alt", f"{title}, a Shelton Observatory case file")
     share_image = meta.get("share_image", hero_image)
+    share_image_width = meta.get("share_image_width", 1200)
+    share_image_height = meta.get("share_image_height", 630)
     url = f"https://bloodline.rook.works/read/shelton-observatory/{slug}/"
 
     body, words = markdown_body(raw_body)
@@ -237,8 +239,8 @@ def build_case_file(path: Path) -> str | None:
 <meta property="og:description" content="{deck_attr}">
 <meta property="og:url" content="{url}">
 <meta property="og:image" content="https://bloodline.rook.works{share_image}">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
+<meta property="og:image:width" content="{share_image_width}">
+<meta property="og:image:height" content="{share_image_height}">
 <meta property="og:image:alt" content="From the Shelton Observatory: {title_html}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{title_html} | Shelton Observatory">
@@ -274,7 +276,8 @@ def build_case_file(path: Path) -> str | None:
 <article class="episode-copy case-copy">{body}</article>
 <aside class="support"><p class="eyebrow">Beyond the main trail</p><h2>More files are waiting.</h2><p>Read <em>The Garnet Shield</em> free, or support Bloodline on Patreon for early episodes and stories from the wider setting.</p><div class="actions"><a class="button secondary" href="/read/">Read The Garnet Shield</a><a class="button" href="https://www.patreon.com/checkout/masonrok?rid=28657908">Follow the wider story</a></div></aside>
 <footer class="episode-footer"><nav class="episode-nav" aria-label="Case file navigation"><span></span><a href="/#field-note">Return to the archive</a><span></span></nav></footer></main>
-<footer class="site-footer">Bloodline: Spirits of the Smokies · Mason Rok</footer><script src="/assets/reader.js"></script></body></html>'''
+<footer class="site-footer">Bloodline: Spirits of the Smokies · Mason Rok</footer><script src="/assets/reader.js"></script><!-- Cloudflare Web Analytics --><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{{&quot;token&quot;:&quot;09f1ce1c2fae46a796a951a6a8edd5ee&quot;}}"></script><!-- End Cloudflare Web Analytics -->
+</body></html>'''
 
     output_path = OUTPUT_DIR / slug / "index.html"
     output_path.parent.mkdir(parents=True, exist_ok=True)
